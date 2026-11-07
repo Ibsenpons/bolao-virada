@@ -260,3 +260,10 @@ footer {border-color:#24475A;color:#839FAE;font-size:.78rem;margin-top:22px}
  html{scroll-behavior:auto}
  button,.quick-nav a {transition:none}
 }
+
+/* Evita rolagem lateral nos volantes de aposta em aparelhos estreitos. */
+#jogos{grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr))}
+.bilhete .canhoto .l .ui-icon{width:15px;height:15px;vertical-align:-3px;margin-right:4px;color:#58E5B9}
+.bilhete .hero-title span{color:#6FFAC4}
+.participate-copy{font-size:.87rem;color:#CDE3EE}
+.participate-copy strong{color:#FFF}
