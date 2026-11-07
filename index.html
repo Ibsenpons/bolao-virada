@@ -136,9 +136,26 @@
   ul.regras li { margin-bottom: 8px; max-width: 62ch; }
   footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.86rem; }
 </style>
+<link rel="stylesheet" href="./dashboard.css">
 </head>
 <body>
 <main>
+  <header class="page-intro">
+    <div class="eyebrow">● Edição 2026 · Amigos e familiares</div>
+    <h1 class="page-title">Nosso bolão, <em>tudo às claras.</em></h1>
+    <p>Confira cotas, pagamentos informados, apostas e resultados em um só lugar.</p>
+    <nav class="quick-nav" aria-label="Navegar pelas seções">
+      <a href="#financeiro">Financeiro</a><a href="#cotas">Cotas</a>
+      <a href="#apostas">Apostas</a><a href="#resultado">Resultado</a>
+      <a href="#comprovantes">Comprovantes</a>
+    </nav>
+  </header>
+  <section class="metrics" aria-label="Resumo do bolão">
+    <div class="metric"><span>Cotas confirmadas</span><strong id="kpiCotas">—</strong><small id="kpiCotasDetalhe">Atualização manual</small></div>
+    <div class="metric"><span>Arrecadação informada</span><strong id="kpiArrecadado">—</strong><small>Cotas marcadas como pagas</small></div>
+    <div class="metric"><span>Apostas cadastradas</span><strong id="kpiJogos">—</strong><small>Jogos registrados na página</small></div>
+    <div class="metric accent"><span>Prêmio estimado</span><strong id="kpiPremio">—</strong><small>Valor estimado, não garantido</small></div>
+  </section>
   <div class="layout">
 
     <div class="col col-a">
@@ -159,7 +176,7 @@
         <div class="premio" id="premioEst"></div>
       </header>
 
-      <div>
+      <div class="deadline-card">
         <p class="prazo" id="prazo"></p>
         <p class="dias" id="dias"></p>
       </div>
@@ -192,7 +209,7 @@
           </div>
         </section>
 
-        <section class="passo" aria-labelledby="h-acompanhe">
+        <section class="passo" id="cotas" aria-labelledby="h-acompanhe">
           <div class="trilho"><div class="num" aria-hidden="true">2</div></div>
           <div class="corpo">
             <h2 id="h-acompanhe">Acompanhe o bolão</h2>
@@ -205,6 +222,24 @@
     </div>
 
     <div class="col col-b">
+      <section class="sec" id="financeiro" aria-labelledby="h-financeiro">
+        <div class="section-head"><div><span class="section-kicker">Prestação de contas</span><h2 id="h-financeiro">Transparência financeira</h2></div><span class="soft-tag">Atualização manual</span></div>
+        <p class="section-desc">Valores calculados a partir das cotas pagas informadas e dos gastos cadastrados.</p>
+        <div class="finance-grid">
+          <div><span>Arrecadação informada</span><strong id="finArrecadado">—</strong></div>
+          <div><span>Cotas pendentes</span><strong id="finPendente">—</strong></div>
+          <div><span>Despesas registradas</span><strong id="finGasto">—</strong></div>
+          <div class="balance"><span>Saldo calculado</span><strong id="finSaldo">—</strong></div>
+        </div>
+        <div id="tabelaDespesas" class="table-wrap"></div>
+        <p class="nota">Este resumo não verifica recebimentos no banco. O saldo é a arrecadação informada menos as despesas registradas.</p>
+      </section>
+      <section class="sec" id="comprovantes" aria-labelledby="h-comprovantes">
+        <div class="section-head"><div><span class="section-kicker">Documentação</span><h2 id="h-comprovantes">Comprovantes</h2></div></div>
+        <p class="section-desc">Recibos de apostas e despesas poderão ser publicados após revisão, com dados pessoais ocultos.</p>
+        <div id="listaComprovantes"></div>
+        <p class="nota">Nunca inclua CPF, extratos bancários completos ou comprovantes de Pix de terceiros em um repositório público.</p>
+      </section>
       <section class="sec" aria-labelledby="h-sugestao">
         <h2 id="h-sugestao">Sugestão de jogos</h2>
         <p id="capTexto"></p>
@@ -219,12 +254,12 @@
         <p class="nota">A sugestão prioriza os jogos maiores, de até 12 números. Um jogo maior equivale a vários jogos de 6 (7 números valem 7 jogos, 8 números valem 28 jogos), então o preço por combinação é o mesmo.</p>
       </section>
 
-      <section class="sec" aria-labelledby="h-sorteio">
+      <section class="sec" id="resultado" aria-labelledby="h-sorteio">
         <h2 id="h-sorteio">Números sorteados</h2>
         <div id="sorteio"></div>
       </section>
 
-      <section class="sec" aria-labelledby="h-jogos">
+      <section class="sec" id="apostas" aria-labelledby="h-jogos">
         <h2 id="h-jogos">Nossos jogos</h2>
         <div class="legenda" id="legenda">
           <span><i class="sw m"></i>Nosso número</span>
@@ -293,6 +328,14 @@ const BOLAO = {
 
   // Prêmio de cada jogo que acertar. Preencher depois do sorteio (em reais).
   premios: { sena: 0, quina: 0, quadra: 0 },
+
+  // Preencha despesas registradas (sem informações pessoais ou bancárias):
+  // Exemplo: { descricao: "Apostas", data: "2026-12-20", valor: 100 }
+  despesas: [],
+
+  // Publique somente arquivos revisados e sem dados pessoais:
+  // Exemplo: { titulo: "Recibo das apostas", data: "2026-12-20", url: "./arquivos/recibo.pdf" }
+  comprovantes: [],
 
   participantes: [
     { nome: "Ibsen P.", cotas: 1, pago: true }
@@ -571,5 +614,6 @@ $("btnLimpar").addEventListener("click", function () { BOLAO.sorteio = []; rende
 
 render();
 </script>
+<script src="./dashboard.js" defer></script>
 </body>
 </html>
