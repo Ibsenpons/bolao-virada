@@ -323,3 +323,28 @@ footer {border-color:#24475A;color:#839FAE;font-size:.78rem;margin-top:22px}
 @media(prefers-reduced-motion:reduce){
  .back-top{transition:none}
 }
+
+
+/* Menu horizontal sem caixas ou contornos individuais. */
+.page-intro .quick-nav a,
+.page-intro .quick-nav a:first-child,
+.page-intro .quick-nav a.is-active,
+.page-intro .quick-nav a.is-active:first-child,
+.page-intro .quick-nav a:hover,
+.page-intro .quick-nav a:focus-visible {
+  border:0;
+  border-radius:0;
+  background:transparent;
+}
+.page-intro .quick-nav a {position:relative;color:#DDEBF3}
+.page-intro .quick-nav a:hover,
+.page-intro .quick-nav a:focus-visible,
+.page-intro .quick-nav a.is-active {color:#8CF5CE}
+.page-intro .quick-nav a[aria-current="location"] {box-shadow:none}
+.page-intro .quick-nav a.is-active::after {
+  content:"";position:absolute;left:12px;right:12px;bottom:2px;
+  height:2px;border-radius:99px;background:#32DBA4;
+}
+@media(max-width:850px){
+  .page-intro .quick-nav a.is-active::after {left:22%;right:22%;bottom:0}
+}
