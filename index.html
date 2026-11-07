@@ -73,6 +73,7 @@
 
   html { scroll-padding-top: env(safe-area-inset-top, 0px); }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   body {
     margin: 0;
     background: var(--paper);
@@ -116,6 +117,22 @@
   dl.resumo div:nth-child(even) { padding-left: 14px; }
   dl.resumo dt { color: var(--muted); font-size: 0.88rem; }
   dl.resumo dd { margin: 2px 0 0; font-size: 1.25rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  /* Pagamento */
+  .pagar { display: grid; gap: 18px; }
+  .qrbox { background: #FFFFFF; padding: 10px; border-radius: 10px; width: 100%; max-width: 240px; border: 1px solid var(--line); }
+  .qr { display: block; width: 100%; height: auto; }
+  .pagar dl { margin: 0; }
+  .pagar dt { color: var(--muted); font-size: 0.88rem; }
+  .pagar dd { margin: 0 0 10px; font-weight: 600; overflow-wrap: anywhere; }
+  .pagar .botoes { display: flex; flex-direction: column; gap: 10px; }
+  .pagar .botoes button { width: 100%; }
+  .copiado { min-height: 1.4em; font-weight: 600; color: var(--ok-ink); background: transparent; }
+  @media (min-width: 560px) {
+    .pagar { grid-template-columns: 240px 1fr; align-items: start; }
+    .pagar .botoes { flex-direction: row; flex-wrap: wrap; }
+    .pagar .botoes button { width: auto; }
+  }
 
   /* Sorteio */
   .bolas { display: flex; gap: 8px; flex-wrap: wrap; }
@@ -195,6 +212,26 @@
     <dl class="resumo" id="resumo"></dl>
   </section>
 
+  <section aria-labelledby="h-pagar">
+    <h2 id="h-pagar">Como pagar a sua cota</h2>
+    <div class="pagar">
+      <div class="qrbox"><svg class="qr" role="img" aria-label="QR Code Pix para pagar a cota" viewBox="0 0 61 61" shape-rendering="crispEdges"><path fill="#fff" d="M0 0h61v61h-61z"/><path class="qrline" stroke="#000" d="M4 4.5h7m2 0h2m1 0h2m5 0h3m1 0h1m1 0h2m1 0h4m3 0h1m1 0h1m1 0h2m1 0h1m3 0h7m-53 1h1m5 0h1m3 0h1m1 0h1m3 0h4m1 0h2m3 0h1m4 0h1m2 0h2m3 0h1m1 0h3m2 0h1m5 0h1m-53 1h1m1 0h3m1 0h1m1 0h1m1 0h1m3 0h4m5 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m3 0h1m2 0h1m1 0h3m1 0h1m-53 1h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m10 0h1m1 0h1m4 0h2m1 0h1m1 0h1m1 0h3m1 0h1m-53 1h1m1 0h3m1 0h1m1 0h1m3 0h3m3 0h3m1 0h1m1 0h7m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m3 0h1m1 0h3m1 0h1m-53 1h1m5 0h1m1 0h5m2 0h1m2 0h2m4 0h1m3 0h1m1 0h1m2 0h2m1 0h1m1 0h1m3 0h1m3 0h1m5 0h1m-53 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-45 1h2m3 0h1m1 0h1m1 0h1m1 0h2m3 0h1m3 0h1m1 0h1m2 0h1m1 0h2m3 0h4m-44 1h1m1 0h5m2 0h2m1 0h1m2 0h4m2 0h1m1 0h6m1 0h2m1 0h1m1 0h2m1 0h2m1 0h3m2 0h5m-51 1h1m1 0h1m4 0h2m1 0h1m1 0h4m1 0h1m1 0h1m2 0h1m1 0h1m3 0h4m1 0h1m5 0h1m2 0h2m1 0h1m2 0h1m3 0h1m-53 1h1m1 0h2m2 0h1m3 0h6m1 0h5m1 0h2m2 0h1m2 0h2m2 0h1m1 0h1m1 0h1m2 0h1m2 0h1m1 0h1m1 0h2m1 0h1m-52 1h2m1 0h2m2 0h1m4 0h1m1 0h2m6 0h3m4 0h2m1 0h2m1 0h1m4 0h1m1 0h3m1 0h1m1 0h1m2 0h1m-51 1h1m1 0h1m2 0h1m1 0h4m7 0h2m4 0h4m1 0h1m2 0h1m2 0h1m2 0h1m1 0h4m2 0h5m-52 1h1m1 0h4m2 0h1m5 0h1m1 0h4m1 0h1m2 0h2m2 0h1m1 0h3m6 0h1m2 0h1m2 0h1m2 0h1m3 0h1m-53 1h1m1 0h1m2 0h2m2 0h1m2 0h2m1 0h2m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m2 0h6m1 0h2m4 0h2m1 0h2m3 0h1m-52 1h1m2 0h1m1 0h1m1 0h1m1 0h2m5 0h1m1 0h3m3 0h1m2 0h1m1 0h1m1 0h3m1 0h1m1 0h2m1 0h1m-41 1h2m1 0h1m1 0h2m1 0h1m1 0h3m2 0h1m1 0h1m3 0h1m3 0h2m6 0h1m2 0h4m1 0h2m1 0h1m3 0h4m-52 1h1m1 0h3m3 0h1m1 0h1m3 0h3m1 0h2m2 0h3m3 0h3m2 0h1m1 0h2m5 0h2m1 0h1m1 0h2m-47 1h2m1 0h2m3 0h3m5 0h2m1 0h1m1 0h1m2 0h2m1 0h1m4 0h1m2 0h3m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m-51 1h1m1 0h1m1 0h1m5 0h2m3 0h2m1 0h3m3 0h1m2 0h1m2 0h3m9 0h1m2 0h1m1 0h1m1 0h1m1 0h1m-52 1h2m1 0h4m3 0h1m2 0h1m2 0h2m3 0h1m3 0h6m2 0h5m3 0h1m1 0h3m2 0h1m2 0h1m-51 1h3m1 0h1m2 0h1m3 0h1m4 0h2m4 0h2m4 0h2m1 0h2m1 0h1m1 0h1m4 0h1m5 0h2m2 0h1m-52 1h6m1 0h2m2 0h1m1 0h2m2 0h1m2 0h1m1 0h2m1 0h2m5 0h4m2 0h2m3 0h1m3 0h2m1 0h1m-52 1h1m1 0h4m2 0h1m2 0h1m9 0h1m2 0h2m4 0h1m1 0h1m1 0h2m5 0h3m1 0h1m3 0h1m1 0h1m-51 1h2m1 0h5m2 0h1m1 0h3m1 0h5m1 0h6m2 0h1m4 0h1m1 0h1m2 0h1m2 0h5m-46 1h2m3 0h1m1 0h2m1 0h4m1 0h1m3 0h1m1 0h1m3 0h6m3 0h1m3 0h2m1 0h1m3 0h1m3 0h1m-49 1h1m1 0h1m1 0h2m5 0h1m2 0h4m2 0h1m1 0h1m1 0h3m3 0h5m3 0h3m1 0h1m1 0h1m2 0h1m-51 1h1m1 0h2m3 0h4m4 0h2m1 0h1m1 0h2m1 0h1m3 0h1m1 0h1m2 0h1m1 0h1m1 0h2m1 0h1m3 0h1m3 0h1m2 0h2m-53 1h2m2 0h7m2 0h4m1 0h1m1 0h2m1 0h9m1 0h1m2 0h2m1 0h1m2 0h9m-50 1h2m2 0h1m2 0h2m2 0h1m2 0h1m1 0h1m4 0h3m1 0h2m1 0h2m2 0h1m1 0h2m5 0h1m1 0h1m3 0h1m3 0h1m-53 1h1m1 0h1m1 0h1m1 0h1m3 0h1m2 0h2m1 0h1m2 0h2m3 0h1m2 0h2m2 0h1m2 0h1m1 0h3m2 0h1m1 0h1m3 0h2m2 0h1m-50 1h4m1 0h6m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m4 0h1m1 0h1m1 0h1m2 0h1m1 0h3m2 0h2m2 0h1m-48 1h3m2 0h2m2 0h3m1 0h1m1 0h3m1 0h1m3 0h1m5 0h2m2 0h1m1 0h2m3 0h2m1 0h2m1 0h1m1 0h4m-51 1h4m1 0h1m2 0h3m1 0h4m3 0h1m3 0h1m4 0h1m5 0h1m2 0h2m1 0h3m3 0h1m3 0h1m-50 1h1m2 0h2m1 0h2m1 0h6m2 0h3m5 0h1m1 0h2m2 0h1m1 0h3m2 0h1m1 0h3m5 0h1m-51 1h3m9 0h2m1 0h2m2 0h1m3 0h2m1 0h1m2 0h3m2 0h1m1 0h1m2 0h1m2 0h1m2 0h1m1 0h1m-45 1h1m1 0h1m1 0h1m1 0h2m2 0h1m2 0h3m1 0h1m1 0h2m5 0h1m2 0h1m2 0h1m1 0h2m2 0h1m2 0h1m2 0h3m-49 1h1m4 0h1m1 0h11m2 0h2m1 0h2m2 0h2m2 0h1m1 0h2m2 0h1m2 0h1m4 0h6m-53 1h5m1 0h1m1 0h1m4 0h1m1 0h2m1 0h2m2 0h1m2 0h1m2 0h1m3 0h1m1 0h1m1 0h4m1 0h1m2 0h1m2 0h1m1 0h3m-52 1h3m7 0h1m3 0h2m1 0h1m1 0h1m1 0h5m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m2 0h2m1 0h3m1 0h1m1 0h2m-53 1h1m5 0h2m1 0h1m6 0h3m1 0h1m1 0h1m4 0h2m2 0h1m1 0h4m5 0h1m1 0h2m2 0h2m2 0h1m-51 1h4m1 0h3m2 0h2m1 0h1m1 0h3m1 0h1m1 0h4m3 0h3m4 0h1m1 0h4m3 0h3m3 0h1m-53 1h2m1 0h4m1 0h1m2 0h2m1 0h3m1 0h1m2 0h1m6 0h2m3 0h3m6 0h1m1 0h2m1 0h1m2 0h2m-51 1h2m4 0h2m1 0h1m1 0h2m2 0h1m1 0h1m2 0h1m1 0h2m5 0h1m1 0h2m1 0h1m3 0h1m2 0h2m2 0h1m1 0h2m1 0h1m-49 1h1m2 0h2m3 0h2m3 0h3m1 0h2m2 0h5m2 0h1m1 0h2m1 0h1m1 0h1m2 0h2m1 0h5m2 0h1m-44 1h2m1 0h1m2 0h5m3 0h1m1 0h1m3 0h1m1 0h1m1 0h2m1 0h2m2 0h4m1 0h1m3 0h1m2 0h2m-53 1h7m2 0h1m1 0h1m1 0h1m3 0h1m1 0h3m2 0h1m1 0h1m1 0h2m4 0h1m1 0h1m1 0h1m1 0h5m1 0h1m1 0h1m-49 1h1m5 0h1m1 0h3m1 0h5m1 0h3m2 0h2m3 0h2m1 0h2m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m3 0h1m2 0h1m-52 1h1m1 0h3m1 0h1m1 0h2m3 0h2m4 0h3m1 0h6m1 0h1m5 0h2m1 0h1m2 0h1m1 0h8m-52 1h1m1 0h3m1 0h1m1 0h2m6 0h1m8 0h1m3 0h2m1 0h2m2 0h1m2 0h2m1 0h1m2 0h1m1 0h1m1 0h1m1 0h2m-53 1h1m1 0h3m1 0h1m1 0h1m2 0h2m2 0h2m1 0h2m3 0h1m3 0h2m5 0h1m1 0h3m2 0h1m1 0h1m1 0h1m2 0h1m1 0h3m-53 1h1m5 0h1m2 0h1m3 0h2m3 0h2m2 0h2m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m2 0h5m3 0h2m1 0h1m-52 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m3 0h3m1 0h2m2 0h1m2 0h1m1 0h2m1 0h2m1 0h1m2 0h4m2 0h1m1 0h1"/></svg></div>
+      <div>
+        <dl>
+          <dt>Valor da cota</dt><dd id="pixValor"></dd>
+          <dt>Quem recebe</dt><dd id="pixNome"></dd>
+          <dt>Chave Pix (aleatória)</dt><dd id="pixChave"></dd>
+        </dl>
+        <div class="botoes">
+          <button type="button" id="btnCopiarCodigo">Copiar Pix copia e cola</button>
+          <button type="button" id="btnCopiarChave" class="ghost">Copiar só a chave</button>
+        </div>
+        <p class="copiado" id="copiado" role="status" aria-live="polite"></p>
+        <p class="hint">Depois de pagar, mande o comprovante para o organizador.</p>
+      </div>
+    </div>
+  </section>
+
   <section aria-labelledby="h-sorteio">
     <h2 id="h-sorteio">Números sorteados</h2>
     <div id="sorteio"></div>
@@ -241,60 +278,42 @@
    DADOS DO BOLÃO — é aqui que se atualiza tudo.
    Para usar de verdade: troque os dados abaixo e coloque DEMO = false.
    ================================================================ */
-const DEMO = true;
+const DEMO = false;
 
 const BOLAO = {
   nome: "Bolão da Virada",
   edicao: "Mega da Virada 2026",
   dataSorteio: "2026-12-31",
   atualizadoEm: "07/11/2026",
-  valorCota: 25,              // valor de cada cota, em reais (fictício)
+  valorCota: 50,              // valor de cada cota, em reais
+
+  // Pix do bolão (chave aleatória criada só para este bolão).
+  // O QR Code da página foi gerado a partir deste mesmo código.
+  pix: {
+    codigo: "00020126580014br.gov.bcb.pix0136900f106a-1a1a-46d2-9197-23b5ab64553f520400005303986540550.005802BR5920IBSEN ROSA PONS NETO6012Porto Alegre62190515BOLAOMEGAVIRADA630424ED",
+    chave: "900f106a-1a1a-46d2-9197-23b5ab64553f",
+    favorecido: "IBSEN ROSA PONS NETO"
+  },
 
   // Depois do sorteio, digite aqui as 6 dezenas. Exemplo: [4, 12, 25, 33, 47, 58]
   sorteio: [],
 
-  // Prêmio de cada jogo que acertar (valores fictícios; preencher depois do sorteio)
-  premios: { sena: 300000000, quina: 60000, quadra: 1200 },
+  // Prêmio de cada jogo que acertar. Preencher depois do sorteio (em reais).
+  premios: { sena: 0, quina: 0, quadra: 0 },
 
   participantes: [
-    { nome: "Ana P.",       cotas: 1, pago: true  },
-    { nome: "Bruno M.",     cotas: 2, pago: true  },
-    { nome: "Carla S.",     cotas: 2, pago: true  },
-    { nome: "Daniel R.",    cotas: 1, pago: false },
-    { nome: "Eduarda L.",   cotas: 1, pago: true  },
-    { nome: "Felipe A.",    cotas: 1, pago: true  },
-    { nome: "Gabriela T.",  cotas: 1, pago: true  },
-    { nome: "Henrique C.",  cotas: 2, pago: true  },
-    { nome: "Isabela N.",   cotas: 1, pago: true  },
-    { nome: "João V.",      cotas: 1, pago: true  },
-    { nome: "Karina B.",    cotas: 1, pago: false },
-    { nome: "Lucas D.",     cotas: 2, pago: true  },
-    { nome: "Mariana F.",   cotas: 1, pago: true  },
-    { nome: "Nathan G.",    cotas: 1, pago: false },
-    { nome: "Olívia H.",    cotas: 1, pago: true  },
-    { nome: "Paulo J.",     cotas: 2, pago: true  },
-    { nome: "Rafaela K.",   cotas: 1, pago: true  },
-    { nome: "Sérgio O.",    cotas: 1, pago: false },
-    { nome: "Tatiane Q.",   cotas: 1, pago: true  },
-    { nome: "Vinícius W.",  cotas: 2, pago: true  }
+    { nome: "Ibsen P.", cotas: 1, pago: true }
   ],
 
   // Cada jogo tem 6 dezenas
   jogos: [
-    { dezenas: [3, 11, 24, 37, 48, 59] },
-    { dezenas: [7, 15, 22, 33, 41, 56] },
-    { dezenas: [2, 19, 28, 36, 45, 60] },
-    { dezenas: [5, 14, 26, 31, 52, 58] },
-    { dezenas: [9, 17, 23, 40, 47, 54] },
-    { dezenas: [1, 12, 29, 38, 44, 55] }
+    // Quando as apostas forem feitas, adicione aqui, um por linha:
+    // { dezenas: [3, 11, 24, 37, 48, 59] },
   ],
 
   regras: [
-    "Cada cota custa o valor informado no resumo. Pagamento por Pix para o organizador.",
-    "Só entram na divisão do prêmio as cotas pagas até 30/12/2026.",
-    "O prêmio total (sena, quina e quadra de todos os jogos) é dividido igualmente entre as cotas pagas.",
-    "Quem tem 2 cotas recebe 2 partes.",
-    "Os comprovantes das apostas ficam guardados com o organizador e podem ser conferidos por qualquer participante."
+    "Cada cota custa R$ 50. O pagamento é por Pix, pelo QR Code ou pela chave na página.",
+    "O prêmio total (sena, quina e quadra de todos os jogos) é dividido igualmente entre as cotas pagas."
   ]
 };
 
@@ -347,7 +366,7 @@ function renderResumo() {
     ["Cotas pagas", String(cotasPagas)],
     ["Cotas pendentes", String(cotasPend)],
     ["Arrecadado", brl(cotasPagas * BOLAO.valorCota)],
-    ["Jogos apostados", String(BOLAO.jogos.length)]
+    ["Jogos apostados", BOLAO.jogos.length ? String(BOLAO.jogos.length) : "a definir"]
   ];
   $("resumo").innerHTML = itens.map(([t, v]) => "<div><dt>" + t + "</dt><dd>" + v + "</dd></div>").join("");
 }
@@ -364,6 +383,11 @@ function renderSorteio() {
 
 function renderJogos() {
   const ok = sorteioValido();
+  $("legenda").hidden = !BOLAO.jogos.length;
+  if (!BOLAO.jogos.length) {
+    $("jogos").innerHTML = '<p class="vazio">Os jogos aparecem aqui assim que as apostas forem feitas.</p>';
+    return;
+  }
   $("jogos").innerHTML = BOLAO.jogos.map((j, i) => {
     const marcadas = j.dezenas.slice().sort((a, b) => a - b);
     const acertos = ok ? marcadas.filter((n) => BOLAO.sorteio.includes(n)) : [];
@@ -438,9 +462,38 @@ function renderRegras() {
   $("regras").innerHTML = BOLAO.regras.map((r) => "<li>" + esc(r) + "</li>").join("");
 }
 
+
+function renderPix() {
+  $("pixValor").textContent = brl(BOLAO.valorCota);
+  $("pixNome").textContent = BOLAO.pix.favorecido;
+  $("pixChave").textContent = BOLAO.pix.chave;
+}
+
+function copiarTexto(texto, aviso) {
+  const ok = () => { $("copiado").textContent = aviso; };
+  const falhou = () => { $("copiado").textContent = "Não consegui copiar. Segure o dedo sobre o texto da chave para copiar."; };
+  const reserva = () => {
+    try {
+      const t = document.createElement("textarea");
+      t.value = texto; t.setAttribute("readonly", "");
+      t.style.position = "fixed"; t.style.opacity = "0";
+      document.body.appendChild(t); t.select();
+      const certo = document.execCommand("copy");
+      document.body.removeChild(t);
+      certo ? ok() : falhou();
+    } catch (e) { falhou(); }
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(texto).then(ok, reserva);
+  } else { reserva(); }
+}
+$("btnCopiarCodigo").addEventListener("click", function () { copiarTexto(BOLAO.pix.codigo, "Código Pix copiado. Cole no app do seu banco, em Pix copia e cola."); });
+$("btnCopiarChave").addEventListener("click", function () { copiarTexto(BOLAO.pix.chave, "Chave copiada. No app do banco, escolha pagar com chave aleatória."); });
+
 function render() {
   renderCabecalho();
   renderResumo();
+  renderPix();
   renderSorteio();
   renderJogos();
   renderPremio();
