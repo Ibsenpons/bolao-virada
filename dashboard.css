@@ -267,3 +267,59 @@ footer {border-color:#24475A;color:#839FAE;font-size:.78rem;margin-top:22px}
 .bilhete .hero-title span{color:#6FFAC4}
 .participate-copy{font-size:.87rem;color:#CDE3EE}
 .participate-copy strong{color:#FFF}
+
+/* Navegação — rótulos consistentes, foco claro e destino destacado. */
+.brand { color:var(--ink);text-decoration:none; }
+.brand:hover { color:var(--ink); }
+.quick-nav a {
+  border:1px solid #28566A;
+  background:rgba(9,39,57,.45);
+  border-radius:11px;
+}
+.quick-nav a:first-child {background:rgba(9,39,57,.45);color:#DDEBF3;border-color:#28566A}
+.quick-nav a.is-active,
+.quick-nav a.is-active:first-child,
+.quick-nav a:hover,
+.quick-nav a:focus-visible {
+  background:linear-gradient(145deg,#075E57,#084047);
+  color:#F3FFF9;
+  border-color:#24B595;
+}
+.quick-nav a[aria-current="location"] {box-shadow:inset 0 -3px 0 #3EF3AB}
+#inicio,#financeiro,#cotas,#apostas,#resultado,#comprovantes,#jogos-registrados{scroll-margin-top:22px}
+#financeiro:target,#apostas:target,#resultado:target,#comprovantes:target,#jogos-registrados:target {
+  border-color:#28C69B;
+  box-shadow:0 0 0 2px rgba(38,206,151,.16),0 9px 26px rgba(0,0,0,.1);
+}
+#cotas:target .corpo h2{color:#8DFFD1}
+.inline-section-link{color:#6CF6C5;text-decoration:underline;text-underline-offset:3px;font-weight:750}
+.inline-section-link:hover{color:#D1FFED}
+.back-top {
+  position:fixed;right:max(18px,env(safe-area-inset-right));bottom:calc(18px + env(safe-area-inset-bottom,0px));
+  z-index:20;display:inline-flex;align-items:center;gap:7px;
+  background:#0E685E;color:#FFF;border:1px solid #44D8AD;
+  padding:11px 15px;border-radius:999px;
+  font-size:.84rem;font-weight:800;text-decoration:none;
+  box-shadow:0 12px 24px rgba(0,0,0,.36);
+  opacity:0;pointer-events:none;transform:translateY(12px);
+  transition:opacity .18s ease,transform .18s ease;
+}
+.back-top.is-visible{opacity:1;pointer-events:auto;transform:translateY(0)}
+.back-top .ui-icon{width:17px;height:17px}
+.back-top:hover{color:#FFF;background:#087C6A}
+.footer-return{
+  display:inline-flex;align-items:center;gap:6px;
+  color:#B1F7DE;font-weight:700;text-decoration:none;margin-right:16px;
+}
+.footer-return .ui-icon{width:16px;height:16px}
+@media(max-width:850px){
+ .quick-nav a,.quick-nav a:first-child{border-color:transparent;background:transparent}
+ .quick-nav a.is-active,.quick-nav a.is-active:first-child{border-color:#20A988}
+}
+@media(max-width:560px){
+ .back-top{right:12px;bottom:calc(14px + env(safe-area-inset-bottom,0px));padding:11px 13px}
+ .quick-nav a{border-radius:9px}
+}
+@media(prefers-reduced-motion:reduce){
+ .back-top{transition:none}
+}
