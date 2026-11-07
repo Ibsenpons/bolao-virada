@@ -405,7 +405,7 @@ function renderCabecalho() {
   document.title = BOLAO.nome + " " + BOLAO.edicao.replace(/\D*(\d{4}).*/, "$1");
   $("rotulo").textContent = "Concurso especial";
   const tituloConcurso = BOLAO.edicao.replace(/^Mega da Virada/, "Mega-Sena da Virada");
-  const tituloComAno = tituloConcurso.match(/^(.*?)(\\d{4})$/);
+  const tituloComAno = tituloConcurso.match(/^(.*?)(\d{4})$/);
   $("titulo").innerHTML = tituloComAno ? esc(tituloComAno[1]) + "<span>" + esc(tituloComAno[2]) + "</span>" : esc(tituloConcurso);
   $("stubSorteio").textContent = dataBr(BOLAO.dataSorteio);
   $("stubPrazo").textContent = dataBr(BOLAO.prazoParticipacao);
