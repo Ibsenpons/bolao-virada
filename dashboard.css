@@ -52,3 +52,21 @@ main{max-width:1300px;margin:auto;padding:32px clamp(16px,3vw,44px) 48px}
 @media(max-width:760px){main{padding-top:20px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.metric{padding:15px}.metric strong{font-size:1.45rem}.quick-nav{flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px}.quick-nav a{white-space:nowrap}.sec,.col-a>.passos,.col-a>.deadline-card{padding:18px}}
 @media(max-width:390px){.finance-grid{grid-template-columns:1fr}.metric{padding:12px}.metric strong{font-size:1.22rem}.metric small{font-size:.7rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Revisão da prévia: navegação horizontal à direita e bilhete discreto */
+.page-intro{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:20px}
+.brand{display:flex;align-items:center;gap:11px;min-width:215px}
+.brand-dot{width:7px;height:38px;background:#257455;border-radius:12px;flex:none}
+.brand-kicker{display:block;color:#648272;font-size:.69rem;font-weight:800;letter-spacing:.105em;text-transform:uppercase}
+.brand h1{font-size:1.35rem;line-height:1.16;letter-spacing:-.035em;margin:3px 0 0;font-weight:850}
+.page-intro .quick-nav{margin:0;justify-content:flex-end;flex-wrap:wrap;gap:8px}
+.bilhete-topo,.bilhete .picote,.bilhete .premio{display:none !important}
+.bilhete-label{padding:18px 20px 6px;font-size:.84rem;font-weight:800;color:#1b5943}
+.bilhete .canhoto{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:10px 20px 19px}
+.bilhete .canhoto>div:nth-child(3){grid-column:1/-1;padding-top:11px;border-top:1px solid var(--line)}
+.bilhete .canhoto .v{font-size:1.02rem}
+@media(max-width:760px){
+ .page-intro{display:block;margin-bottom:17px}
+ .page-intro .brand{margin:2px 0 12px}
+ .page-intro .quick-nav{justify-content:flex-start;flex-wrap:nowrap;overflow-x:auto;margin:0;padding-bottom:6px}
+}
