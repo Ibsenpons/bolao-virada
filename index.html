@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bolão da Virada 2026</title>
+<style>
+  :root {
+    --paper: #EDF2EC;
+    --surface: #FFFFFF;
+    --ink: #12281C;
+    --muted: #4F6457;
+    --line: #C9D6CB;
+    --green: #0E6B43;
+    --green-ink: #FFFFFF;
+    --gold: #F2B632;
+    --gold-ink: #3A2A00;
+    --gold-edge: #B8860B;
+    --warn-bg: #FFF1CC;
+    --warn-ink: #5A4300;
+    --ok-bg: #D8EEDF;
+    --ok-ink: #0B4A2D;
+    --pend-bg: #FBE3D6;
+    --pend-ink: #7A2E0E;
+    --cell: #E4EBE4;
+    color-scheme: light;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0E1A13;
+      --surface: #16251C;
+      --ink: #E6F0E8;
+      --muted: #9DB3A3;
+      --line: #2A3F32;
+      --green: #3BB37D;
+      --green-ink: #05210F;
+      --gold: #F2B632;
+      --gold-ink: #3A2A00;
+      --gold-edge: #F2B632;
+      --warn-bg: #3D3210;
+      --warn-ink: #F6E3A6;
+      --ok-bg: #173A28;
+      --ok-ink: #BFE8CF;
+      --pend-bg: #46241A;
+      --pend-ink: #F6CDB8;
+      --cell: #1F3226;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #0E1A13;
+    --surface: #16251C;
+    --ink: #E6F0E8;
+    --muted: #9DB3A3;
+    --line: #2A3F32;
+    --green: #3BB37D;
+    --green-ink: #05210F;
+    --gold: #F2B632;
+    --gold-ink: #3A2A00;
+    --gold-edge: #F2B632;
+    --warn-bg: #3D3210;
+    --warn-ink: #F6E3A6;
+    --ok-bg: #173A28;
+    --ok-ink: #BFE8CF;
+    --pend-bg: #46241A;
+    --pend-ink: #F6CDB8;
+    --cell: #1F3226;
+    color-scheme: dark;
+  }
+
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+  }
+  main { max-width: 640px; margin: 0 auto; padding: 20px 16px 48px; }
+
+  h1, h2 { font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif; margin: 0; line-height: 1.15; }
+  h1 { font-size: 2.1rem; font-weight: 700; letter-spacing: -0.01em; }
+  h2 { font-size: 1.4rem; font-weight: 700; }
+  p { margin: 0; }
+  .sub { color: var(--muted); margin-top: 6px; }
+  .days { margin-top: 14px; font-weight: 600; }
+
+  section { margin-top: 36px; }
+  section > h2 { padding-bottom: 8px; border-bottom: 2px solid var(--green); margin-bottom: 14px; }
+  .hint { color: var(--muted); font-size: 0.9rem; margin: -6px 0 14px; }
+
+  /* Aviso de modelo */
+  .demo {
+    margin-top: 18px; padding: 12px 14px; border-radius: 8px;
+    background: var(--warn-bg); color: var(--warn-ink); font-size: 0.92rem;
+  }
+  .demo strong { display: block; margin-bottom: 2px; }
+  .demo .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+  button {
+    font: inherit; font-weight: 600; min-height: 44px; padding: 0 16px; border-radius: 8px;
+    border: 2px solid var(--green); background: var(--green); color: var(--green-ink); cursor: pointer;
+  }
+  button.ghost { background: transparent; color: inherit; border-color: currentColor; }
+  button:focus-visible, a:focus-visible { outline: 3px solid var(--gold-edge); outline-offset: 2px; }
+
+  /* Resumo */
+  dl.resumo { display: grid; grid-template-columns: 1fr 1fr; margin: 0; border-top: 1px solid var(--line); }
+  dl.resumo div { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  dl.resumo div:nth-child(odd) { padding-right: 12px; border-right: 1px solid var(--line); }
+  dl.resumo div:nth-child(even) { padding-left: 14px; }
+  dl.resumo dt { color: var(--muted); font-size: 0.88rem; }
+  dl.resumo dd { margin: 2px 0 0; font-size: 1.25rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  /* Sorteio */
+  .bolas { display: flex; gap: 8px; flex-wrap: wrap; }
+  .bola {
+    width: 46px; height: 46px; border-radius: 50%;
+    display: grid; place-items: center;
+    background: var(--gold); color: var(--gold-ink);
+    font-weight: 800; font-size: 1.1rem; font-variant-numeric: tabular-nums;
+    box-shadow: inset 0 -3px 0 rgba(0,0,0,0.15);
+  }
+  .vazio { color: var(--muted); }
+
+  /* Legenda */
+  .legenda { display: flex; gap: 14px; flex-wrap: wrap; font-size: 0.86rem; color: var(--muted); margin-bottom: 14px; }
+  .legenda span { display: inline-flex; align-items: center; gap: 6px; }
+  .sw { width: 16px; height: 16px; border-radius: 4px; display: inline-block; background: var(--cell); }
+  .sw.m { background: var(--green); }
+  .sw.h { background: var(--gold); box-shadow: inset 0 0 0 2px var(--gold-edge); }
+  .sw.s { background: var(--cell); outline: 2px dashed var(--gold-edge); outline-offset: -2px; }
+
+  /* Volante */
+  .jogo { background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin-bottom: 14px; }
+  .jogo header { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+  .jogo h3 { margin: 0; font-size: 1rem; }
+  .res { font-size: 0.9rem; font-weight: 600; }
+  .res.premiado { color: var(--ok-ink); background: var(--ok-bg); padding: 2px 8px; border-radius: 6px; }
+  .res.sem { color: var(--muted); font-weight: 500; }
+  .volante { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; }
+  .n {
+    aspect-ratio: 1; display: grid; place-items: center; border-radius: 4px;
+    background: var(--cell); color: var(--muted);
+    font-size: 0.72rem; font-variant-numeric: tabular-nums;
+  }
+  .n.m { background: var(--green); color: var(--green-ink); font-weight: 800; }
+  .n.s { outline: 2px dashed var(--gold-edge); outline-offset: -2px; }
+  .n.h { background: var(--gold); color: var(--gold-ink); font-weight: 800; box-shadow: inset 0 0 0 2px var(--gold-edge); }
+  .dezenas { margin-top: 10px; font-size: 0.88rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  /* Prêmio */
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 10px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+  th { font-size: 0.88rem; color: var(--muted); font-weight: 600; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  tfoot td { font-weight: 700; border-bottom: 0; }
+  .destaque { margin-top: 14px; padding: 14px; border-radius: 10px; background: var(--ok-bg); color: var(--ok-ink); }
+  .destaque .v { font-size: 1.6rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .tabela-scroll { overflow-x: auto; }
+
+  .tag { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 0.85rem; font-weight: 600; white-space: nowrap; }
+  .tag.pago { background: var(--ok-bg); color: var(--ok-ink); }
+  .tag.pendente { background: var(--pend-bg); color: var(--pend-ink); }
+
+  ul.regras { margin: 0; padding-left: 20px; }
+  ul.regras li { margin-bottom: 8px; max-width: 62ch; }
+
+  footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.86rem; }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1 id="titulo">Bolão da Virada</h1>
+    <p class="sub" id="edicao"></p>
+    <p class="days" id="dias"></p>
+    <div class="demo" id="demo" hidden>
+      <strong>Modelo com dados fictícios</strong>
+      Nomes, valores, jogos e regras abaixo são só de exemplo. Toque em “Simular sorteio” para ver como fica o resultado.
+      <div class="actions">
+        <button type="button" id="btnSimular">Simular sorteio</button>
+        <button type="button" id="btnLimpar" class="ghost">Limpar sorteio</button>
+      </div>
+    </div>
+  </header>
+
+  <section aria-labelledby="h-resumo">
+    <h2 id="h-resumo">Resumo</h2>
+    <dl class="resumo" id="resumo"></dl>
+  </section>
+
+  <section aria-labelledby="h-sorteio">
+    <h2 id="h-sorteio">Números sorteados</h2>
+    <div id="sorteio"></div>
+  </section>
+
+  <section aria-labelledby="h-jogos">
+    <h2 id="h-jogos">Nossos jogos</h2>
+    <div class="legenda" id="legenda">
+      <span><i class="sw m"></i>Nosso número</span>
+      <span><i class="sw h"></i>Acertamos</span>
+      <span><i class="sw s"></i>Sorteado, não marcado</span>
+    </div>
+    <div id="jogos"></div>
+  </section>
+
+  <section aria-labelledby="h-premio" id="secPremio" hidden>
+    <h2 id="h-premio">Prêmio por cota</h2>
+    <div id="premio"></div>
+  </section>
+
+  <section aria-labelledby="h-part">
+    <h2 id="h-part">Participantes</h2>
+    <div class="tabela-scroll">
+      <table>
+        <thead><tr><th>Nome</th><th class="num">Cotas</th><th>Pagamento</th></tr></thead>
+        <tbody id="participantes"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-regras">
+    <h2 id="h-regras">Regras</h2>
+    <ul class="regras" id="regras"></ul>
+  </section>
+
+  <footer>
+    Página só para consulta. Quem organiza o bolão atualiza os dados.
+    <br>Atualizado em <span id="atualizado"></span>.
+  </footer>
+</main>
+
+<script>
+/* ================================================================
+   DADOS DO BOLÃO — é aqui que se atualiza tudo.
+   Para usar de verdade: troque os dados abaixo e coloque DEMO = false.
+   ================================================================ */
+const DEMO = true;
+
+const BOLAO = {
+  nome: "Bolão da Virada",
+  edicao: "Mega da Virada 2026",
+  dataSorteio: "2026-12-31",
+  atualizadoEm: "07/11/2026",
+  valorCota: 25,              // valor de cada cota, em reais (fictício)
+
+  // Depois do sorteio, digite aqui as 6 dezenas. Exemplo: [4, 12, 25, 33, 47, 58]
+  sorteio: [],
+
+  // Prêmio de cada jogo que acertar (valores fictícios; preencher depois do sorteio)
+  premios: { sena: 300000000, quina: 60000, quadra: 1200 },
+
+  participantes: [
+    { nome: "Ana P.",       cotas: 1, pago: true  },
+    { nome: "Bruno M.",     cotas: 2, pago: true  },
+    { nome: "Carla S.",     cotas: 2, pago: true  },
+    { nome: "Daniel R.",    cotas: 1, pago: false },
+    { nome: "Eduarda L.",   cotas: 1, pago: true  },
+    { nome: "Felipe A.",    cotas: 1, pago: true  },
+    { nome: "Gabriela T.",  cotas: 1, pago: true  },
+    { nome: "Henrique C.",  cotas: 2, pago: true  },
+    { nome: "Isabela N.",   cotas: 1, pago: true  },
+    { nome: "João V.",      cotas: 1, pago: true  },
+    { nome: "Karina B.",    cotas: 1, pago: false },
+    { nome: "Lucas D.",     cotas: 2, pago: true  },
+    { nome: "Mariana F.",   cotas: 1, pago: true  },
+    { nome: "Nathan G.",    cotas: 1, pago: false },
+    { nome: "Olívia H.",    cotas: 1, pago: true  },
+    { nome: "Paulo J.",     cotas: 2, pago: true  },
+    { nome: "Rafaela K.",   cotas: 1, pago: true  },
+    { nome: "Sérgio O.",    cotas: 1, pago: false },
+    { nome: "Tatiane Q.",   cotas: 1, pago: true  },
+    { nome: "Vinícius W.",  cotas: 2, pago: true  }
+  ],
+
+  // Cada jogo tem 6 dezenas
+  jogos: [
+    { dezenas: [3, 11, 24, 37, 48, 59] },
+    { dezenas: [7, 15, 22, 33, 41, 56] },
+    { dezenas: [2, 19, 28, 36, 45, 60] },
+    { dezenas: [5, 14, 26, 31, 52, 58] },
+    { dezenas: [9, 17, 23, 40, 47, 54] },
+    { dezenas: [1, 12, 29, 38, 44, 55] }
+  ],
+
+  regras: [
+    "Cada cota custa o valor informado no resumo. Pagamento por Pix para o organizador.",
+    "Só entram na divisão do prêmio as cotas pagas até 30/12/2026.",
+    "O prêmio total (sena, quina e quadra de todos os jogos) é dividido igualmente entre as cotas pagas.",
+    "Quem tem 2 cotas recebe 2 partes.",
+    "Os comprovantes das apostas ficam guardados com o organizador e podem ser conferidos por qualquer participante."
+  ]
+};
+
+/* ================= Código da página (não precisa mexer) ================= */
+const $ = (id) => document.getElementById(id);
+const pad = (n) => String(n).padStart(2, "0");
+const brl = (v) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const soma = (lista) => lista.reduce((t, p) => t + p.cotas, 0);
+
+function faixa(acertos) {
+  if (acertos >= 6) return "sena";
+  if (acertos === 5) return "quina";
+  if (acertos === 4) return "quadra";
+  return null;
+}
+const nomeFaixa = { sena: "Sena", quina: "Quina", quadra: "Quadra" };
+
+function sorteioValido() {
+  return Array.isArray(BOLAO.sorteio) && BOLAO.sorteio.length === 6;
+}
+
+function renderCabecalho() {
+  document.title = BOLAO.nome + " " + BOLAO.edicao.replace(/\D*(\d{4}).*/, "$1");
+  $("titulo").textContent = BOLAO.nome;
+  $("edicao").textContent = BOLAO.edicao;
+  $("atualizado").textContent = BOLAO.atualizadoEm;
+  $("demo").hidden = !DEMO;
+
+  const alvo = new Date(BOLAO.dataSorteio + "T23:59:59");
+  const dataBr = BOLAO.dataSorteio.split("-").reverse().join("/");
+  const dias = Math.ceil((alvo - new Date()) / 86400000);
+  let txt;
+  if (sorteioValido()) txt = "Sorteio realizado em " + dataBr + ".";
+  else if (dias > 1) txt = "Sorteio em " + dataBr + ". Faltam " + dias + " dias.";
+  else if (dias === 1) txt = "Sorteio em " + dataBr + ". É amanhã!";
+  else if (dias === 0) txt = "O sorteio é hoje!";
+  else txt = "Sorteio em " + dataBr + ".";
+  $("dias").textContent = txt;
+}
+
+function renderResumo() {
+  const pagos = BOLAO.participantes.filter((p) => p.pago);
+  const pend = BOLAO.participantes.filter((p) => !p.pago);
+  const cotasPagas = soma(pagos);
+  const cotasPend = soma(pend);
+  const itens = [
+    ["Participantes", String(BOLAO.participantes.length)],
+    ["Valor da cota", brl(BOLAO.valorCota)],
+    ["Cotas pagas", String(cotasPagas)],
+    ["Cotas pendentes", String(cotasPend)],
+    ["Arrecadado", brl(cotasPagas * BOLAO.valorCota)],
+    ["Jogos apostados", String(BOLAO.jogos.length)]
+  ];
+  $("resumo").innerHTML = itens.map(([t, v]) => "<div><dt>" + t + "</dt><dd>" + v + "</dd></div>").join("");
+}
+
+function renderSorteio() {
+  if (!sorteioValido()) {
+    $("sorteio").innerHTML = '<p class="vazio">Aguardando o sorteio. Os números aparecem aqui assim que forem divulgados.</p>';
+    return;
+  }
+  const bolas = BOLAO.sorteio.slice().sort((a, b) => a - b)
+    .map((n) => '<span class="bola" aria-label="dezena ' + n + '">' + pad(n) + "</span>").join("");
+  $("sorteio").innerHTML = '<div class="bolas">' + bolas + "</div>";
+}
+
+function renderJogos() {
+  const ok = sorteioValido();
+  $("jogos").innerHTML = BOLAO.jogos.map((j, i) => {
+    const marcadas = j.dezenas.slice().sort((a, b) => a - b);
+    const acertos = ok ? marcadas.filter((n) => BOLAO.sorteio.includes(n)) : [];
+    let celulas = "";
+    for (let n = 1; n <= 60; n++) {
+      const m = marcadas.includes(n);
+      const s = ok && BOLAO.sorteio.includes(n);
+      let cls = "n";
+      if (m && s) cls += " h";
+      else if (m) cls += " m";
+      else if (s) cls += " s";
+      celulas += '<div class="' + cls + '">' + pad(n) + "</div>";
+    }
+    let status = "";
+    if (ok) {
+      const f = faixa(acertos.length);
+      const rotulo = acertos.length + (acertos.length === 1 ? " acerto" : " acertos");
+      status = f
+        ? '<span class="res premiado">' + rotulo + ": " + nomeFaixa[f] + "</span>"
+        : '<span class="res sem">' + rotulo + "</span>";
+    }
+    return '<article class="jogo"><header><h3>Jogo ' + (i + 1) + "</h3>" + status + "</header>" +
+      '<div class="volante">' + celulas + "</div>" +
+      '<p class="dezenas">Dezenas: ' + marcadas.map(pad).join(" ") + "</p></article>";
+  }).join("");
+}
+
+function renderPremio() {
+  const sec = $("secPremio");
+  if (!sorteioValido()) { sec.hidden = true; return; }
+  sec.hidden = false;
+
+  const linhas = [];
+  let total = 0;
+  BOLAO.jogos.forEach((j, i) => {
+    const h = j.dezenas.filter((n) => BOLAO.sorteio.includes(n)).length;
+    const f = faixa(h);
+    if (f) {
+      const v = BOLAO.premios[f] || 0;
+      total += v;
+      linhas.push("<tr><td>Jogo " + (i + 1) + '</td><td>' + nomeFaixa[f] + ' (' + h + ' acertos)</td><td class="num">' + brl(v) + "</td></tr>");
+    }
+  });
+
+  const cotasPagas = soma(BOLAO.participantes.filter((p) => p.pago));
+  let html = "";
+  if (!linhas.length) {
+    html = "<p>Nenhum jogo chegou à quadra desta vez. Não há prêmio para dividir.</p>";
+  } else {
+    const porCota = cotasPagas ? total / cotasPagas : 0;
+    html =
+      '<div class="tabela-scroll"><table><thead><tr><th>Jogo</th><th>Faixa</th><th class="num">Prêmio</th></tr></thead><tbody>' +
+      linhas.join("") +
+      '</tbody><tfoot><tr><td colspan="2">Prêmio total</td><td class="num">' + brl(total) + "</td></tr></tfoot></table></div>" +
+      '<div class="destaque"><p>Dividido entre ' + cotasPagas + " cotas pagas, cada cota recebe</p>" +
+      '<p class="v">' + brl(porCota) + "</p>" +
+      "<p>Quem tem 2 cotas recebe " + brl(porCota * 2) + ".</p></div>";
+  }
+  $("premio").innerHTML = html;
+}
+
+function renderParticipantes() {
+  const lista = BOLAO.participantes.slice().sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
+  $("participantes").innerHTML = lista.map((p) =>
+    "<tr><td>" + esc(p.nome) + '</td><td class="num">' + p.cotas + "</td><td>" +
+    (p.pago ? '<span class="tag pago">✓ Pago</span>' : '<span class="tag pendente">○ Pendente</span>') +
+    "</td></tr>"
+  ).join("");
+}
+
+function renderRegras() {
+  $("regras").innerHTML = BOLAO.regras.map((r) => "<li>" + esc(r) + "</li>").join("");
+}
+
+function render() {
+  renderCabecalho();
+  renderResumo();
+  renderSorteio();
+  renderJogos();
+  renderPremio();
+  renderParticipantes();
+  renderRegras();
+}
+
+/* Simulação (só aparece quando DEMO = true) */
+function simular() {
+  const base = BOLAO.jogos[Math.floor(Math.random() * BOLAO.jogos.length)].dezenas.slice();
+  base.sort(() => Math.random() - 0.5);
+  const k = 3 + Math.floor(Math.random() * 4);
+  const picks = base.slice(0, k);
+  while (picks.length < 6) {
+    const n = 1 + Math.floor(Math.random() * 60);
+    if (!picks.includes(n)) picks.push(n);
+  }
+  BOLAO.sorteio = picks.sort((a, b) => a - b);
+  render();
+}
+$("btnSimular").addEventListener("click", simular);
+$("btnLimpar").addEventListener("click", function () { BOLAO.sorteio = []; render(); });
+
+render();
+</script>
+</body>
+</html>
