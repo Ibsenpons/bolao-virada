@@ -1,0 +1,54 @@
+/* Preview dashboard minimalista — mantém o estilo original como fallback */
+:root{--paper:#f5f7f5;--ink:#19352b;--muted:#62776a;--line:#e1eae4;--green:#176b50;--gold:#f1cb68;--cell:#eaf0eb;--surface:white;--warn-bg:#fff4d6;--ok-bg:#e0f2e8;--pend-bg:#fff0e7}
+html{scroll-behavior:smooth}
+body{background:#f5f7f5}
+main{max-width:1300px;margin:auto;padding:32px clamp(16px,3vw,44px) 48px}
+.page-intro{margin-bottom:24px}
+.eyebrow,.section-kicker{font-size:.76rem;letter-spacing:.11em;color:var(--green);font-weight:800;text-transform:uppercase}
+.page-title{font-size:clamp(2rem,4vw,3.5rem);letter-spacing:-.05em;line-height:1.06;margin:12px 0;font-weight:800}
+.page-title em{font-family:Georgia,serif;color:var(--green);font-weight:400}
+.page-intro p{color:var(--muted)}
+.quick-nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:20px}
+.quick-nav a{display:inline-flex;padding:9px 14px;border:1px solid var(--line);border-radius:40px;text-decoration:none;color:var(--ink);background:#fff;font-size:.88rem;font-weight:700}
+.quick-nav a:hover{border-color:var(--green);color:var(--green)}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:22px}
+.metric{min-width:0;display:flex;flex-direction:column;gap:9px;padding:20px;background:#fff;border:1px solid var(--line);border-radius:16px}
+.metric span,.finance-grid span{font-weight:650;font-size:.83rem;color:var(--muted)}
+.metric strong{font-size:clamp(1.4rem,2.2vw,2rem);line-height:1.16;letter-spacing:-.035em;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.metric small{color:var(--muted);line-height:1.3}
+.metric.accent{background:#164a39;color:#fff}
+.metric.accent span,.metric.accent small{color:#d7ebe0}
+.layout{grid-template-columns:minmax(0,1fr);gap:18px}
+.col{gap:16px}
+.col-b .sec:first-child{border-top:1px solid var(--line);padding-top:22px}
+.sec,.col-a>.passos,.col-a>.deadline-card{background:#fff;border:1px solid var(--line);border-radius:17px;padding:22px;box-shadow:0 4px 20px rgba(20,66,43,.025)}
+.bilhete{border:1px solid var(--line);border-radius:17px;background:#fff;box-shadow:0 5px 22px rgba(20,66,43,.06)}
+.bilhete-topo{background:#164a39}
+.picote i{border-color:#d1e7d9}
+.premio{background:#f2d687}
+.num{background:#e1f0e7;color:#14563e}
+.jogo{border-radius:12px}
+.section-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.section-head h2{margin-top:5px;font-size:1.37rem}
+.soft-tag{background:#e8f2ec;color:var(--green);font-size:.73rem;font-weight:700;border-radius:99px;padding:7px 11px}
+.section-desc{color:var(--muted);margin-bottom:16px}
+.finance-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.finance-grid>div{min-width:0;display:flex;flex-direction:column;gap:6px;padding:15px;background:#f6f9f6;border:1px solid var(--line);border-radius:12px}
+.finance-grid strong{font-size:clamp(1.15rem,2vw,1.5rem);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.finance-grid .balance{background:#e3f1e7}
+.finance-grid .balance strong{color:#14563e}
+.empty-state{background:#fafcfb;border:1px dashed #c8d9ce;border-radius:12px;padding:18px;color:var(--muted);font-size:.92rem}
+.document-list{list-style:none;padding:0;margin:0}
+.document-list li{display:flex;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+.document-list li:last-child{border-bottom:none}
+.document-list li>div{flex:1;min-width:0}
+.document-list strong{display:block;overflow-wrap:anywhere}
+.document-list small{color:var(--muted)}
+.document-list a{color:var(--green);font-weight:700}
+.doc-icon{display:grid;place-items:center;background:#e8f2ec;border-radius:10px;color:var(--green);width:38px;height:38px}
+.table-wrap{overflow-x:auto;margin-top:12px}
+#financeiro,#cotas,#apostas,#resultado,#comprovantes{scroll-margin-top:20px}
+@media(min-width:980px){.layout{grid-template-columns:minmax(300px,380px) minmax(0,1fr);align-items:start;gap:18px}}
+@media(max-width:760px){main{padding-top:20px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.metric{padding:15px}.metric strong{font-size:1.45rem}.quick-nav{flex-wrap:nowrap;overflow-x:auto;padding-bottom:8px}.quick-nav a{white-space:nowrap}.sec,.col-a>.passos,.col-a>.deadline-card{padding:18px}}
+@media(max-width:390px){.finance-grid{grid-template-columns:1fr}.metric{padding:12px}.metric strong{font-size:1.22rem}.metric small{font-size:.7rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
