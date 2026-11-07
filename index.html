@@ -151,22 +151,27 @@
     <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M7 3v4M17 3v4M3 10h18M7 15h3"/></symbol>
     <symbol id="i-trophy" viewBox="0 0 24 24"><path d="M8 21h8M12 17v4M7 4h10v6a5 5 0 0 1-10 0V4zM7 6H3v3a4 4 0 0 0 4 4M17 6h4v3a4 4 0 0 1-4 4"/></symbol>
     <symbol id="i-receipt" viewBox="0 0 24 24"><path d="M4 2h16v20l-4-2-4 2-4-2-4 2zM8 7h8M8 12h8M8 17h4"/></symbol>
+    <symbol id="i-wallet" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="15" rx="2.5"/><path d="M2.5 9.5h19M5 6V4.5A2.5 2.5 0 0 1 7.5 2H19M16 14.5h5.5"/></symbol>
+    <symbol id="i-cotas" viewBox="0 0 24 24"><circle cx="8.5" cy="7.5" r="3.2"/><path d="M2.5 20v-2.1a5.8 5.8 0 0 1 11.6 0V20H2.5M17 5.5a3 3 0 0 1 0 5.9M17 17.5l2 2 3.2-4"/></symbol>
+    <symbol id="i-volante" viewBox="0 0 24 24"><rect x="3" y="2" width="18" height="20" rx="2"/><circle cx="8" cy="7" r="1"/><circle cx="12" cy="7" r="1"/><circle cx="16" cy="7" r="1"/><circle cx="8" cy="11.5" r="1"/><circle cx="12" cy="11.5" r="1"/><circle cx="16" cy="11.5" r="1"/><path d="M7 17h10"/></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 20V4M5 11l7-7 7 7"/></symbol>
+
   </defs>
 </svg>
-  <header class="page-intro">
-    <div class="brand">
+  <header id="inicio" class="page-intro">
+    <a class="brand" href="#inicio" aria-label="Voltar ao início do Bolão da Virada">
       <span class="logo-clover" aria-hidden="true">🍀</span>
       <div>
         <h1>Bolão da Virada <em>2026</em></h1>
         <span class="brand-kicker">Edição especial · Amigos e familiares</span>
       </div>
-    </div>
-    <nav class="quick-nav" aria-label="Navegação da página">
-      <a href="#financeiro"><svg class="ui-icon" aria-hidden="true"><use href="#i-home"></use></svg><span>Financeiro</span></a>
-      <a href="#cotas"><svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg><span>Cotas</span></a>
-      <a href="#apostas"><svg class="ui-icon" aria-hidden="true"><use href="#i-ticket"></use></svg><span>Apostas</span></a>
-      <a href="#resultado"><svg class="ui-icon" aria-hidden="true"><use href="#i-chart"></use></svg><span>Resultado</span></a>
-      <a href="#comprovantes"><svg class="ui-icon" aria-hidden="true"><use href="#i-doc"></use></svg><span>Comprovantes</span></a>
+    </a>
+        <nav class="quick-nav" aria-label="Seções do Bolão da Virada">
+      <a href="#financeiro" title="Ver o resumo financeiro" aria-label="Financeiro: arrecadação, despesas e saldo"><svg class="ui-icon" aria-hidden="true"><use href="#i-wallet"></use></svg><span>Financeiro</span></a>
+      <a href="#cotas" title="Ver participantes e cotas" aria-label="Cotas: participantes e pagamentos"><svg class="ui-icon" aria-hidden="true"><use href="#i-cotas"></use></svg><span>Cotas</span></a>
+      <a href="#apostas" title="Ver planejamento e apostas" aria-label="Apostas: planejamento e jogos"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg><span>Apostas</span></a>
+      <a href="#resultado" title="Ver as dezenas sorteadas" aria-label="Resultado: números sorteados"><svg class="ui-icon" aria-hidden="true"><use href="#i-chart"></use></svg><span>Resultado</span></a>
+      <a href="#comprovantes" title="Ver comprovantes disponíveis" aria-label="Comprovantes do bolão"><svg class="ui-icon" aria-hidden="true"><use href="#i-doc"></use></svg><span>Comprovantes</span></a>
     </nav>
   </header>
   <section class="metrics" aria-label="Resumo do bolão">
@@ -231,7 +236,7 @@
         <section class="passo" id="cotas" aria-labelledby="h-acompanhe">
           <div class="trilho"><div class="num" aria-hidden="true">2</div></div>
           <div class="corpo">
-            <h2 id="h-acompanhe">Acompanhe o bolão</h2>
+            <h2 id="h-acompanhe">Participantes e cotas</h2>
             <p id="resumoTxt"></p>
             <div class="chips" id="participantes"></div>
             <p class="dica"><span aria-hidden="true">✓</span> pago &nbsp; <span aria-hidden="true">○</span> pendente</p>
@@ -259,8 +264,9 @@
         <div id="listaComprovantes"></div>
         <p class="nota">Nunca inclua CPF, extratos bancários completos ou comprovantes de Pix de terceiros em um repositório público.</p>
       </section>
-      <section class="sec" class="game-plan" aria-labelledby="h-sugestao">
-        <h2 id="h-sugestao">Sugestão de jogos</h2>
+      <section class="sec game-plan" id="apostas" aria-labelledby="h-sugestao">
+        <h2 id="h-sugestao">Apostas e planejamento</h2>
+        <p class="section-desc">Veja a sugestão de apostas com o valor disponível ou <a class="inline-section-link" href="#jogos-registrados">consulte os jogos já registrados</a>.</p>
         <p id="capTexto"></p>
         <h3>Com o valor arrecadado hoje</h3>
         <div class="tabela-scroll">
@@ -273,13 +279,13 @@
         <p class="nota">A sugestão prioriza os jogos maiores, de até 12 números. Um jogo maior equivale a vários jogos de 6 (7 números valem 7 jogos, 8 números valem 28 jogos), então o preço por combinação é o mesmo.</p>
       </section>
 
-      <section class="sec" id="resultado" class="draw-result" aria-labelledby="h-sorteio">
-        <h2 id="h-sorteio">Números sorteados</h2>
+      <section class="sec draw-result" id="resultado" aria-labelledby="h-sorteio">
+        <h2 id="h-sorteio">Resultado do sorteio</h2>
         <div id="sorteio"></div>
       </section>
 
-      <section class="sec" id="apostas" aria-labelledby="h-jogos">
-        <h2 id="h-jogos">Nossos jogos</h2>
+      <section class="sec" id="jogos-registrados" aria-labelledby="h-jogos">
+        <h2 id="h-jogos">Jogos registrados</h2>
         <div class="legenda" id="legenda">
           <span><i class="sw m"></i>Nosso número</span>
           <span><i class="sw h"></i>Acertamos</span>
@@ -302,9 +308,11 @@
   </div>
 
   <footer>
+    <a class="footer-return" href="#inicio"><svg class="ui-icon" aria-hidden="true"><use href="#i-up"></use></svg> Voltar ao início</a>
     Página só para consulta. Quem organiza o bolão atualiza os dados.
     <br>Atualizado em <span id="atualizado"></span>.
   </footer>
+  <a id="backToTop" href="#inicio" class="back-top" aria-label="Voltar ao início da página" title="Voltar ao início"><svg class="ui-icon" aria-hidden="true"><use href="#i-up"></use></svg><span>Início</span></a>
 </main>
 
 <script>
