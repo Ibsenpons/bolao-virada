@@ -1254,3 +1254,20 @@ button, input, textarea, select { font: inherit; }
     min-width:82px;min-height:40px;padding:8px;font-size:.79rem;
   }
 }
+
+/* Contagem de participantes integrada ao cabeçalho do card. */
+.overview-trio .participants-heading .participants-meta {
+  display:inline-block;
+  flex:0 0 auto;
+  margin:0 0 0 auto;
+  color:#72F2B7;
+  font-family:inherit;
+  font-size:1.45rem;
+  font-weight:800;
+  line-height:1;
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+@media(max-width:1100px){
+  .overview-trio .participants-heading .participants-meta{font-size:1.25rem}
+}
