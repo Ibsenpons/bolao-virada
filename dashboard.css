@@ -348,3 +348,14 @@ footer {border-color:#24475A;color:#839FAE;font-size:.78rem;margin-top:22px}
 @media(max-width:850px){
   .page-intro .quick-nav a.is-active::after {left:22%;right:22%;bottom:0}
 }
+
+/* Identidade oficial: logotipo horizontal, ajustado ao cabeçalho responsivo. */
+.page-intro .brand {display:inline-flex;align-items:center;flex:0 1 auto;min-width:0;max-width:100%}
+.page-intro .brand-logo {display:block;width:clamp(250px,27vw,370px);max-width:100%;height:auto;object-fit:contain}
+.page-intro .brand:hover {opacity:.96}
+@media(max-width:850px){
+  .page-intro .brand-logo{width:min(390px,100%);max-height:102px}
+}
+@media(max-width:560px){
+  .page-intro .brand-logo{width:min(340px,100%);max-height:88px}
+}
