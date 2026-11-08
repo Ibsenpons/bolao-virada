@@ -512,3 +512,134 @@ button, input, textarea, select { font: inherit; }
 @media(max-width:440px) {
   .page-intro .brand-logo {width:min(340px,90vw);max-height:52px}
 }
+
+/* Três cards compactos: Concurso + Pix + participantes confirmados. */
+.overview-trio{
+  display:grid;
+  grid-template-columns:minmax(0,.94fr) minmax(0,1.34fr) minmax(0,.86fr);
+  gap:14px;align-items:stretch;margin-bottom:18px;
+}
+.overview-trio>section{
+  min-width:0;border:1px solid #2A7188;border-radius:15px;
+  background:linear-gradient(120deg,#0C3047,#09273D);
+  box-shadow:0 8px 18px rgba(0,0,0,.14);padding:15px 16px;
+}
+.overview-trio .draw-card .draw-name{
+  display:flex;flex-flow:row wrap;align-items:center;
+  gap:7px 9px;border-bottom:1px solid #31576B;
+  padding-bottom:11px;margin-bottom:8px;
+}
+.overview-trio .draw-name strong{
+  font-size:clamp(.96rem,1.25vw,1.19rem);color:#F0FBFF;
+  letter-spacing:-.025em;line-height:1.2;
+}
+.overview-trio .contest-number{
+  display:inline-block;flex:none;padding:4px 7px;border-radius:7px;
+  background:rgba(42,228,147,.13);
+  border:1px solid rgba(73,236,155,.36);
+  color:#7FF3B7;white-space:nowrap;
+  font-size:.73rem;font-weight:760;letter-spacing:0;
+}
+.overview-trio .draw-facts{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px 9px;
+}
+.overview-trio .draw-detail,.overview-trio .draw-award{
+  min-width:0;margin:0;padding:9px 2px 5px;border:0;
+  display:flex;align-items:flex-start;gap:8px;
+}
+.overview-trio .draw-detail>.ui-icon,.overview-trio .draw-award>.ui-icon{
+  flex:none;width:19px;height:19px;margin-top:2px;
+}
+.overview-trio .draw-detail span,.overview-trio .draw-award span{
+  color:#B6CFDB;font-size:.72rem;line-height:1.25;
+}
+.overview-trio .draw-detail strong{font-size:.88rem;line-height:1.3}
+.overview-trio .draw-award strong{
+  display:inline-block;white-space:nowrap;margin-top:5px;
+  font-size:.95rem;padding:4px 7px;
+}
+.overview-trio .pix-card h2,.overview-trio .participants-card h2{
+  display:flex;align-items:center;gap:7px;
+  margin:0 0 12px;padding:0 0 11px;
+  border-bottom:1px solid #31576B;
+  color:#F1F8FC;font-weight:780;font-size:1.08rem;
+}
+.overview-trio .pix-card h2 .ui-icon,.overview-trio .participants-card h2 .ui-icon{
+  flex:none;width:21px;height:21px;color:#54EAA7;
+}
+.overview-trio .pix-price{
+  margin-left:auto;color:#8FFCC2;
+  font-size:.82rem;white-space:nowrap;font-weight:760;
+}
+.overview-trio .pix-card .pagar-linha{
+  display:flex;align-items:flex-start;gap:11px;margin:0 0 11px;flex-wrap:nowrap;
+}
+.overview-trio .pix-card .qrbox{
+  flex:0 0 112px;width:112px;padding:6px;
+  background:white;border:1px solid #77ACB9;border-radius:10px;
+}
+.overview-trio .pix-card .qr{width:100%;height:auto;display:block}
+.overview-trio .pix-card .pix-dados{flex:1;min-width:0}
+.overview-trio .pix-card .pix-dados dt{
+  color:#ADCBD5;font-size:.68rem;line-height:1.2;margin:0 0 3px;
+}
+.overview-trio .pix-card .pix-dados dd{
+  font-size:.74rem;line-height:1.35;color:#F6FCFF;
+  font-weight:700;overflow-wrap:anywhere;margin:0 0 9px;
+}
+.overview-trio .pix-actions{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;
+}
+.overview-trio .pix-actions button{
+  padding:8px 7px;min-height:39px;border-radius:8px;font-size:.75rem;
+}
+.overview-trio .pix-card .dica{
+  font-size:.7rem;line-height:1.35;margin:9px 0 0;color:#B6D0D9;
+}
+.overview-trio .pix-card .copiado{min-height:0;margin:5px 0 0}
+.overview-trio .participants-card .participants-meta{
+  color:#BFD8E2;font-size:.8rem;margin:2px 0 13px;
+}
+.overview-trio .participants-card .chips{
+  display:flex;flex-wrap:wrap;gap:8px;align-content:start;
+  margin:0;max-height:190px;overflow-y:auto;padding:2px;
+}
+.overview-trio .participants-card .chip{max-width:100%;overflow-wrap:anywhere}
+.overview-trio .participants-card .participants-note{
+  color:#9CBFCB;font-size:.7rem;line-height:1.4;margin:12px 0 0;
+}
+.details-layout{
+  display:block;border-top:1px solid #244D62;padding-top:17px;
+}
+.details-layout::before{
+  content:"Comprovantes, apostas e resultados";
+  display:block;font-size:1.35rem;font-weight:800;
+  margin:0 0 16px;color:#E8F8FC;
+}
+.details-layout .col-b{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;
+}
+.details-layout .col-b>.sec{grid-column:1/-1}
+.details-layout .col-b>.sec.game-plan,
+.details-layout .col-b>.sec.draw-result{grid-column:span 1;height:100%}
+#arrecadacao,#cotas,#participar{scroll-margin-top:18px}
+@media(max-width:980px){
+  .overview-trio{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:12px}
+  .overview-trio .participants-card{grid-column:1/-1}
+  .overview-trio .participants-card .chips{max-height:135px}
+}
+@media(max-width:760px){
+  .overview-trio{grid-template-columns:1fr}
+  .overview-trio .participants-card{grid-column:auto}
+  .overview-trio>section{padding:14px}
+  .overview-trio .pix-card .pagar-linha{gap:12px}
+  .details-layout .col-b{grid-template-columns:1fr}
+  .details-layout .col-b>.sec.game-plan,
+  .details-layout .col-b>.sec.draw-result{grid-column:1}
+}
+@media(max-width:430px){
+  .overview-trio .draw-facts{gap:5px}
+  .overview-trio .draw-name strong{font-size:.96rem}
+  .overview-trio .pix-card .qrbox{flex-basis:103px;width:103px}
+  .overview-trio .pix-actions{grid-template-columns:1fr}
+}
