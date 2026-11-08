@@ -158,6 +158,11 @@
     <symbol id="i-volante" viewBox="0 0 256 256" fill="currentColor"><path d="M192,32H64A32,32,0,0,0,32,64V192a32,32,0,0,0,32,32H192a32,32,0,0,0,32-32V64A32,32,0,0,0,192,32Zm16,160a16,16,0,0,1-16,16H64a16,16,0,0,1-16-16V64A16,16,0,0,1,64,48H192a16,16,0,0,1,16,16Zm-96-92a12,12,0,1,1-12-12A12,12,0,0,1,112,100Zm56,0a12,12,0,1,1-12-12A12,12,0,0,1,168,100Zm-56,56a12,12,0,1,1-12-12A12,12,0,0,1,112,156Zm56,0a12,12,0,1,1-12-12A12,12,0,0,1,168,156Z"/></symbol>
     <symbol id="i-up" viewBox="0 0 256 256" fill="currentColor"><path d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z"/></symbol>
 
+    <symbol id="i-caret-down" viewBox="0 0 256 256" fill="currentColor"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 256 256" fill="currentColor"><path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol>
+    <symbol id="i-circle" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Z"/></symbol>
+    <symbol id="i-shield-check" viewBox="0 0 256 256" fill="currentColor"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></symbol>
   </defs>
 </svg>
   <header id="inicio" class="page-intro">
@@ -171,7 +176,7 @@
     <a href="#jogos-registrados"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg><span>Apostas</span></a>
     <a href="#comprovantes"><svg class="ui-icon" aria-hidden="true"><use href="#i-doc"></use></svg><span>Comprovantes</span></a>
     <a href="#resultado"><svg class="ui-icon" aria-hidden="true"><use href="#i-trophy"></use></svg><span>Resultados</span></a>
-    <details class="nav-more"><summary>Mais <span aria-hidden="true">⌄</span></summary>
+    <details class="nav-more"><summary>Mais <svg class="ui-icon nav-caret" aria-hidden="true"><use href="#i-caret-down"></use></svg></summary>
       <div class="nav-more-links"><a href="#financeiro">Prestação de contas</a><a href="#participar">Como participar</a><a href="#apostas">Planejamento</a><a href="#secRegras">Regras</a></div>
     </details>
   </nav>
@@ -186,7 +191,7 @@
       <div class="metric accent"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg></span><span>Apostas registradas</span><strong id="kpiJogos">—</strong><small>Jogos cadastrados</small></div>
     </section>
     <nav class="action-grid" aria-label="Participação">
-      <a class="action-primary" href="#participar"><svg class="ui-icon" aria-hidden="true"><use href="#i-ticket"></use></svg><span>Participar do bolão</span><b aria-hidden="true">›</b></a>
+      <a class="action-primary" href="#participar"><svg class="ui-icon" aria-hidden="true"><use href="#i-ticket"></use></svg><span>Participar do bolão</span><svg class="ui-icon action-arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
     </nav>
     <section class="progress-panel" aria-labelledby="progress-title">
       <div class="progress-heading"><h2 id="progress-title">Situação das cotas cadastradas</h2><strong id="progressoPercentual">—</strong></div>
@@ -207,17 +212,17 @@
     <section class="steps-card" aria-labelledby="etapas-title">
       <h2 id="etapas-title"><svg class="ui-icon" aria-hidden="true"><use href="#i-calendar"></use></svg> Próximas etapas</h2>
       <ul class="steps-list">
-        <li data-step="participantes"><span class="step-symbol" aria-hidden="true">○</span><span>Participantes cadastrados</span></li>
-        <li data-step="pagamentos"><span class="step-symbol" aria-hidden="true">○</span><span>Pagamentos informados</span></li>
-        <li data-step="apostas"><span class="step-symbol" aria-hidden="true">○</span><span>Registro das apostas</span></li>
-        <li data-step="sorteio"><span class="step-symbol" aria-hidden="true">○</span><span>Conferência do sorteio</span></li>
+        <li data-step="participantes"><span class="step-symbol" aria-hidden="true"><svg class="ui-icon"><use href="#i-circle"></use></svg></span><span>Participantes cadastrados</span></li>
+        <li data-step="pagamentos"><span class="step-symbol" aria-hidden="true"><svg class="ui-icon"><use href="#i-circle"></use></svg></span><span>Pagamentos informados</span></li>
+        <li data-step="apostas"><span class="step-symbol" aria-hidden="true"><svg class="ui-icon"><use href="#i-circle"></use></svg></span><span>Registro das apostas</span></li>
+        <li data-step="sorteio"><span class="step-symbol" aria-hidden="true"><svg class="ui-icon"><use href="#i-circle"></use></svg></span><span>Conferência do sorteio</span></li>
       </ul>
       <small>Etapas atualizadas manualmente pelo organizador.</small>
     </section>
   </aside>
 </div>
 <section class="trust-band" aria-label="Informações importantes">
-  <div><svg class="ui-icon" aria-hidden="true"><use href="#i-cotas"></use></svg><div><h3>Transparência</h3><p>Cotas, pagamentos informados e comprovantes em um só lugar.</p></div></div>
+  <div><svg class="ui-icon" aria-hidden="true"><use href="#i-shield-check"></use></svg><div><h3>Transparência</h3><p>Cotas, pagamentos informados e comprovantes em um só lugar.</p></div></div>
   <div><svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg><div><h3>Entre amigos e familiares</h3><p>Bolão organizado para um grupo de conhecidos.</p></div></div>
   <div><svg class="ui-icon" aria-hidden="true"><use href="#i-trophy"></use></svg><div><h3>Conferência dos resultados</h3><p>Números sorteados e checagem das apostas registradas.</p></div></div>
 </section>
