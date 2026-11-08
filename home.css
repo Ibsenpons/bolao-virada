@@ -1508,3 +1508,40 @@ button, input, textarea, select { font: inherit; }
 @media(prefers-reduced-motion:reduce){
   .details-layout .rules-more summary .ui-icon{transition:none}
 }
+
+/* Menu sem seleção persistente: não manter fundo após toque no Safari.
+   O foco do teclado permanece visível por acessibilidade. */
+.page-intro .quick-nav>a,
+.page-intro .quick-nav>a:first-child,
+.page-intro .quick-nav>a.is-active,
+.page-intro .quick-nav>a[aria-current],
+.page-intro .quick-nav>a:not(.nav-home):hover,
+.page-intro .quick-nav>a:focus-visible {
+  background:transparent;
+  border-color:transparent;
+  box-shadow:none;
+}
+.page-intro .quick-nav>a.is-active::after,
+.page-intro .quick-nav>a[aria-current]::after {
+  display:none;
+  content:none;
+}
+/* iPad e iPhone: Safari pode conservar :hover depois de tocar. */
+@media (hover:none) {
+  .page-intro .quick-nav>a:hover,
+  .page-intro .quick-nav>a:not(.nav-home):hover,
+  .page-intro .quick-nav>a:focus:not(:focus-visible) {
+    color:#D8E8F0;
+    background:transparent;
+    border-color:transparent;
+    box-shadow:none;
+  }
+}
+/* Apenas mouse e trackpad: verde enquanto o ponteiro estiver no item. */
+@media (hover:hover) and (pointer:fine) {
+  .page-intro .quick-nav>a:hover,
+  .page-intro .quick-nav>a:not(.nav-home):hover {
+    color:#80F1C0;
+    background:transparent;
+  }
+}
