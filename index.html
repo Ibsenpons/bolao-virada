@@ -137,6 +137,7 @@
   footer { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.86rem; }
 </style>
 <link rel="stylesheet" href="./dashboard.css">
+<link rel="stylesheet" href="./home.css">
 </head>
 <body>
 <main>
@@ -159,43 +160,79 @@
   </defs>
 </svg>
   <header id="inicio" class="page-intro">
-    <a class="brand" href="#inicio" aria-label="Bilhão da Virada 2026 — voltar ao início">
-      <img class="brand-logo" src="./assets/logo-bilhao-horizontal.svg" width="900" height="225" alt="Bilhão da Virada 2026" decoding="async">
-    </a>
-        <nav class="quick-nav" aria-label="Seções do Bolão da Virada">
-      <a href="#financeiro" title="Ver o resumo financeiro" aria-label="Financeiro: arrecadação, despesas e saldo"><svg class="ui-icon" aria-hidden="true"><use href="#i-wallet"></use></svg><span>Financeiro</span></a>
-      <a href="#cotas" title="Ver participantes e cotas" aria-label="Cotas: participantes e pagamentos"><svg class="ui-icon" aria-hidden="true"><use href="#i-cotas"></use></svg><span>Cotas</span></a>
-      <a href="#apostas" title="Ver planejamento e apostas" aria-label="Apostas: planejamento e jogos"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg><span>Apostas</span></a>
-      <a href="#resultado" title="Ver as dezenas sorteadas" aria-label="Resultado: números sorteados"><svg class="ui-icon" aria-hidden="true"><use href="#i-chart"></use></svg><span>Resultado</span></a>
-      <a href="#comprovantes" title="Ver comprovantes disponíveis" aria-label="Comprovantes do bolão"><svg class="ui-icon" aria-hidden="true"><use href="#i-doc"></use></svg><span>Comprovantes</span></a>
+  <div class="site-identity">
+    <a class="brand" href="#inicio" aria-label="Bilhão da Virada 2026 — início"><img class="brand-logo" src="./assets/logo-bilhao-horizontal.svg" width="900" height="225" alt="Bilhão da Virada 2026"></a>
+    <span class="site-tagline">Entre amigos e familiares</span>
+  </div>
+  <nav class="quick-nav" aria-label="Menu principal">
+    <a class="nav-home" href="#inicio"><svg class="ui-icon" aria-hidden="true"><use href="#i-home"></use></svg><span>Início</span></a>
+    <a href="#cotas"><svg class="ui-icon" aria-hidden="true"><use href="#i-cotas"></use></svg><span>Cotas</span></a>
+    <a href="#jogos-registrados"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg><span>Apostas</span></a>
+    <a href="#comprovantes"><svg class="ui-icon" aria-hidden="true"><use href="#i-doc"></use></svg><span>Comprovantes</span></a>
+    <a href="#resultado"><svg class="ui-icon" aria-hidden="true"><use href="#i-trophy"></use></svg><span>Resultados</span></a>
+    <details class="nav-more"><summary>Mais <span aria-hidden="true">⌄</span></summary>
+      <div class="nav-more-links"><a href="#financeiro">Prestação de contas</a><a href="#participar">Como participar</a><a href="#apostas">Planejamento</a><a href="#secRegras">Regras</a></div>
+    </details>
+  </nav>
+</header>
+<div class="overview-shell">
+  <div class="overview-main">
+    <section class="hero-section" aria-labelledby="hero-title">
+      <div class="hero-copy"><h1 id="hero-title">Nosso Bolão da Mega da Virada</h1>
+        <p>Organização, transparência e muita torcida pelo prêmio estimado de</p>
+        <strong class="hero-prize" id="heroPrize">—</strong>
+        <small>Estimativa sujeita a alterações.</small>
+      </div>
+      <img class="hero-clover-art" src="./assets/hero-clover.svg" width="320" height="320" alt="" aria-hidden="true" decoding="async">
+    </section>
+    <section class="metrics" aria-label="Indicadores do bolão">
+      <div class="metric"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg></span><span>Participantes</span><strong id="kpiParticipantes">—</strong><small>Pessoas cadastradas</small></div>
+      <div class="metric"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-ticket"></use></svg></span><span>Cotas cadastradas</span><strong id="kpiTotalCotas">—</strong><small>Total informado</small></div>
+      <div class="metric"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-cotas"></use></svg></span><span>Cotas pagas</span><strong id="kpiCotas">—</strong><small id="kpiCotasDetalhe">Atualização manual</small></div>
+      <div class="metric accent"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg></span><span>Apostas registradas</span><strong id="kpiJogos">—</strong><small>Jogos cadastrados</small></div>
+    </section>
+    <nav class="action-grid" aria-label="Acesso rápido">
+      <a class="action-primary" href="#participar"><svg class="ui-icon" aria-hidden="true"><use href="#i-ticket"></use></svg><span>Participar do bolão</span><b aria-hidden="true">›</b></a>
+      <a href="#cotas"><svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg><span>Ver participantes</span><b aria-hidden="true">›</b></a>
+      <a href="#jogos-registrados"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg><span>Apostas do bolão</span><b aria-hidden="true">›</b></a>
+      <a href="#comprovantes"><svg class="ui-icon" aria-hidden="true"><use href="#i-doc"></use></svg><span>Comprovantes</span><b aria-hidden="true">›</b></a>
     </nav>
-  </header>
-  <section class="metrics" aria-label="Resumo do bolão">
-    <div class="metric"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-cotas"></use></svg></span><span>Cotas confirmadas</span><strong id="kpiCotas">—</strong><small id="kpiCotasDetalhe">Atualização manual</small></div>
-    <div class="metric"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-coins"></use></svg></span><span>Arrecadação informada</span><strong id="kpiArrecadado">—</strong><small>Cotas marcadas como pagas</small></div>
-    <div class="metric"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg></span><span>Apostas cadastradas</span><strong id="kpiJogos">—</strong><small>Jogos registrados na página</small></div>
-    <div class="metric accent"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-trophy"></use></svg></span><span>Prêmio estimado</span><strong id="kpiPremio">—</strong><small>Valor estimado, não garantido</small></div>
-  </section>
-  <div class="layout">
+    <section class="progress-panel" aria-labelledby="progress-title">
+      <div class="progress-heading"><h2 id="progress-title">Situação das cotas cadastradas</h2><strong id="progressoPercentual">—</strong></div>
+      <div class="progress-track" id="progressoTrack" role="progressbar" aria-label="Cotas cadastradas marcadas como pagas" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="progress-fill" id="progressoFill"></div></div>
+      <p id="progressoLegenda">Aguardando dados das cotas.</p>
+      <small>O percentual se refere às cotas cadastradas, não a vagas disponíveis.</small>
+    </section>
+  </div>
+  <aside class="overview-side" aria-label="Informações do sorteio">
+    <section class="draw-card" aria-labelledby="concurso-title">
+      <h2 id="concurso-title"><svg class="ui-icon" aria-hidden="true"><use href="#i-trophy"></use></svg> Concurso da Virada</h2>
+      <div class="draw-name"><span id="rotulo">Concurso especial</span><strong id="titulo">—</strong></div>
+      <div class="draw-detail"><svg class="ui-icon" aria-hidden="true"><use href="#i-calendar"></use></svg><div><span>Data do sorteio</span><strong id="stubSorteio">—</strong></div></div>
+      <div class="draw-detail"><svg class="ui-icon" aria-hidden="true"><use href="#i-calendar"></use></svg><div><span>Prazo para participar</span><strong id="stubPrazo">—</strong></div></div>
+      <div class="draw-detail"><svg class="ui-icon" aria-hidden="true"><use href="#i-ticket"></use></svg><div><span>Valor da cota</span><strong id="stubCota">—</strong></div></div>
+      <div class="draw-award"><svg class="ui-icon" aria-hidden="true"><use href="#i-trophy"></use></svg><div><span>Prêmio estimado</span><strong id="premioEst">—</strong></div></div>
+    </section>
+    <section class="steps-card" aria-labelledby="etapas-title">
+      <h2 id="etapas-title"><svg class="ui-icon" aria-hidden="true"><use href="#i-calendar"></use></svg> Próximas etapas</h2>
+      <ul class="steps-list">
+        <li data-step="participantes"><span class="step-symbol" aria-hidden="true">○</span><span>Participantes cadastrados</span></li>
+        <li data-step="pagamentos"><span class="step-symbol" aria-hidden="true">○</span><span>Pagamentos informados</span></li>
+        <li data-step="apostas"><span class="step-symbol" aria-hidden="true">○</span><span>Registro das apostas</span></li>
+        <li data-step="sorteio"><span class="step-symbol" aria-hidden="true">○</span><span>Conferência do sorteio</span></li>
+      </ul>
+      <small>Etapas atualizadas manualmente pelo organizador.</small>
+    </section>
+  </aside>
+</div>
+<section class="trust-band" aria-label="Informações importantes">
+  <div><svg class="ui-icon" aria-hidden="true"><use href="#i-cotas"></use></svg><div><h3>Transparência</h3><p>Cotas, pagamentos informados e comprovantes em um só lugar.</p></div></div>
+  <div><svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg><div><h3>Entre amigos e familiares</h3><p>Bolão organizado para um grupo de conhecidos.</p></div></div>
+  <div><svg class="ui-icon" aria-hidden="true"><use href="#i-trophy"></use></svg><div><h3>Conferência dos resultados</h3><p>Números sorteados e checagem das apostas registradas.</p></div></div>
+</section>
+<div class="layout">
 
     <div class="col col-a">
-      <header class="bilhete">
-        <div class="bilhete-topo">
-          <div>
-            <div class="rotulo" id="rotulo"></div>
-            <h2 class="hero-title" id="titulo"></h2>
-          </div>
-          <span class="hero-clover" aria-hidden="true">🍀</span>
-        </div>
-        
-        <div class="canhoto">
-          <div><div class="l"><svg class="ui-icon" aria-hidden="true"><use href="#i-calendar"></use></svg> Sorteio</div><div class="v" id="stubSorteio"></div></div>
-          <div><div class="l"><svg class="ui-icon" aria-hidden="true"><use href="#i-calendar"></use></svg> Pagamento até</div><div class="v" id="stubPrazo"></div></div>
-          <div><div class="l"><svg class="ui-icon" aria-hidden="true"><use href="#i-coins"></use></svg> Valor da cota</div><div class="v" id="stubCota"></div></div>
-        </div>
-        <div class="premio" id="premioEst"></div>
-      </header>
-
       <div class="deadline-card">
         <p class="prazo" id="prazo"></p>
         <p class="dias" id="dias"></p>
@@ -210,7 +247,7 @@
         </div>
       </div>
 
-      <div class="passos">
+      <div class="passos" id="participar">
         <section class="passo" aria-labelledby="h-pagar">
           <div class="trilho"><div class="num" aria-hidden="true">1</div><div class="linha"></div></div>
           <div class="corpo">
@@ -295,7 +332,7 @@
         <div id="premio"></div>
       </section>
 
-      <section class="sec" aria-labelledby="h-regras">
+      <section class="sec" id="secRegras" aria-labelledby="h-regras">
         <h2 id="h-regras">Regras</h2>
         <ul class="regras" id="regras"></ul>
       </section>
@@ -406,15 +443,13 @@ function sorteioValido() {
 }
 
 function renderCabecalho() {
-  document.title = BOLAO.nome + " " + BOLAO.edicao.replace(/\D*(\d{4}).*/, "$1");
+  document.title = "Bilhão da Virada " + BOLAO.edicao.replace(/\D*(\d{4}).*/, "$1");
   $("rotulo").textContent = "Concurso especial";
-  const tituloConcurso = BOLAO.edicao.replace(/^Mega da Virada/, "Mega-Sena da Virada");
-  const tituloComAno = tituloConcurso.match(/^(.*?)(\d{4})$/);
-  $("titulo").innerHTML = tituloComAno ? esc(tituloComAno[1]) + "<span>" + esc(tituloComAno[2]) + "</span>" : esc(tituloConcurso);
+  $("titulo").textContent = BOLAO.edicao;
   $("stubSorteio").textContent = dataBr(BOLAO.dataSorteio);
   $("stubPrazo").textContent = dataBr(BOLAO.prazoParticipacao);
   $("stubCota").textContent = brl(BOLAO.valorCota);
-  $("premioEst").textContent = "Prêmio estimado: " + BOLAO.premioEstimado;
+  $("premioEst").textContent = BOLAO.premioEstimado;
   $("atualizado").textContent = BOLAO.atualizadoEm;
   $("demo").hidden = !DEMO;
 
@@ -640,5 +675,6 @@ $("btnLimpar").addEventListener("click", function () { BOLAO.sorteio = []; rende
 render();
 </script>
 <script src="./dashboard.js" defer></script>
+<script src="./home.js" defer></script>
 </body>
 </html>
