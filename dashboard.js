@@ -6,23 +6,14 @@
   const money = n => Number(n).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
   const safe = v => String(v ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
   const date = v => /^\d{4}-\d{2}-\d{2}$/.test(v || "") ? v.split("-").reverse().join("/") : "Não informada";
-  const paid = (BOLAO.participantes || []).filter(p => p.pago === true);
-  const pending = (BOLAO.participantes || []).filter(p => p.pago !== true);
+  const paid = (BOLAO.participantes || []).filter(p => p.pago === true && Number(p.cotas)>0);
   const shares = rows => rows.reduce((acc,p) => acc + (Number.isFinite(Number(p.cotas)) && Number(p.cotas)>0 ? Number(p.cotas) : 0),0);
   const paidShares = shares(paid);
-  const pendingShares = shares(pending);
   const received = paidShares * BOLAO.valorCota;
-  const toReceive = pendingShares * BOLAO.valorCota;
   const expenses = Array.isArray(BOLAO.despesas) ? BOLAO.despesas.filter(d => Number.isFinite(Number(d.valor)) && Number(d.valor) >= 0) : [];
   const spent = expenses.reduce((sum,d) => sum + Number(d.valor), 0);
   const put = (id, value) => { const node=byId(id); if(node) node.textContent=value; };
-  put("kpiCotas", String(paidShares));
-  put("kpiCotasDetalhe", pendingShares + (pendingShares===1 ? " cota pendente" : " cotas pendentes"));
-  put("kpiArrecadado", money(received));
-  put("kpiJogos", String((BOLAO.jogos || []).length));
-  put("kpiPremio", BOLAO.premioEstimado);
   put("finArrecadado", money(received));
-  put("finPendente", money(toReceive));
   put("finGasto", money(spent));
   put("finSaldo", money(received - spent));
 
