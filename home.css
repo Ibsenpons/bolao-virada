@@ -1271,3 +1271,240 @@ button, input, textarea, select { font: inherit; }
 @media(max-width:1100px){
   .overview-trio .participants-heading .participants-meta{font-size:1.25rem}
 }
+
+/* Resultado, jogos e regras: composição equilibrada em três cartões. */
+.details-layout .col-b{
+  display:grid;
+  grid-template-columns:minmax(0,7fr) minmax(0,13fr);
+  gap:16px;
+  align-items:stretch;
+}
+.details-layout .col-b>.sec.draw-result{
+  grid-column:1;
+  min-width:0;
+  min-height:235px;
+  height:100%;
+}
+.details-layout .col-b>.sec.registered-games{
+  grid-column:2;
+  min-width:0;
+  min-height:235px;
+  height:100%;
+}
+.details-layout .col-b>.sec.rules-card{
+  grid-column:1/-1;
+  min-width:0;
+  height:auto;
+  padding:19px 22px;
+}
+.details-layout .col-b>#secPremio{
+  grid-column:1/-1;
+}
+.details-layout .col-b>#secPremio[hidden],
+.details-layout .registered-games .legenda[hidden]{
+  display:none;
+}
+.details-layout::before{
+  content:"Resultados e apostas";
+  margin-bottom:15px;
+}
+.details-layout .col-b>.sec.draw-result,
+.details-layout .col-b>.sec.registered-games{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  padding:19px 20px;
+}
+.details-layout .result-card-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:9px;
+  margin:0;
+}
+.details-layout .result-card-head h2{
+  margin:0;
+  color:#F0F8FD;
+  font-size:clamp(1.04rem,1.45vw,1.24rem);
+  line-height:1.25;
+  font-weight:770;
+}
+.details-layout .result-status,
+.details-layout .games-count{
+  display:inline-flex;
+  align-items:center;
+  padding:5px 9px;
+  border:1px solid #3A7180;
+  border-radius:99px;
+  background:rgba(24,72,84,.47);
+  color:#B8DFE8;
+  font-size:.72rem;
+  font-weight:730;
+  line-height:1.3;
+  white-space:nowrap;
+}
+.details-layout .result-status.is-drawn{
+  border-color:#249C79;
+  color:#8BF1BD;
+  background:rgba(18,115,85,.24);
+}
+.details-layout .registered-games .games-count{
+  color:#8DF0C2;
+}
+.details-layout .result-balls{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:7px;
+  margin:0 0 12px;
+}
+.details-layout .result-balls .bola{
+  display:grid;
+  place-items:center;
+  flex:0 0 38px;
+  width:38px;
+  height:38px;
+  margin:0;
+  border-radius:50%;
+}
+.details-layout .result-balls .placeholder-ball{
+  color:#84B8C8;
+  background:#12394D;
+  border:1px dashed #417484;
+  font-weight:700;
+}
+.details-layout .result-help{
+  margin:0;
+  line-height:1.5;
+  font-size:.83rem;
+}
+.details-layout .registered-games #jogos{
+  flex:1;
+  min-width:0;
+}
+.details-layout .games-empty{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:18px;
+  min-height:100px;
+}
+.details-layout .games-empty p{
+  margin:0;
+  color:#B5D0DB;
+  font-size:.84rem;
+  line-height:1.5;
+}
+.details-layout .games-plan-link{
+  display:inline-flex;
+  align-items:center;
+  align-self:flex-start;
+  gap:6px;
+  color:#8CF2C1;
+  font-weight:740;
+  font-size:.82rem;
+  text-decoration:none;
+}
+.details-layout .games-plan-link:hover{
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.details-layout .games-plan-link .ui-icon{
+  width:17px;
+  height:17px;
+}
+.details-layout .rules-card>h2{
+  font-size:1.22rem;
+  margin:0 0 13px;
+}
+.details-layout .rules-quick{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:13px;
+}
+.details-layout .rule-item{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  border-right:1px solid #31576A;
+  padding:2px 15px 3px 0;
+}
+.details-layout .rule-item:last-child{
+  border-right:0;
+  padding-right:0;
+}
+.details-layout .rule-label{
+  color:#A4C6D3;
+  font-size:.75rem;
+  font-weight:650;
+}
+.details-layout .rule-item strong{
+  color:#E9F8FB;
+  font-size:1.02rem;
+  font-weight:790;
+  line-height:1.3;
+}
+.details-layout .rule-detail{
+  color:#ADCAD5;
+  font-size:.76rem;
+  line-height:1.4;
+}
+.details-layout .rules-more{
+  margin-top:14px;
+  border-top:1px solid #31576A;
+  padding-top:11px;
+}
+.details-layout .rules-more summary{
+  width:max-content;
+  max-width:100%;
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  cursor:pointer;
+  list-style:none;
+  color:#88EFC2;
+  font-weight:740;
+  font-size:.8rem;
+}
+.details-layout .rules-more summary::-webkit-details-marker{display:none}
+.details-layout .rules-more summary .ui-icon{
+  width:15px;
+  height:15px;
+  transition:transform .15s ease;
+}
+.details-layout .rules-more[open] summary .ui-icon{transform:rotate(180deg)}
+.details-layout .rules-more ul.regras{
+  margin:12px 0 0;
+  padding-left:19px;
+  color:#CEE1E8;
+}
+.details-layout .rules-more ul.regras li{
+  margin-bottom:8px;
+  line-height:1.55;
+}
+@media(max-width:1000px){
+  .details-layout .col-b{grid-template-columns:minmax(0,1fr) minmax(0,1.45fr);gap:12px}
+  .details-layout .col-b>.sec.draw-result,
+  .details-layout .col-b>.sec.registered-games{min-height:215px;padding:16px}
+  .details-layout .result-balls .bola{flex-basis:34px;width:34px;height:34px}
+}
+@media(max-width:750px){
+  .details-layout .col-b{grid-template-columns:minmax(0,1fr);gap:12px}
+  .details-layout .col-b>.sec.draw-result,
+  .details-layout .col-b>.sec.registered-games,
+  .details-layout .col-b>.sec.rules-card,
+  .details-layout .col-b>#secPremio{grid-column:1;min-height:0;height:auto}
+  .details-layout .rules-quick{grid-template-columns:1fr;gap:10px}
+  .details-layout .rule-item{
+    border-right:0;
+    border-bottom:1px solid #31576A;
+    padding:0 0 10px;
+  }
+  .details-layout .rule-item:last-child{border-bottom:0;padding-bottom:0}
+  .details-layout .col-b>.sec.rules-card{padding:16px}
+}
+@media(prefers-reduced-motion:reduce){
+  .details-layout .rules-more summary .ui-icon{transition:none}
+}
