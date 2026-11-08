@@ -915,7 +915,7 @@ button, input, textarea, select { font: inherit; }
 .detail-dialog-scroll .sec h3{margin:13px 0 9px}
 .detail-dialog-scroll table{width:100%}
 .detail-dialog-scroll .nota{overflow-wrap:anywhere}
-@media(max-width:1200px){
+@media(max-width:980px){
   .overview-trio{
     grid-template-columns:repeat(2,minmax(0,1fr));
     align-items:stretch;
@@ -941,4 +941,32 @@ button, input, textarea, select { font: inherit; }
 }
 @media(prefers-reduced-motion:reduce){
   .overview-trio .plan-trigger{transition:none}
+}
+
+/* iPad em paisagem: quatro cards mesmo com ~1024 px de viewport CSS. */
+@media(min-width:981px) and (max-width:1260px){
+  .overview-trio{gap:9px}
+  .overview-trio .draw-card,.overview-trio .pix-card{padding:11px 10px}
+  .overview-trio .participants-trigger,.overview-trio .plan-trigger{padding:11px 10px}
+  .overview-trio .draw-facts{grid-template-columns:1fr 1fr;gap:3px}
+  .overview-trio .draw-detail,
+  .overview-trio .draw-award{gap:4px;padding:6px 0 3px}
+  .overview-trio .draw-detail>.ui-icon,.overview-trio .draw-award>.ui-icon{
+    width:15px;height:15px;
+  }
+  .overview-trio .draw-detail strong{font-size:.74rem}
+  .overview-trio .contest-number{font-size:.65rem}
+  .overview-trio .pix-card h2{font-size:.81rem;gap:5px}
+  .overview-trio .pix-price{font-size:.67rem}
+  .overview-trio .pix-card .pagar-linha{gap:5px;flex-wrap:nowrap}
+  .overview-trio .pix-card .qrbox{flex:0 0 76px;width:76px;padding:4px}
+  .overview-trio .pix-card .pix-dados{flex:1 1 92px}
+  .overview-trio .pix-card .pix-dados dd{font-size:.64rem;line-height:1.25}
+  .overview-trio .pix-card .pix-dados dt{font-size:.61rem}
+  .overview-trio .pix-actions{grid-template-columns:1fr}
+  .overview-trio .pix-actions button{min-height:34px;font-size:.69rem}
+  .overview-trio .participants-heading,
+  .overview-trio .plan-heading{font-size:.86rem;gap:5px}
+  .overview-trio .participants-heading .ui-icon,
+  .overview-trio .plan-heading .ui-icon{width:17px;height:17px}
 }
