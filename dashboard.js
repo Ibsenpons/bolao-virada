@@ -13,6 +13,7 @@
   const expenses = Array.isArray(BOLAO.despesas) ? BOLAO.despesas.filter(d => Number.isFinite(Number(d.valor)) && Number(d.valor) >= 0) : [];
   const spent = expenses.reduce((sum,d) => sum + Number(d.valor), 0);
   const put = (id, value) => { const node=byId(id); if(node) node.textContent=value; };
+  put("kpiArrecadado", money(received));
   put("finArrecadado", money(received));
   put("finGasto", money(spent));
   put("finSaldo", money(received - spent));
