@@ -316,7 +316,7 @@
       <section class="sec rules-card" id="secRegras" aria-labelledby="h-regras">
         <h2 id="h-regras">Regras do bolão</h2>
         <div class="rules-quick">
-          <div class="rule-item"><span class="rule-label">Prazo para pagar</span><strong id="regraPrazo">—</strong><span class="rule-detail">Até a data informada</span></div>
+          <div class="rule-item"><span class="rule-label">Prazo para pagar</span><strong id="regraPrazo">—</strong><span class="rule-detail">Pagamento confirmado até essa data</span></div>
           <div class="rule-item"><span class="rule-label">Valor da cota</span><strong id="regraCota">—</strong><span class="rule-detail">Sem reservas · confirmação após pagamento</span></div>
           <div class="rule-item"><span class="rule-label">Divisão do prêmio</span><strong>Por cota paga</strong><span class="rule-detail">Sena, quina e quadra de todos os jogos</span></div>
         </div>
@@ -720,11 +720,12 @@ function configurarDialogSecao(idDialog, idBotao, idFechar, ancora) {
   };
   if (idBotao) $(idBotao).addEventListener("click", abrir);
   $(idFechar).addEventListener("click", fechar);
-  document.querySelectorAll('a[href="#' + ancora + '"]').forEach(link => {
-    link.addEventListener("click", event => {
-      event.preventDefault();
-      abrir();
-    });
+  // Delegação: funciona também com links adicionados ao DOM após render().
+  document.addEventListener("click", event => {
+    const link = event.target.closest?.('a[href="#' + ancora + '"]');
+    if (!link) return;
+    event.preventDefault();
+    abrir();
   });
   dialog.addEventListener("click", event => {
     if (event.target === dialog) fechar();
