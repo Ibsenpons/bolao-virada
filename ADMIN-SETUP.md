@@ -10,6 +10,14 @@ Esta implementação fica na ramificação `feat/painel-admin-d1-2026-11-08`, cr
 - O site lê `/api/public` no Worker e mostra apenas pagamentos confirmados e links de comprovantes marcados como revisados. No GitHub Pages, a página original ainda funciona com os dados já publicados no HTML.
 - Os comprovantes são links para arquivos externos, não uploads. A criação é privada; a publicação exige uma ação separada de revisão. O operador deve remover dados pessoais do arquivo e conferir as permissões do destino antes de publicar.
 
+## Estado do preview em 08/11/2026
+
+- O Worker separado `bolao-virada-admin-preview` está disponível em [sua página administrativa](https://bolao-virada-admin-preview.ibsen-pons.workers.dev/admin/). Ele foi implantado manualmente, fora da ramificação que publica o Worker ativo.
+- O D1 separado `bolao-virada-admin-preview` recebeu a migração inicial. Nenhum participante ou pagamento adicional foi criado no preview.
+- Uma aplicação Cloudflare Access cobre o Worker de preview inteiro com a política existente “Participantes do Bolão”. Uma requisição sem sessão para `/admin/` foi redirecionada à tela de login; a autorização administrativa também é verificada no servidor.
+- O segredo `ADMIN_EMAILS` foi configurado no Worker de preview sem ser gravado no Git.
+- O teste do painel com uma sessão real do administrador e a conferência visual em tela estreita ainda estão pendentes. Não usar o preview para registrar dados reais até concluir esses testes.
+
 ## Preparação isolada antes de qualquer publicação
 
 1. Confirmar no painel Cloudflare que builds de preview de novas ramificações estão desativados ou protegidos por Access. Não usar `cloudflare-acesso-privado` para testes de código, pois ela está ligada ao deploy automático do Worker ativo.
