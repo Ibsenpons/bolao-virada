@@ -372,3 +372,21 @@ button, input, textarea, select { font: inherit; }
 @media(max-width:750px){
   .overview-shell{margin-bottom:13px}
 }
+
+/* Não existem reservas: os únicos três indicadores são confirmados/pagos e apostas. */
+.overview-shell .metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+.finance-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.overview-main{justify-content:flex-start}
+.overview-shell{align-items:start}
+@media(max-width:1050px){
+  .overview-shell .metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:750px){
+  .overview-shell .metrics{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+  .finance-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:560px){
+  .overview-shell .metrics{grid-template-columns:1fr}
+  .overview-shell .metric{min-height:72px;grid-template-columns:42px 1fr;gap:2px 12px}
+  .finance-grid{grid-template-columns:1fr}
+}
