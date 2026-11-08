@@ -1,0 +1,4 @@
+# Arquivos gerados localmente, não devem entrar no Git
+/dist/
+/node_modules/
+.wrangler/
