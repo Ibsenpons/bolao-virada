@@ -40,7 +40,7 @@
   const docsTarget = byId("listaComprovantes");
   if(docsTarget) docsTarget.innerHTML = documents.length
     ? '<ul class="document-list">' + documents.map(d =>
-        '<li><span class="doc-icon" aria-hidden="true">▤</span><div><strong>' +
+        '<li><span class="doc-icon" aria-hidden="true"><svg class="ui-icon"><use href="#i-doc"></use></svg></span><div><strong>' +
         safe(d.titulo || "Comprovante") + '</strong><small>' + safe(date(d.data)) +
         '</small></div>' +
         (safeUrl(d.url) ? '<a href="' + safe(d.url) +
