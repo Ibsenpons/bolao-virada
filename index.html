@@ -138,7 +138,7 @@
 </style>
 <link rel="stylesheet" href="./dashboard.css?v=20261108-02">
 <link rel="preload" href="./assets/fonts/manrope-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="./home.css?v=20261108-participantes-linha1">
+<link rel="stylesheet" href="./home.css?v=20261108-menu-cinco1">
 </head>
 <body>
 <main>
@@ -163,6 +163,7 @@
     <symbol id="i-check-circle" viewBox="0 0 256 256" fill="currentColor"><path d="M173.66,98.34a8,8,0,0,1,0,11.32l-56,56a8,8,0,0,1-11.32,0l-24-24a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35A8,8,0,0,1,173.66,98.34ZM232,128A104,104,0,1,1,128,24,104.11,104.11,0,0,1,232,128Zm-16,0a88,88,0,1,0-88,88A88.1,88.1,0,0,0,216,128Z"/></symbol>
     <symbol id="i-circle" viewBox="0 0 256 256" fill="currentColor"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216Z"/></symbol>
     <symbol id="i-shield-check" viewBox="0 0 256 256" fill="currentColor"><path d="M208,40H48A16,16,0,0,0,32,56v56c0,52.72,25.52,84.67,46.93,102.19,23.06,18.86,46,25.26,47,25.53a8,8,0,0,0,4.2,0c1-.27,23.91-6.67,47-25.53C198.48,196.67,224,164.72,224,112V56A16,16,0,0,0,208,40Zm0,72c0,37.07-13.66,67.16-40.6,89.42A129.3,129.3,0,0,1,128,223.62a128.25,128.25,0,0,1-38.92-21.81C61.82,179.51,48,149.3,48,112l0-56,160,0ZM82.34,141.66a8,8,0,0,1,11.32-11.32L112,148.69l50.34-50.35a8,8,0,0,1,11.32,11.32l-56,56a8,8,0,0,1-11.32,0Z"/></symbol>
+    <symbol id="i-list" viewBox="0 0 256 256" fill="currentColor"><path d="M224,128a8,8,0,0,1-8,8H40a8,8,0,0,1,0-16H216A8,8,0,0,1,224,128ZM40,72H216a8,8,0,0,0,0-16H40a8,8,0,0,0,0,16ZM216,184H40a8,8,0,0,0,0,16H216a8,8,0,0,0,0-16Z"/></symbol>
   </defs>
 </svg>
   <header id="inicio" class="page-intro">
@@ -170,14 +171,15 @@
     <a class="brand" href="#inicio" aria-label="Bilhão da Virada 2026 — início"><img class="brand-logo" src="./assets/logo-bilhao-manrope-vetorial.svg" width="1020" height="120" alt="Bilhão da Virada 2026" decoding="async"></a>
     
   </div>
-  <nav class="quick-nav" aria-label="Menu principal">
-    <a class="nav-home" href="#inicio"><svg class="ui-icon" aria-hidden="true"><use href="#i-home"></use></svg><span>Início</span></a>
+  <button type="button" class="mobile-menu-toggle" id="mobileMenuToggle" aria-controls="siteNavigation" aria-expanded="false" aria-label="Abrir menu de navegação">
+    <svg class="ui-icon" aria-hidden="true"><use href="#i-list"></use></svg><span>Menu</span>
+  </button>
+  <nav class="quick-nav" id="siteNavigation" aria-label="Menu principal">
     <a href="#cotas"><svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg><span>Participantes</span></a>
     <a href="#apostas"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg><span>Apostas</span></a>
     <a href="#resultado"><svg class="ui-icon" aria-hidden="true"><use href="#i-trophy"></use></svg><span>Resultado</span></a>
-    <details class="nav-more"><summary aria-label="Mais opções">Mais <svg class="ui-icon nav-caret" aria-hidden="true"><use href="#i-caret-down"></use></svg></summary>
-      <div class="nav-more-links"><a href="#comprovantes"><svg class="ui-icon" aria-hidden="true"><use href="#i-doc"></use></svg> Comprovantes</a><a href="#jogos-registrados"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg> Jogos registrados</a><a href="#participar"><svg class="ui-icon" aria-hidden="true"><use href="#i-ticket"></use></svg> Como participar / Pix</a><a href="#arrecadacao"><svg class="ui-icon" aria-hidden="true"><use href="#i-wallet"></use></svg> Arrecadação</a><a href="#secRegras"><svg class="ui-icon" aria-hidden="true"><use href="#i-doc"></use></svg> Regras</a></div>
-    </details>
+    <a href="#comprovantes"><svg class="ui-icon" aria-hidden="true"><use href="#i-doc"></use></svg><span>Comprovantes</span></a>
+    <a href="#secRegras"><svg class="ui-icon" aria-hidden="true"><use href="#i-doc"></use></svg><span>Regras</span></a>
   </nav>
 </header>
 
@@ -721,7 +723,7 @@ configurarDialogSecao("comprovantesDialog", null, "fecharComprovantes", "comprov
 
 render();
 </script>
-<script src="./dashboard.js?v=20261108-02" defer></script>
+<script src="./dashboard.js?v=20261108-menu-cinco1" defer></script>
 <script src="./home.js?v=20261108-02" defer></script>
 </body>
 </html>
