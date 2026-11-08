@@ -1255,6 +1255,24 @@ button, input, textarea, select { font: inherit; }
   }
 }
 
+/* Recorta apenas as margens vazias da arte enviada; trevo e lettering ficam inteiros. */
+.page-intro .brand-logo{
+  display:block;
+  width:clamp(290px,28vw,390px);
+  max-width:100%;
+  max-height:none;
+  height:auto;
+  aspect-ratio:2048 / 340;
+  object-fit:cover;
+  object-position:center;
+}
+@media(max-width:980px){
+  .page-intro .brand-logo{
+    width:min(340px,calc(100vw - 132px));
+    max-height:none;
+  }
+}
+
 /* Contagem de participantes integrada ao cabeçalho do card. */
 .overview-trio .participants-heading .participants-meta {
   display:inline-block;

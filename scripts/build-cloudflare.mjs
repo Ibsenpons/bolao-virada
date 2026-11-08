@@ -14,6 +14,7 @@ const publicFiles = [
   'dashboard.js',
   'assets/fonts/manrope-latin-variable.woff2',
   'assets/logo-bilhao-manrope-vetorial.svg',
+  'assets/logo-bilhao-2026-enviado.png',
   'assets/pix-megada-virada26.png',
 ];
 
