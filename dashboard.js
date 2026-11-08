@@ -40,28 +40,15 @@
     : '<p class="empty-state">Os comprovantes poderão aparecer aqui após conferência e ocultação de dados pessoais.</p>';
 })();
 
-/* Âncoras e retorno ao topo — não altera os dados do bolão. */
+/* Retorno ao topo. Sem seleção permanente no menu baseada no hash. */
 (() => {
   "use strict";
-  const nav = document.querySelector(".quick-nav");
   const back = document.getElementById("backToTop");
-  if (!nav || !back) return;
-  const anchors = Array.from(nav.querySelectorAll('a[href^="#"]'));
-  const highlight = () => {
-    const hash = window.location.hash;
-    anchors.forEach(a => {
-      const active = hash.length > 1 && a.getAttribute("href") === hash;
-      a.classList.toggle("is-active", active);
-      if (active) a.setAttribute("aria-current", "location");
-      else a.removeAttribute("aria-current");
-    });
-  };
+  if (!back) return;
   const updateBack = () => {
     back.classList.toggle("is-visible", window.scrollY > 360);
   };
-  window.addEventListener("hashchange", highlight);
   window.addEventListener("scroll", updateBack, { passive:true });
-  highlight();
   updateBack();
 })();
 
