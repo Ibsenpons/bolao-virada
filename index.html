@@ -490,6 +490,12 @@ function renderCapacidade() {
   $("capTexto").textContent = "Valor arrecadado até agora: " + brl(arrecadado) + ".";
 
   const hoje = sugerirJogos(arrecadado);
+  $("planArrecadacao").textContent = brl(arrecadado);
+  const destaques = hoje.itens.slice(0, 2).map(descJogos);
+  $("planSugestao").textContent = destaques.length
+    ? destaques.join(" + ") + (hoje.itens.length > 2 ? " + outros jogos" : "")
+    : "Ainda não há valor suficiente para apostar.";
+  $("planSobra").textContent = "Sobra estimada: " + brl(hoje.sobra);
   let linhas = hoje.itens.map((i) =>
     "<tr><td>" + descJogos(i) + '</td><td class="num2">' + brl(i.qtd * i.preco) + "</td></tr>"
   ).join("");
@@ -676,6 +682,39 @@ participantesDialog.addEventListener("close", function () {
   $("buscarParticipante").value = "";
   renderParticipantes();
 });
+
+/* Modal de planejamento e comprovantes. Mantém âncoras antigas funcionais. */
+function configurarDialogSecao(idDialog, idBotao, idFechar, ancora) {
+  const dialog = $(idDialog);
+  const abrir = () => {
+    if (!dialog.open) {
+      if (typeof dialog.showModal === "function") dialog.showModal();
+      else dialog.setAttribute("open", "");
+    }
+  };
+  const fechar = () => {
+    if (typeof dialog.close === "function") dialog.close();
+    else dialog.removeAttribute("open");
+  };
+  if (idBotao) $(idBotao).addEventListener("click", abrir);
+  $(idFechar).addEventListener("click", fechar);
+  document.querySelectorAll('a[href="#' + ancora + '"]').forEach(link => {
+    link.addEventListener("click", event => {
+      event.preventDefault();
+      abrir();
+    });
+  });
+  dialog.addEventListener("click", event => {
+    if (event.target === dialog) fechar();
+  });
+  window.addEventListener("hashchange", () => {
+    if (location.hash === "#" + ancora) abrir();
+  });
+  if (location.hash === "#" + ancora) abrir();
+}
+configurarDialogSecao("planejamentoDialog", "abrirPlanejamento", "fecharPlanejamento", "apostas");
+configurarDialogSecao("comprovantesDialog", null, "fecharComprovantes", "comprovantes");
+
 
 render();
 </script>
