@@ -27,6 +27,23 @@
         <div class="table-scroll"><table><thead><tr><th>Participante</th><th>Cotas</th><th>Pagamento</th><th>Ações</th></tr></thead><tbody id="participantsBody"></tbody></table></div>
       </section>
 
+      <dialog id="participantDialog" aria-labelledby="participantDialogTitle">
+        <form id="participantEditForm" class="edit-form">
+          <div class="dialog-head"><h2 id="participantDialogTitle">Editar participante</h2><button type="button" class="close-button" id="closeParticipantDialog" aria-label="Fechar">×</button></div>
+          <p class="hint">Confira cotas e valor recebido separadamente. A confirmação anterior fica no histórico quando valor, data ou situação mudam.</p>
+          <label>Nome <input name="name" maxlength="120" required autocomplete="off"></label>
+          <label>Cotas <input name="shares" type="number" min="1" max="1000" step="1" required></label>
+          <label>Situação do pagamento <select name="paymentStatus"><option value="confirmed">Confirmado</option><option value="pending">Sem pagamento confirmado</option></select></label>
+          <div id="paymentEditFields" class="edit-payment-fields">
+            <label>Valor recebido em reais <input name="amount" type="number" min="0.01" max="1000000" step="0.01" required></label>
+            <label>Data do pagamento <input name="date" type="date"></label>
+            <p id="paymentDateHint" class="hint">Deixe em branco somente se a data do pagamento já era desconhecida.</p>
+          </div>
+          <p id="participantEditMessage" class="message error" role="alert" hidden></p>
+          <div class="dialog-actions"><button type="button" class="secondary-button" id="cancelParticipantEdit">Cancelar</button><button type="submit">Salvar alterações</button></div>
+        </form>
+      </dialog>
+
       <section class="card" id="despesas"><div class="section-head"><div><p class="eyebrow">Financeiro</p><h2>Despesas</h2></div></div>
         <form id="expenseForm" class="form-grid"><label>Descrição <input name="description" maxlength="200" required></label><label>Valor em reais <input name="amount" type="number" min="0.01" step="0.01" required></label><label>Data <input name="date" type="date" required></label><button>Registrar despesa</button></form>
         <div class="table-scroll"><table><thead><tr><th>Descrição</th><th>Data</th><th>Valor</th><th>Ações</th></tr></thead><tbody id="expensesBody"></tbody></table></div>

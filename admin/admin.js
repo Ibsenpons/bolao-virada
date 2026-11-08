@@ -6,6 +6,8 @@
   const day = value => value ? value.split('-').reverse().join('/') : 'Data não informada';
   const cents = value => Math.round(Number(value) * 100);
   let state;
+  let editingParticipantId = null;
+  let editingPayment = null;
   function message(text, error = false) { $('message').textContent = text; $('message').classList.toggle('error', error); }
   async function api(path, method = 'GET', data) {
     const response = await fetch(path, {
@@ -71,6 +73,46 @@
   onForm('expenseForm', v => ['/api/admin/expenses', 'POST', { description: v.description, amount_cents: cents(v.amount), incurred_on: v.date }, 'Despesa registrada.']);
   onForm('betForm', v => ['/api/admin/bets', 'POST', { numbers: v.numbers.split(/[\s,;]+/).filter(Boolean).map(Number), amount_cents: cents(v.amount), placed_on: v.date }, 'Aposta registrada.']);
   onForm('receiptForm', v => ['/api/admin/receipts', 'POST', { title: v.title, kind: v.kind, document_date: v.date, document_url: v.url.trim() }, 'Comprovante registrado como privado.']);
+  const editDialog = $('participantDialog');
+  const editForm = $('participantEditForm');
+  function syncPaymentFields() {
+    const confirmed = editForm.elements.paymentStatus.value === 'confirmed';
+    $('paymentEditFields').hidden = !confirmed;
+    editForm.elements.amount.disabled = !confirmed;
+    editForm.elements.amount.required = confirmed;
+    editForm.elements.date.disabled = !confirmed;
+    editForm.elements.date.required = confirmed && !editingPayment;
+    $('paymentDateHint').hidden = !editingPayment;
+  }
+  editForm.elements.paymentStatus.addEventListener('change', syncPaymentFields);
+  $('closeParticipantDialog').addEventListener('click', () => editDialog.close());
+  $('cancelParticipantEdit').addEventListener('click', () => editDialog.close());
+  editForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    const values = Object.fromEntries(new FormData(editForm));
+    const confirmed = values.paymentStatus === 'confirmed';
+    const payload = {
+      name: values.name,
+      shares: Number(values.shares),
+      payment: {
+        id: editingPayment?.id ?? null,
+        status: confirmed ? 'confirmed' : 'pending',
+        amount_cents: confirmed ? cents(values.amount) : null,
+        confirmed_on: confirmed ? (values.date || null) : null,
+      },
+    };
+    const saveButton = editForm.querySelector('button[type="submit"]');
+    saveButton.disabled = true;
+    try {
+      await api(`/api/admin/participants/${editingParticipantId}`, 'PATCH', payload);
+      editDialog.close();
+      await refresh('Participante e pagamento atualizados.');
+    } catch (error) {
+      $('participantEditMessage').textContent = error.message;
+      $('participantEditMessage').hidden = false;
+      if (!editDialog.open) message(error.message, true);
+    } finally { saveButton.disabled = false; }
+  });
   document.addEventListener('click', async event => {
     const button = event.target.closest('button[data-action]');
     if (!button) return;
@@ -84,11 +126,16 @@
     }
     if (action === 'edit-participant') {
       const p = state.participants.find(row => row.id === id);
-      const name = prompt('Nome do participante:', p.name);
-      if (name === null) return;
-      const shares = prompt('Quantidade de cotas:', String(p.shares));
-      if (shares === null) return;
-      return act(`/api/admin/participants/${id}`, 'PATCH', { name, shares: Number(shares) }, 'Participante atualizado.');
+      editingParticipantId = id;
+      editingPayment = state.payments.find(row => row.participant_id === id && row.status === 'confirmed') ?? null;
+      editForm.elements.name.value = p.name;
+      editForm.elements.shares.value = p.shares;
+      editForm.elements.paymentStatus.value = editingPayment ? 'confirmed' : 'pending';
+      editForm.elements.amount.value = editingPayment ? (editingPayment.amount_cents / 100).toFixed(2) : (p.shares * state.price_cents / 100).toFixed(2);
+      editForm.elements.date.value = editingPayment?.confirmed_on ?? '';
+      $('participantEditMessage').hidden = true;
+      syncPaymentFields();
+      return editDialog.showModal();
     }
     if (action === 'review') {
       const r = state.receipts.find(row => row.id === id);
