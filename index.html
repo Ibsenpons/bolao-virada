@@ -138,7 +138,7 @@
 </style>
 <link rel="stylesheet" href="./dashboard.css?v=20261108-02">
 <link rel="preload" href="./assets/fonts/manrope-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="./home.css?v=20261108-sem-titulo-resultados1">
+<link rel="stylesheet" href="./home.css?v=20261108-participantes-compactos1">
 </head>
 <body>
 <main>
@@ -214,7 +214,7 @@
   <button type="button" class="participants-trigger" id="abrirParticipantes" aria-haspopup="dialog" aria-controls="participantesDialog" aria-label="Ver todos os participantes confirmados">
     <span class="participants-heading"><svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg><span>Participantes</span><span class="participants-meta" id="resumoTxt">—</span></span>
     <span class="participants-preview" id="participantesPrevia"></span>
-    <span class="participants-view-all">Ver todos <svg class="ui-icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></span>
+    <span class="participants-view-all"><span id="participantesVerTodosTexto">Ver todos</span> <svg class="ui-icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></span>
   </button>
 </section>
 <section class="plan-card" id="arrecadacao" aria-label="Apostas e planejamento"><button type="button" class="plan-trigger" id="abrirPlanejamento" aria-haspopup="dialog" aria-controls="planejamentoDialog">
@@ -350,7 +350,7 @@ const BOLAO = {
   premioEstimado: "R$ 1 bilhão",   // valor estimado divulgado pela Caixa; atualizar se mudar
   dataSorteio: "2027-01-01",   // sorteio em 1º de janeiro de 2027, às 11h
   prazoParticipacao: "2026-12-15",   // último dia para pagar a cota
-  atualizadoEm: "07/11/2026",
+  atualizadoEm: "08/11/2026",
   valorCota: 50,              // valor de cada cota, em reais
 
   // Preço de cada aposta na Mega da Virada 2026 (tabela da Caixa)
@@ -388,7 +388,8 @@ const BOLAO = {
   comprovantes: [],
 
   participantes: [
-    { nome: "Ibsen P.", cotas: 1, pago: true }
+    { nome: "Ibsen P.", cotas: 1, pago: true },
+    { nome: "José S.", cotas: 1, pago: true }
   ],
 
   // Cada jogo tem 6 dezenas
@@ -606,8 +607,7 @@ function renderPremio() {
 }
 
 function participantesConfirmados() {
-  return (BOLAO.participantes || []).filter((p) => p.pago === true && Number(p.cotas) > 0)
-    .slice().sort((a, b) => String(a.nome).localeCompare(String(b.nome), "pt-BR", { sensitivity: "base" }));
+  return (BOLAO.participantes || []).filter((p) => p.pago === true && Number(p.cotas) > 0);
 }
 function iniciaisParticipante(nome) {
   const palavras = String(nome).trim().split(/\s+/).filter(Boolean);
@@ -616,17 +616,37 @@ function iniciaisParticipante(nome) {
 function normalizarBuscaParticipante(valor) {
   return String(valor).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").trim();
 }
+function capacidadePreviaParticipantes() {
+  const largura = window.innerWidth;
+  const limite = largura <= 700 ? 4 : 6;
+  const altura = largura <= 700 ? 190
+    : largura <= 980 ? $("arrecadacao").getBoundingClientRect().height
+    : Math.max(...["participar", "arrecadacao"].map(id => $(id).getBoundingClientRect().height),
+      document.querySelector(".overview-trio .draw-card").getBoundingClientRect().height);
+  const botao = $("abrirParticipantes");
+  const estilo = getComputedStyle(botao);
+  const espaco = altura - parseFloat(estilo.paddingTop) - parseFloat(estilo.paddingBottom)
+    - botao.querySelector(".participants-heading").getBoundingClientRect().height
+    - botao.querySelector(".participants-view-all").getBoundingClientRect().height
+    - 2 * parseFloat(estilo.gap);
+  const alturaLinha = largura <= 700 ? 26 : 28;
+  const intervalo = 2;
+  return Math.max(1, Math.min(limite, Math.floor((espaco + intervalo) / (alturaLinha + intervalo))));
+}
 function renderParticipantes() {
   const todos = participantesConfirmados();
-  const primeiro = todos[0];
-  $("participantesPrevia").innerHTML = primeiro
-    ? '<span class="participant-row participant-preview-row">' +
-      '<span class="participant-row-avatar" aria-hidden="true">' + esc(iniciaisParticipante(primeiro.nome)) + '</span>' +
-      '<span class="participant-row-name">' + esc(primeiro.nome) + '</span>' +
-      '<span class="participant-row-shares">' + Number(primeiro.cotas) + (Number(primeiro.cotas) === 1 ? " cota" : " cotas") + '</span>' +
-      '</span>' +
-      (todos.length > 1 ? '<span class="participants-preview-extra">+' + (todos.length - 1) + ' outros</span>' : "")
+  const visiveis = todos.slice(0, capacidadePreviaParticipantes());
+  $("participantesPrevia").innerHTML = visiveis.length
+    ? visiveis.map(p => {
+      const cotas = Number(p.cotas);
+      return '<span class="participant-row participant-preview-row">' +
+        '<span class="participant-row-avatar" aria-hidden="true">' + esc(iniciaisParticipante(p.nome)) + '</span>' +
+        '<span class="participant-row-name">' + esc(p.nome) + '</span>' +
+        '<span class="participant-row-shares">' + cotas + (cotas === 1 ? " cota" : " cotas") + '</span>' +
+        '</span>';
+    }).join("")
     : '<span class="participants-preview-empty">Nenhum participante confirmado ainda.</span>';
+  $("participantesVerTodosTexto").textContent = "Ver todos (" + todos.length + ")";
 
   const termo = normalizarBuscaParticipante($("buscarParticipante").value);
   const encontrados = termo ? todos.filter(p => normalizarBuscaParticipante(p.nome).includes(termo)) : todos;
@@ -694,6 +714,8 @@ $("fecharParticipantes").addEventListener("click", function () {
   else participantesDialog.removeAttribute("open");
 });
 $("buscarParticipante").addEventListener("input", renderParticipantes);
+window.addEventListener("resize", renderParticipantes);
+window.addEventListener("load", renderParticipantes);
 participantesDialog.addEventListener("click", function (event) {
   if (event.target === participantesDialog) {
     if (typeof participantesDialog.close === "function") participantesDialog.close();
