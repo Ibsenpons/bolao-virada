@@ -1305,8 +1305,8 @@ button, input, textarea, select { font: inherit; }
   display:none;
 }
 .details-layout::before{
-  content:"Resultados e apostas";
-  margin-bottom:15px;
+  display:none;
+  content:none;
 }
 .details-layout .col-b>.sec.draw-result,
 .details-layout .col-b>.sec.registered-games{
