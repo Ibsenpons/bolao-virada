@@ -248,3 +248,10 @@ main{max-width:1580px;margin:auto;padding:0 clamp(14px,2.4vw,36px) 42px}
   .progress-heading h2{font-size:1.08rem}
 }
 @media(prefers-reduced-motion:reduce){.progress-fill{transition:none}}
+
+/* Trevo em SVG: idêntico no Safari, Chrome e iPad, sem dependência de emojis. */
+.hero-clover-art{
+ display:block;aspect-ratio:1/1;object-fit:contain;height:auto;
+ filter:drop-shadow(0 14px 24px rgba(0,95,67,.34));
+}
+@media(max-width:400px){.hero-clover-art{max-height:160px}}
