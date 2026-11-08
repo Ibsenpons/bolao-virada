@@ -34,7 +34,7 @@
     const ok=!!steps[item.dataset.step];
     item.classList.toggle("done",ok);
     const marker=item.querySelector(".step-symbol");
-    if(marker)marker.textContent=ok?"✓":"○";
+    if(marker){const u=marker.querySelector("use");if(u)u.setAttribute("href",ok?"#i-check-circle":"#i-circle");}
   });
 
   // Fechar menu de seções ao escolher qualquer link.
