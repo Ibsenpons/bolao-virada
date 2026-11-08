@@ -59,7 +59,9 @@ test('assinatura, audiência e lista de e-mails protegem páginas e API', async 
   assert.equal((await call('/api/admin/state', 'GET', null, '')).status, 403);
   assert.equal((await call('/admin/', 'GET', null, familyToken)).status, 403);
   assert.equal((await call('/api/admin/state', 'GET', null, wrongAudienceToken)).status, 403);
-  assert.equal((await call('/api/admin/state', 'GET', null, adminToken.slice(0, -1) + 'x')).status, 403);
+  const [header, payload, signature] = adminToken.split('.');
+  const tampered = [header, payload, (signature[0] === 'A' ? 'B' : 'A') + signature.slice(1)].join('.');
+  assert.equal((await call('/api/admin/state', 'GET', null, tampered)).status, 403);
   assert.equal((await call('/api/admin/state')).status, 200);
   assert.equal((await call('/admin/')).status, 200);
   assert.equal((await call('/api/public', 'GET', null, familyToken)).status, 200);

@@ -1,4 +1,4 @@
-# Painel administrativo — primeira versão de teste
+# Painel administrativo — preparação para implantação
 
 Esta implementação fica na ramificação `feat/painel-admin-d1-2026-11-08`, criada a partir de `cloudflare-acesso-privado`. A `main`, o GitHub Pages e o Worker ativo não devem receber estas alterações antes de aprovação específica.
 
@@ -6,22 +6,29 @@ Esta implementação fica na ramificação `feat/painel-admin-d1-2026-11-08`, cr
 
 - O painel em `/admin/` cadastra participantes, confirma ou cancela pagamentos, altera o valor das novas cotas e registra despesas, apostas e metadados de comprovantes.
 - O Worker valida criptograficamente o JWT enviado pelo Cloudflare Access em todas as rotas, incluindo assinatura, emissor (`ACCESS_TEAM_DOMAIN`), público (`ACCESS_AUD`) e validade. Em `/admin/` e `/api/admin/*`, ele também compara o e-mail autenticado com `ADMIN_EMAILS`, no servidor. Um cabeçalho forjado não concede permissão.
-- O D1 guarda participantes, pagamentos, valores, despesas, apostas e comprovantes. A migração inclui o único registro existente no HTML: `Ibsen P.`, uma cota, pagamento confirmado de R$ 50. A data de pagamento original fica vazia porque não consta no código.
+- O D1 guarda participantes, pagamentos, valores, despesas, apostas e comprovantes. A migração inicial reproduz somente o registro que já estava no HTML público. Correções e novos registros confirmados pelo organizador foram aplicados nos bancos privados, sem publicar esses dados no Git. A data de pagamento original continua vazia porque não foi informada.
 - O site lê `/api/public` no Worker e mostra apenas pagamentos confirmados e links de comprovantes marcados como revisados. No GitHub Pages, a página original ainda funciona com os dados já publicados no HTML.
 - Os comprovantes são links para arquivos externos, não uploads. A criação é privada; a publicação exige uma ação separada de revisão. O operador deve remover dados pessoais do arquivo e conferir as permissões do destino antes de publicar.
 
 ## Estado do preview em 08/11/2026
 
 - O Worker separado `bolao-virada-admin-preview` está disponível em [sua página administrativa](https://bolao-virada-admin-preview.ibsen-pons.workers.dev/admin/). Ele foi implantado manualmente, fora da ramificação que publica o Worker ativo.
-- O D1 separado `bolao-virada-admin-preview` recebeu a migração inicial. Nenhum participante ou pagamento adicional foi criado no preview.
+- O D1 separado `bolao-virada-admin-preview` recebeu a migração inicial e depois registros inseridos pelo organizador. Ele contém dados reais e uma aposta de exemplo; não deve ser copiado integralmente para produção.
 - Uma aplicação Cloudflare Access cobre o Worker de preview inteiro com a política existente “Participantes do Bolão”. Uma requisição sem sessão para `/admin/` foi redirecionada à tela de login; a autorização administrativa também é verificada no servidor.
 - O segredo `ADMIN_EMAILS` foi configurado no Worker de preview sem ser gravado no Git.
-- A interface foi conferida localmente nas larguras de 390 e 320 pixels, com resposta vazia de teste: formulários legíveis, tabelas com rolagem própria e sem rolagem horizontal da página. Com uma sessão real do administrador, o painel e o site de preview carregaram o único participante conhecido, uma cota e R$ 50 confirmados. Uma despesa descartável de R$ 0,01 foi criada e excluída no preview; o saldo voltou a R$ 50 e não restou despesa. Os fluxos de participantes e pagamentos ainda não foram exercitados no preview; não registrar dados reais nele até concluir esses testes.
+- A interface foi conferida localmente nas larguras de 390 e 320 pixels: formulários legíveis, tabelas com rolagem própria e sem rolagem horizontal da página. O painel e o site de preview carregaram com a sessão real do administrador. Uma despesa descartável foi criada e excluída; não restou despesa. Os fluxos de participantes e pagamentos também foram exercitados pelo organizador no preview.
+
+## Preparação do Worker ativo, ainda sem implantação
+
+- Um D1 definitivo, separado e ainda não vinculado ao Worker ativo, contém apenas os registros que o organizador confirmou. A aposta de exemplo não foi importada. Há exportações privadas dos dois bancos fora do Git e uma ramificação de segurança do código ativo.
+- A aplicação Access do Worker ativo já protege seus URLs de produção e preview com a política “Participantes do Bolão”. O painel também verificará no servidor a lista `ADMIN_EMAILS`, que ainda precisa ser configurada como segredo no Worker ativo.
+- Os builds automáticos de ramificações de preview foram desativados; o Worker de preview manual continua disponível. A configuração de produção e o build do painel estão nesta ramificação de revisão, mas a ramificação ligada ao Worker ativo ainda não recebeu essas mudanças.
+- O pacote de produção passou em `wrangler deploy --dry-run`. Nenhuma implantação ativa foi feita.
 
 ## Preparação isolada antes de qualquer publicação
 
-1. Confirmar no painel Cloudflare que builds de preview de novas ramificações estão desativados ou protegidos por Access. Não usar `cloudflare-acesso-privado` para testes de código, pois ela está ligada ao deploy automático do Worker ativo.
-2. Criar **um D1 de preview vazio**, separado de qualquer base futura de produção. Anotar apenas o UUID técnico. Não inserir dados reais adicionais no preview.
+1. Manter os builds de preview de novas ramificações desativados enquanto esta PR contiver a vinculação do D1 definitivo. Não usar `cloudflare-acesso-privado` para testes de código, pois ela está ligada ao deploy automático do Worker ativo.
+2. Usar um D1 de preview separado do banco definitivo. Novos dados registrados no preview precisam ser classificados e migrados seletivamente antes da implantação ativa.
 3. Copiar `wrangler.admin.example.jsonc` para `wrangler.admin.jsonc` (ignorado pelo Git), substituir `PREENCHER_UUID_D1_PREVIEW` pelo UUID do banco e manter o nome de Worker de preview separado. Nunca apontar o preview para `bolao-virada`.
 4. Configurar uma aplicação Cloudflare Access no **Worker de preview** cobrindo todas as rotas, inclusive `/admin/`, `/api/*` e assets. Configurar `ACCESS_TEAM_DOMAIN` com o domínio da equipe, `ACCESS_AUD` com o Audience Tag dessa aplicação e `ADMIN_EMAILS` com o e-mail do administrador, como variáveis do Worker. Não gravar e-mails privados ou tokens no repositório. O Access pode admitir familiares no site, mas o Worker só admitirá e-mails listados na administração.
 5. Instalar as dependências com `npm ci` e gerar os arquivos de preview com `npm run build:admin`. Aplicar a migração **localmente** com `npx wrangler d1 migrations apply DB --local --config wrangler.admin.jsonc` e iniciar `npx wrangler dev --config wrangler.admin.jsonc`. O teste local de fluxo usa JWTs assinados e chaves temporárias em `npm test`; `wrangler dev` sem um JWT real retorna 403. A proteção real deve ser conferida no Worker de preview após configurar o Access.
@@ -29,7 +36,7 @@ Esta implementação fica na ramificação `feat/painel-admin-d1-2026-11-08`, cr
 
 ## Aprovação para implantação ativa
 
-Antes de implantar no Worker ativo, fazer backup verificável do banco de produção, caso já exista, e conferir os registros reais em uma exportação restrita. Criar/configurar um D1 de produção com ID distinto, aplicar a migração uma única vez e confirmar que o registro migrado não duplica outro cadastro. Substituir a configuração ativa apenas depois de aprovar o teste do preview e validar as políticas Access para o Worker ativo. O `wrangler.jsonc` atual continua intacto nesta versão.
+Antes de mesclar esta PR, conferir novamente que os dados do D1 definitivo correspondem aos registros reais e que nenhum cadastro novo ficou apenas no preview. A implantação exige autorização específica para: configurar `ADMIN_EMAILS` como segredo no Worker ativo, mesclar a PR na ramificação de implantação automática e conferir o resultado. Registrar a versão ativa anterior para possível retorno. Um teste sem sessão deve ir para o login; o administrador deve acessar `/admin/`; outros participantes devem receber 403 na administração; o site deve refletir apenas os dados reais. O `wrangler.jsonc` alterado nesta PR ainda não está no Worker ativo.
 
 O GitHub Pages e o repositório continuam públicos. O HTML antigo contém o nome abreviado, a cota e a chave Pix já publicados. A migração para D1 **não apaga essa exposição anterior**; a retirada do Pages e a revisão do histórico do Git são decisões separadas.
 
@@ -40,7 +47,7 @@ node --test tests/admin.test.mjs
 node --check worker/admin.mjs
 node --check admin/admin.js
 node scripts/build-cloudflare.mjs
-node scripts/build-cloudflare.mjs --admin
+npx wrangler deploy --dry-run
 ```
 
 Referências: [validação de JWT do Access](https://developers.cloudflare.com/cloudflare-one/access-controls/applications/http-apps/authorization-cookie/validating-json/), [limite de `ctx.access` com Static Assets](https://developers.cloudflare.com/workers/configuration/cloudflare-access/), [assets com `run_worker_first`](https://developers.cloudflare.com/workers/static-assets/binding/), [migrações D1](https://developers.cloudflare.com/d1/reference/migrations/).

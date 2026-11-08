@@ -15,10 +15,10 @@ const publicFiles = [
   'assets/fonts/manrope-latin-variable.woff2',
   'assets/logo-bilhao-manrope-vetorial.svg',
   'assets/pix-megada-virada26.png',
+  'admin/index.html',
+  'admin/admin.css',
+  'admin/admin.js',
 ];
-if (process.argv.includes('--admin')) {
-  publicFiles.push('admin/index.html', 'admin/admin.css', 'admin/admin.js');
-}
 
 await rm(output, { recursive: true, force: true });
 for (const file of publicFiles) {

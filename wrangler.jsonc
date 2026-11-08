@@ -1,7 +1,21 @@
 {
   "name": "bolao-virada",
   "compatibility_date": "2026-11-08",
+  "main": "./worker/admin.mjs",
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "bolao-virada-admin-prod",
+      "database_id": "ed441760-2827-4986-9a0e-6e07002a494b"
+    }
+  ],
+  "vars": {
+    "ACCESS_TEAM_DOMAIN": "https://ibsen-pons.cloudflareaccess.com",
+    "ACCESS_AUD": "83fb1ceec8ee3babbc26b16fa9adc81af14073cd5cabd6424369e766405e6116"
   }
 }
