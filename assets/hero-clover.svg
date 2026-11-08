@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="320" viewBox="0 0 320 320" role="img" aria-label="Trevo verde de quatro folhas">
+<defs>
+  <radialGradient id="clover-leaf" cx=".3" cy=".2" r=".9">
+    <stop offset="0" stop-color="#D4FE5C"/>
+    <stop offset=".32" stop-color="#7DD735"/>
+    <stop offset=".65" stop-color="#178B3D"/>
+    <stop offset="1" stop-color="#035443"/>
+  </radialGradient>
+  <linearGradient id="clover-stem" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#00502C"/><stop offset=".5" stop-color="#70D948"/><stop offset="1" stop-color="#0B5B3B"/>
+  </linearGradient>
+  <radialGradient id="dew" cx=".3" cy=".2" r=".8">
+    <stop offset="0" stop-color="#FFFFFF" stop-opacity=".98"/><stop offset=".3" stop-color="#C5F1E5" stop-opacity=".7"/><stop offset="1" stop-color="#B8E4DC" stop-opacity=".05"/>
+  </radialGradient>
+  <filter id="shadow" x="-40%" y="-40%" width="180%" height="190%">
+    <feDropShadow dx="0" dy="9" stdDeviation="9" flood-color="#00110D" flood-opacity=".62"/>
+  </filter>
+</defs>
+<circle cx="160" cy="149" r="119" fill="#0E8766" opacity=".07"/>
+<g transform="translate(155 145) rotate(-12)" filter="url(#shadow)">
+  <path d="M0 0 Q-17 100 29 155" stroke="#004B2F" stroke-width="17" fill="none" stroke-linecap="round"/>
+  <path d="M0 0 Q-17 100 29 155" stroke="url(#clover-stem)" stroke-width="12" fill="none" stroke-linecap="round"/>
+  <g stroke="#8AE35E" stroke-width="1.6" fill="url(#clover-leaf)">
+    <path id="petal" d="M0 0 C-12 -13 -54 -41 -54 -72 C-54 -101 -25 -110 -9 -92 C-5 -89 -2 -82 0 -79 C2 -82 5 -89 9 -92 C25 -110 54 -101 54 -72 C54 -41 12 -13 0 0Z"/>
+    <use href="#petal" transform="rotate(90)"/>
+    <use href="#petal" transform="rotate(180)"/>
+    <use href="#petal" transform="rotate(270)"/>
+  </g>
+  <g fill="url(#dew)" opacity=".72">
+    <circle cx="-34" cy="-65" r="7"/><circle cx="29" cy="-81" r="4"/>
+    <circle cx="80" cy="18" r="5"/><circle cx="-94" cy="14" r="4.5"/>
+    <circle cx="33" cy="71" r="5.5"/>
+  </g>
+  <g fill="#EDFBD9" opacity=".63"><circle cx="-36" cy="-67" r="2.4"/><circle cx="79" cy="15" r="1.8"/></g>
+</g>
+</svg>
