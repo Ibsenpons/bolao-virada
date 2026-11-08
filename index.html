@@ -138,7 +138,7 @@
 </style>
 <link rel="stylesheet" href="./dashboard.css?v=20261108-02">
 <link rel="preload" href="./assets/fonts/manrope-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="./home.css?v=20261108-trescards1">
+<link rel="stylesheet" href="./home.css?v=20261108-participantes1">
 </head>
 <body>
 <main>
@@ -215,13 +215,36 @@
     <p class="copiado" id="copiado" role="status" aria-live="polite"></p>
     <p class="dica">Envie o comprovante ao organizador. A cota é registrada depois da confirmação.</p>
   </section>
-<section class="participants-card" id="cotas" aria-labelledby="h-acompanhe">
-  <h2 id="h-acompanhe"><svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg> Participantes</h2>
-  <p id="resumoTxt" class="participants-meta"></p>
-  <div id="participantes" class="chips" aria-live="polite"></div>
-  <p class="participants-note">Somente cotas pagas e confirmadas.</p>
+<section class="participants-card" id="cotas" aria-label="Participantes confirmados">
+  <button type="button" class="participants-trigger" id="abrirParticipantes" aria-haspopup="dialog" aria-controls="participantesDialog" aria-label="Ver todos os participantes confirmados">
+    <span class="participants-heading"><svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg><span>Participantes</span><svg class="ui-icon participants-heading-arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg></span>
+    <span class="participants-meta" id="resumoTxt">—</span>
+    <span class="participants-preview" id="participantesPrevia"></span>
+    <span class="participants-view-all">Ver todos <svg class="ui-icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></span>
+  </button>
 </section>
 </div>
+<dialog class="participants-dialog" id="participantesDialog" aria-labelledby="participantesDialogTitulo" aria-describedby="participantesDialogDescricao">
+  <div class="participants-dialog-inner">
+    <header class="participants-dialog-header">
+      <div>
+        <h2 id="participantesDialogTitulo"><svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg> Participantes confirmados</h2>
+        <p id="participantesDialogDescricao">Somente cotas com pagamento confirmado pelo organizador.</p>
+      </div>
+      <button class="participants-dialog-close" id="fecharParticipantes" type="button" aria-label="Fechar lista de participantes">×</button>
+    </header>
+    <div class="participants-dialog-toolbar">
+      <label class="participants-search-label" for="buscarParticipante">Buscar participante</label>
+      <div class="participants-search-field">
+        <svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg>
+        <input type="search" id="buscarParticipante" placeholder="Buscar por nome ou apelido" autocomplete="off" spellcheck="false">
+      </div>
+      <p class="participants-dialog-count" id="participantesDialogContagem" aria-live="polite"></p>
+    </div>
+    <div class="participants-directory" id="participantes" role="list" aria-label="Lista de participantes confirmados"></div>
+  </div>
+</dialog>
+
 <div class="layout details-layout">
 <div class="demo" id="demo" hidden>
         <strong>Modelo com dados fictícios</strong>
@@ -399,10 +422,7 @@ function renderCabecalho() {
 function renderResumo() {
   const confirmados = BOLAO.participantes.filter((p) => p.pago === true && Number(p.cotas) > 0);
   const n = confirmados.length;
-  const cotas = soma(confirmados);
-  $("resumoTxt").textContent =
-    n + (n === 1 ? " participante" : " participantes") +
-    " · " + cotas + (cotas === 1 ? " cota confirmada" : " cotas confirmadas");
+  $("resumoTxt").textContent = n + (n === 1 ? " participante confirmado" : " participantes confirmados");
 }
 
 function renderPix() {
@@ -545,18 +565,41 @@ function renderPremio() {
   $("premio").innerHTML = html;
 }
 
+function participantesConfirmados() {
+  return (BOLAO.participantes || []).filter((p) => p.pago === true && Number(p.cotas) > 0)
+    .slice().sort((a, b) => String(a.nome).localeCompare(String(b.nome), "pt-BR", { sensitivity: "base" }));
+}
+function iniciaisParticipante(nome) {
+  const palavras = String(nome).trim().split(/\s+/).filter(Boolean);
+  return ((palavras[0] || "").charAt(0) + (palavras[1] || "").charAt(0)).toUpperCase();
+}
+function normalizarBuscaParticipante(valor) {
+  return String(valor).normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR").trim();
+}
 function renderParticipantes() {
-  const lista = BOLAO.participantes.filter((p) => p.pago === true && Number(p.cotas) > 0)
-    .slice().sort((a, b) => a.nome.localeCompare(b.nome, "pt-BR"));
-  $("participantes").innerHTML = lista.length ? lista.map((p) => {
-    const w = p.nome.trim().split(/\s+/);
-    const ini = (w[0].charAt(0) + (w[1] ? w[1].charAt(0) : "")).toUpperCase();
-    const cotas = p.cotas > 1 ? " (" + p.cotas + " cotas)" : "";
-    return '<span class="chip pago"><b aria-hidden="true">' + esc(ini) + "</b>" +
-      esc(p.nome) + cotas +
-      '<span class="sr">, pagamento confirmado</span>' +
-      '<span aria-hidden="true"> ✓</span></span>';
-  }).join("") : '<p class="vazio">Nenhuma cota confirmada até o momento.</p>';
+  const todos = participantesConfirmados();
+  const primeiro = todos[0];
+  $("participantesPrevia").innerHTML = primeiro
+    ? '<span class="chip pago"><b aria-hidden="true">' + esc(iniciaisParticipante(primeiro.nome)) + '</b>' +
+      esc(primeiro.nome) + '<span aria-hidden="true"> ✓</span></span>' +
+      (todos.length > 1 ? '<span class="participants-preview-extra">+' + (todos.length - 1) + ' outros</span>' : "")
+    : '<span class="participants-preview-empty">Nenhum participante confirmado ainda.</span>';
+
+  const termo = normalizarBuscaParticipante($("buscarParticipante").value);
+  const encontrados = termo ? todos.filter(p => normalizarBuscaParticipante(p.nome).includes(termo)) : todos;
+  $("participantesDialogContagem").textContent = termo
+    ? encontrados.length + (encontrados.length === 1 ? " resultado encontrado" : " resultados encontrados")
+    : todos.length + (todos.length === 1 ? " participante confirmado" : " participantes confirmados");
+  $("participantes").innerHTML = encontrados.length ? encontrados.map((p) => {
+    const cotas = Number(p.cotas);
+    return '<div class="participant-row" role="listitem">' +
+      '<span class="participant-row-avatar" aria-hidden="true">' + esc(iniciaisParticipante(p.nome)) + '</span>' +
+      '<span class="participant-row-name">' + esc(p.nome) + '</span>' +
+      '<span class="participant-row-shares">' + cotas + (cotas === 1 ? " cota" : " cotas") + '</span>' +
+      '</div>';
+  }).join("") : '<p class="participants-no-results">' +
+    (termo ? "Nenhum participante corresponde à busca." : "Nenhum participante confirmado até o momento.") +
+    '</p>';
 }
 
 function renderRegras() {
@@ -591,6 +634,31 @@ function simular() {
 }
 $("btnSimular").addEventListener("click", simular);
 $("btnLimpar").addEventListener("click", function () { BOLAO.sorteio = []; render(); });
+
+const participantesDialog = $("participantesDialog");
+$("abrirParticipantes").addEventListener("click", function () {
+  if (typeof participantesDialog.showModal === "function") {
+    participantesDialog.showModal();
+  } else {
+    participantesDialog.setAttribute("open", "");
+  }
+  $("buscarParticipante").focus({ preventScroll: true });
+});
+$("fecharParticipantes").addEventListener("click", function () {
+  if (typeof participantesDialog.close === "function") participantesDialog.close();
+  else participantesDialog.removeAttribute("open");
+});
+$("buscarParticipante").addEventListener("input", renderParticipantes);
+participantesDialog.addEventListener("click", function (event) {
+  if (event.target === participantesDialog) {
+    if (typeof participantesDialog.close === "function") participantesDialog.close();
+    else participantesDialog.removeAttribute("open");
+  }
+});
+participantesDialog.addEventListener("close", function () {
+  $("buscarParticipante").value = "";
+  renderParticipantes();
+});
 
 render();
 </script>
