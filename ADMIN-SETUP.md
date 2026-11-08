@@ -16,7 +16,7 @@ Esta implementação fica na ramificação `feat/painel-admin-d1-2026-11-08`, cr
 - O D1 separado `bolao-virada-admin-preview` recebeu a migração inicial. Nenhum participante ou pagamento adicional foi criado no preview.
 - Uma aplicação Cloudflare Access cobre o Worker de preview inteiro com a política existente “Participantes do Bolão”. Uma requisição sem sessão para `/admin/` foi redirecionada à tela de login; a autorização administrativa também é verificada no servidor.
 - O segredo `ADMIN_EMAILS` foi configurado no Worker de preview sem ser gravado no Git.
-- A interface foi conferida localmente nas larguras de 390 e 320 pixels, com resposta vazia de teste: formulários legíveis, tabelas com rolagem própria e sem rolagem horizontal da página. Com uma sessão real do administrador, o painel e o site de preview carregaram o único participante conhecido, uma cota e R$ 50 confirmados. Os fluxos de criação e edição ainda não foram exercitados no preview; não registrar dados reais nele até concluir esse teste.
+- A interface foi conferida localmente nas larguras de 390 e 320 pixels, com resposta vazia de teste: formulários legíveis, tabelas com rolagem própria e sem rolagem horizontal da página. Com uma sessão real do administrador, o painel e o site de preview carregaram o único participante conhecido, uma cota e R$ 50 confirmados. Uma despesa descartável de R$ 0,01 foi criada e excluída no preview; o saldo voltou a R$ 50 e não restou despesa. Os fluxos de participantes e pagamentos ainda não foram exercitados no preview; não registrar dados reais nele até concluir esses testes.
 
 ## Preparação isolada antes de qualquer publicação
 
