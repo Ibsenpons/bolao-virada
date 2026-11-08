@@ -351,3 +351,11 @@ button, input, textarea, select { font: inherit; }
 .draw-detail strong, .draw-award strong, .chip, table .num2 {
   font-variant-numeric: tabular-nums;
 }
+
+/* Família oficial de ícones: Phosphor Regular, SVG local. */
+.nav-more .nav-caret{display:inline-block;width:14px;height:14px;vertical-align:-2px;margin-left:3px}
+.action-grid a .action-arrow{width:20px;height:20px;flex:0 0 auto}
+.steps-list .step-symbol{border:0;width:24px;height:24px;background:transparent;color:#DDEBF2}
+.steps-list .step-symbol .ui-icon{width:24px;height:24px;display:block}
+.steps-list li.done .step-symbol{background:transparent;border:0;color:#43F18A}
+.document-list .doc-icon .ui-icon{width:22px;height:22px}
