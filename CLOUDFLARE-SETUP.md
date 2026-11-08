@@ -24,7 +24,8 @@ segredo, backup, chave de API ou comprovante privado deve ser incluído nessa li
 - Esta etapa **não** cria o painel administrativo nem um banco de dados.
 - Antes de tornar o bolão realmente privado, migrar dados pessoais para armazenamento
   protegido, revisar arquivos e histórico do Git e desabilitar GitHub Pages.
-- Não publicar a nova versão antes de verificar a política de acesso e o build.
+- Antes de iniciar a implantação, configurar Cloudflare Access para proteger todo o tráfego.
+- A implantação de teste foi autorizada em 08/11/2026; a verificação do acesso e do build ainda deve ser feita antes de considerar a migração concluída.
 
 ## Testes locais
 
