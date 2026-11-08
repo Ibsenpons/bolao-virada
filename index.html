@@ -138,7 +138,7 @@
 </style>
 <link rel="stylesheet" href="./dashboard.css?v=20261108-02">
 <link rel="preload" href="./assets/fonts/manrope-latin-variable.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="./home.css?v=20261108-participantes1">
+<link rel="stylesheet" href="./home.css?v=20261108-quatrocards1">
 </head>
 <body>
 <main>
@@ -223,6 +223,13 @@
     <span class="participants-view-all">Ver todos <svg class="ui-icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></span>
   </button>
 </section>
+<section class="plan-card" aria-label="Apostas e planejamento"><button type="button" class="plan-trigger" id="abrirPlanejamento" aria-haspopup="dialog" aria-controls="planejamentoDialog">
+<span class="plan-heading"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg><span>Apostas e planejamento</span><svg class="ui-icon plan-heading-arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg></span>
+<span class="plan-summary-label">Valor arrecadado</span><strong class="plan-amount" id="planArrecadacao">—</strong>
+<span class="plan-suggestion-label">Sugestão de jogos</span><span class="plan-suggestion" id="planSugestao">Calculando...</span>
+<span class="plan-remaining" id="planSobra"></span>
+<span class="plan-cta">Ver planejamento <svg class="ui-icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></span>
+</button></section>
 </div>
 <dialog class="participants-dialog" id="participantesDialog" aria-labelledby="participantesDialogTitulo" aria-describedby="participantesDialogDescricao">
   <div class="participants-dialog-inner">
@@ -245,24 +252,12 @@
   </div>
 </dialog>
 
-<div class="layout details-layout">
-<div class="demo" id="demo" hidden>
-        <strong>Modelo com dados fictícios</strong>
-        Toque em “Simular sorteio” para ver como fica o resultado.
-        <div class="actions">
-          <button type="button" id="btnSimular">Simular sorteio</button>
-          <button type="button" id="btnLimpar" class="ghost">Limpar sorteio</button>
-        </div>
-      </div>
-<div class="col col-b">
-  <section class="sec" id="comprovantes" aria-labelledby="h-comprovantes">
-        <div class="section-head"><div><span class="section-kicker">Documentação</span><h2 id="h-comprovantes">Comprovantes</h2></div></div>
-        <p class="section-desc">Recibos de apostas e despesas poderão ser publicados após revisão, com dados pessoais ocultos.</p>
-        <div id="listaComprovantes"></div>
-        <p class="nota">Nunca inclua CPF, extratos bancários completos ou comprovantes de Pix de terceiros em um repositório público.</p>
-      </section>
-      <section class="sec game-plan" id="apostas" aria-labelledby="h-sugestao">
-        <h2 id="h-sugestao">Apostas e planejamento</h2>
+<dialog class="participants-dialog detail-dialog" id="planejamentoDialog" aria-labelledby="planejamentoDialogTitulo">
+<div class="participants-dialog-inner"><header class="participants-dialog-header">
+<div><h2 id="planejamentoDialogTitulo"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg>Apostas e planejamento</h2><p>Simulação com o valor arrecadado, não jogos já registrados.</p></div>
+<button type="button" class="participants-dialog-close" id="fecharPlanejamento" aria-label="Fechar planejamento">×</button>
+</header><div class="detail-dialog-scroll"><section class="sec game-plan" id="apostas" aria-label="Tabela e justificativa do planejamento">
+        
         <p class="section-desc">Veja a sugestão de apostas com o valor disponível ou <a class="inline-section-link" href="#jogos-registrados">consulte os jogos já registrados</a>.</p>
         <p id="capTexto"></p>
         <h3>Com o valor arrecadado hoje</h3>
@@ -274,7 +269,29 @@
         </div>
         <p class="nota" id="capPrecos"></p>
         <p class="nota">A sugestão prioriza os jogos maiores, de até 12 números. Um jogo maior equivale a vários jogos de 6 (7 números valem 7 jogos, 8 números valem 28 jogos), então o preço por combinação é o mesmo.</p>
-      </section>
+      </section></div></div></dialog>
+<dialog class="participants-dialog detail-dialog" id="comprovantesDialog" aria-labelledby="comprovantesDialogTitulo">
+<div class="participants-dialog-inner"><header class="participants-dialog-header">
+<div><h2 id="comprovantesDialogTitulo"><svg class="ui-icon" aria-hidden="true"><use href="#i-doc"></use></svg>Comprovantes</h2><p>Documentos após revisão e ocultação de dados pessoais.</p></div>
+<button type="button" class="participants-dialog-close" id="fecharComprovantes" aria-label="Fechar comprovantes">×</button>
+</header><div class="detail-dialog-scroll"><section class="sec" id="comprovantes" aria-label="Recibos e documentos disponibilizados">
+        
+        <p class="section-desc">Recibos de apostas e despesas poderão ser publicados após revisão, com dados pessoais ocultos.</p>
+        <div id="listaComprovantes"></div>
+        <p class="nota">Nunca inclua CPF, extratos bancários completos ou comprovantes de Pix de terceiros em um repositório público.</p>
+      </section></div></div></dialog>
+<div class="layout details-layout">
+<div class="demo" id="demo" hidden>
+        <strong>Modelo com dados fictícios</strong>
+        Toque em “Simular sorteio” para ver como fica o resultado.
+        <div class="actions">
+          <button type="button" id="btnSimular">Simular sorteio</button>
+          <button type="button" id="btnLimpar" class="ghost">Limpar sorteio</button>
+        </div>
+      </div>
+<div class="col col-b">
+  
+      
 
       <section class="sec draw-result" id="resultado" aria-labelledby="h-sorteio">
         <h2 id="h-sorteio">Resultado do sorteio</h2>
@@ -473,6 +490,12 @@ function renderCapacidade() {
   $("capTexto").textContent = "Valor arrecadado até agora: " + brl(arrecadado) + ".";
 
   const hoje = sugerirJogos(arrecadado);
+  $("planArrecadacao").textContent = brl(arrecadado);
+  const destaques = hoje.itens.slice(0, 2).map(descJogos);
+  $("planSugestao").textContent = destaques.length
+    ? destaques.join(" + ") + (hoje.itens.length > 2 ? " + outros jogos" : "")
+    : "Ainda não há valor suficiente para apostar.";
+  $("planSobra").textContent = "Sobra estimada: " + brl(hoje.sobra);
   let linhas = hoje.itens.map((i) =>
     "<tr><td>" + descJogos(i) + '</td><td class="num2">' + brl(i.qtd * i.preco) + "</td></tr>"
   ).join("");
@@ -659,6 +682,39 @@ participantesDialog.addEventListener("close", function () {
   $("buscarParticipante").value = "";
   renderParticipantes();
 });
+
+/* Modal de planejamento e comprovantes. Mantém âncoras antigas funcionais. */
+function configurarDialogSecao(idDialog, idBotao, idFechar, ancora) {
+  const dialog = $(idDialog);
+  const abrir = () => {
+    if (!dialog.open) {
+      if (typeof dialog.showModal === "function") dialog.showModal();
+      else dialog.setAttribute("open", "");
+    }
+  };
+  const fechar = () => {
+    if (typeof dialog.close === "function") dialog.close();
+    else dialog.removeAttribute("open");
+  };
+  if (idBotao) $(idBotao).addEventListener("click", abrir);
+  $(idFechar).addEventListener("click", fechar);
+  document.querySelectorAll('a[href="#' + ancora + '"]').forEach(link => {
+    link.addEventListener("click", event => {
+      event.preventDefault();
+      abrir();
+    });
+  });
+  dialog.addEventListener("click", event => {
+    if (event.target === dialog) fechar();
+  });
+  window.addEventListener("hashchange", () => {
+    if (location.hash === "#" + ancora) abrir();
+  });
+  if (location.hash === "#" + ancora) abrir();
+}
+configurarDialogSecao("planejamentoDialog", "abrirPlanejamento", "fecharPlanejamento", "apostas");
+configurarDialogSecao("comprovantesDialog", null, "fecharComprovantes", "comprovantes");
+
 
 render();
 </script>
