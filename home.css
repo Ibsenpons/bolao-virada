@@ -331,3 +331,23 @@ main{max-width:1580px;margin:auto;padding:0 clamp(14px,2.4vw,36px) 42px}
   .page-intro .brand-logo{width:min(255px,85vw)}
   .action-grid a.action-primary{width:100%}
 }
+
+
+/* Tipografia única do site — Manrope variável, hospedada no próprio GitHub Pages.
+   Pesos 200–800; logo em SVG permanece independente desta fonte. */
+@font-face {
+  font-family: "Manrope";
+  src: url("./assets/fonts/manrope-latin-variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+}
+html, body, h1, h2, h3, h4, h5, h6,
+button, input, textarea, select, .quick-nav, .metric, .sec, .trust-band {
+  font-family: "Manrope", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+button, input, textarea, select { font: inherit; }
+.metric strong, .finance-grid strong, .progress-heading strong,
+.draw-detail strong, .draw-award strong, .chip, table .num2 {
+  font-variant-numeric: tabular-nums;
+}
