@@ -8,7 +8,6 @@
   const paid=participants.filter(p=>p.pago===true).reduce((sum,p)=>sum+(Number.isFinite(Number(p.cotas))&&Number(p.cotas)>0?Number(p.cotas):0),0);
   const pending=Math.max(0,registered-paid);
   const games=Array.isArray(BOLAO.jogos)?BOLAO.jogos.length:0;
-  const drawn=Array.isArray(BOLAO.sorteio)&&BOLAO.sorteio.length===6;
   const put=(id,val)=>{const n=el(id);if(n)n.textContent=val};
   put("kpiParticipantes",participants.length.toLocaleString("pt-BR"));
   put("kpiTotalCotas",registered.toLocaleString("pt-BR"));
@@ -23,19 +22,6 @@
     "Nenhuma cota foi cadastrada até agora.");
   const fill=el("progressoFill");if(fill)fill.style.width=percent+"%";
   const bar=el("progressoTrack");if(bar)bar.setAttribute("aria-valuenow",String(percent));
-
-  const steps={
-    participantes:participants.length>0,
-    pagamentos:paid>0,
-    apostas:games>0,
-    sorteio:drawn
-  };
-  document.querySelectorAll(".steps-list li[data-step]").forEach(item=>{
-    const ok=!!steps[item.dataset.step];
-    item.classList.toggle("done",ok);
-    const marker=item.querySelector(".step-symbol");
-    if(marker){const u=marker.querySelector("use");if(u)u.setAttribute("href",ok?"#i-check-circle":"#i-circle");}
-  });
 
   // Fechar menu de seções ao escolher qualquer link.
   const more=document.querySelector(".nav-more");
