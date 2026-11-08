@@ -16,6 +16,9 @@ const publicFiles = [
   'assets/logo-bilhao-manrope-vetorial.svg',
   'assets/pix-megada-virada26.png',
 ];
+if (process.argv.includes('--admin')) {
+  publicFiles.push('admin/index.html', 'admin/admin.css', 'admin/admin.js');
+}
 
 await rm(output, { recursive: true, force: true });
 for (const file of publicFiles) {

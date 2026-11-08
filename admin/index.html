@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Administração · Bilhão da Virada 2026</title>
+  <link rel="stylesheet" href="./admin.css">
+  <script src="./admin.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><div class="wrap topbar-inner"><div><p class="eyebrow">Bilhão da Virada 2026</p><h1>Painel administrativo</h1></div><a href="/">Ver site</a></div></header>
+  <main class="wrap">
+    <p class="notice">Registre apenas pagamentos conferidos. Comprovantes ficam ocultos até você marcar que revisou e retirou dados pessoais.</p>
+    <p id="message" class="message" role="status" aria-live="polite">Carregando dados…</p>
+    <div id="panel" hidden>
+      <section class="summary" aria-label="Resumo"><div><span>Participantes pagos</span><strong id="sumPeople">—</strong></div><div><span>Cotas pagas</span><strong id="sumShares">—</strong></div><div><span>Recebido</span><strong id="sumReceived">—</strong></div><div><span>Despesas</span><strong id="sumExpenses">—</strong></div><div><span>Saldo</span><strong id="sumBalance">—</strong></div></section>
+
+      <section class="card" id="valores"><div class="section-head"><div><p class="eyebrow">Configuração</p><h2>Valor da cota</h2></div></div>
+        <form id="priceForm" class="inline-form"><label>Valor em reais <input name="price" type="number" min="0.01" max="100000" step="0.01" required></label><button>Salvar valor</button></form>
+        <p class="hint">O valor novo vale para pagamentos confirmados depois da mudança. Os valores já recebidos permanecem registrados.</p>
+      </section>
+
+      <section class="card" id="participantes"><div class="section-head"><div><p class="eyebrow">Cotas e pagamentos</p><h2>Participantes</h2></div></div>
+        <form id="participantForm" class="form-grid"><label>Nome <input name="name" maxlength="120" required autocomplete="off"></label><label>Cotas <input name="shares" type="number" min="1" max="1000" step="1" required></label><button>Cadastrar participante</button></form>
+        <p class="hint">Um cadastro sem pagamento fica visível apenas aqui e não reserva cotas.</p>
+        <div class="table-scroll"><table><thead><tr><th>Participante</th><th>Cotas</th><th>Pagamento</th><th>Ações</th></tr></thead><tbody id="participantsBody"></tbody></table></div>
+      </section>
+
+      <section class="card" id="despesas"><div class="section-head"><div><p class="eyebrow">Financeiro</p><h2>Despesas</h2></div></div>
+        <form id="expenseForm" class="form-grid"><label>Descrição <input name="description" maxlength="200" required></label><label>Valor em reais <input name="amount" type="number" min="0.01" step="0.01" required></label><label>Data <input name="date" type="date" required></label><button>Registrar despesa</button></form>
+        <div class="table-scroll"><table><thead><tr><th>Descrição</th><th>Data</th><th>Valor</th><th>Ações</th></tr></thead><tbody id="expensesBody"></tbody></table></div>
+      </section>
+
+      <section class="card" id="apostas"><div class="section-head"><div><p class="eyebrow">Jogos</p><h2>Apostas registradas</h2></div></div>
+        <form id="betForm" class="form-grid"><label>Dezenas separadas por espaço ou vírgula <input name="numbers" placeholder="03 11 24 37 48 59" required></label><label>Valor em reais <input name="amount" type="number" min="0.01" step="0.01" required></label><label>Data <input name="date" type="date" required></label><button>Registrar aposta</button></form>
+        <div class="table-scroll"><table><thead><tr><th>Dezenas</th><th>Data</th><th>Valor</th><th>Ações</th></tr></thead><tbody id="betsBody"></tbody></table></div>
+      </section>
+
+      <section class="card" id="comprovantes"><div class="section-head"><div><p class="eyebrow">Documentos</p><h2>Comprovantes</h2></div></div>
+        <form id="receiptForm" class="form-grid"><label>Título <input name="title" maxlength="200" required></label><label>Tipo <select name="kind"><option value="bet">Aposta</option><option value="expense">Despesa</option><option value="other">Outro</option></select></label><label>Data <input name="date" type="date" required></label><label class="wide">Link HTTPS do arquivo revisado (opcional) <input name="url" type="url" placeholder="https://…"></label><button>Registrar comprovante</button></form>
+        <p class="hint">Esta versão registra links; não faz upload de arquivos. Um link só aparece no site após revisão explícita. Verifique também as permissões do local onde o arquivo está hospedado.</p>
+        <div class="table-scroll"><table><thead><tr><th>Documento</th><th>Data</th><th>Publicação</th><th>Ações</th></tr></thead><tbody id="receiptsBody"></tbody></table></div>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

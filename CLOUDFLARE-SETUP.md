@@ -21,7 +21,7 @@ segredo, backup, chave de API ou comprovante privado deve ser incluído nessa li
 - O GitHub Pages atual **continua público**, mesmo após proteger o endereço do Worker.
 - O repositório GitHub **continua público**; o conteúdo do `index.html`, inclusive os
   registros existentes e a chave Pix publicada, ainda pode ser consultado.
-- Esta etapa **não** cria o painel administrativo nem um banco de dados.
+- A implantação ativa descrita aqui **não** inclui o painel administrativo nem um banco de dados. A primeira versão isolada está documentada em `ADMIN-SETUP.md` e requer configuração e aprovação próprias.
 - Antes de tornar o bolão realmente privado, migrar dados pessoais para armazenamento
   protegido, revisar arquivos e histórico do Git e desabilitar GitHub Pages.
 - Antes de iniciar a implantação, configurar Cloudflare Access para proteger todo o tráfego.

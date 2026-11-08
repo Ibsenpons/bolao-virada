@@ -495,7 +495,7 @@ function sugerirJogos(valor) {
 const descJogos = (i) => i.qtd + (i.qtd === 1 ? " jogo" : " jogos") + " de " + i.numeros + " números";
 
 function renderCapacidade() {
-  const arrecadado = soma(BOLAO.participantes.filter((p) => p.pago)) * BOLAO.valorCota;
+  const arrecadado = BOLAO.valorArrecadado ?? soma(BOLAO.participantes.filter((p) => p.pago)) * BOLAO.valorCota;
   $("capTexto").textContent = "Valor arrecadado até agora: " + brl(arrecadado) + ".";
 
   const hoje = sugerirJogos(arrecadado);
@@ -740,6 +740,24 @@ configurarDialogSecao("comprovantesDialog", null, "fecharComprovantes", "comprov
 
 
 render();
+// No Worker, o D1 passa a ser a fonte dos registros. O HTML original segue
+// funcional no GitHub Pages e antes da configuração do banco.
+fetch('/api/public', { credentials: 'same-origin', cache: 'no-store' })
+  .then(response => { if (!response.ok) throw new Error('Dados do Worker indisponíveis'); return response.json(); })
+  .then(data => {
+    if (!Number.isSafeInteger(data.price_cents) || !Array.isArray(data.participants)) throw new Error('Dados inválidos');
+    BOLAO.valorCota = data.price_cents / 100;
+    BOLAO.valorArrecadado = data.received_cents / 100;
+    BOLAO.participantes = data.participants;
+    BOLAO.despesas = data.expenses;
+    BOLAO.jogos = data.bets;
+    BOLAO.comprovantes = data.receipts;
+    BOLAO.regras[1] = 'Cada cota custa ' + brl(BOLAO.valorCota) +
+      '. O pagamento é por Pix, pelo QR Code ou pela chave na página. Não há reservas: cotas são confirmadas pelo organizador após verificar o pagamento.';
+    render();
+    window.dispatchEvent(new Event('bolao:data'));
+  })
+  .catch(() => {});
 </script>
 <script src="./dashboard.js?v=20261108-menu-neutro1" defer></script>
 

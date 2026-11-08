@@ -1,0 +1,17 @@
+{
+  "name": "bolao-virada-admin-preview",
+  "compatibility_date": "2026-11-08",
+  "main": "./worker/admin.mjs",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    "run_worker_first": true
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "bolao-virada-admin-preview",
+      "database_id": "PREENCHER_UUID_D1_PREVIEW"
+    }
+  ]
+}
