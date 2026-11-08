@@ -183,12 +183,6 @@
   </nav>
 </header>
 
-<section class="metrics top-metrics" aria-label="Indicadores do bolão">
-      <div class="metric"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg></span><span>Participantes</span><strong id="kpiParticipantes">—</strong></div>
-      <div class="metric"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-ticket"></use></svg></span><span>Cotas</span><strong id="kpiCotas">—</strong></div>
-      <div class="metric accent"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg></span><span>Apostas registradas</span><strong id="kpiJogos">—</strong></div>
-      <div class="metric revenue" id="arrecadacao"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-wallet"></use></svg></span><span>Valor arrecadado</span><strong id="kpiArrecadado">—</strong></div>
-    </section>
 <div class="overview-trio">
 <section class="draw-card" aria-label="Concurso da Virada">
   <div class="draw-name"><strong id="titulo">—</strong><span class="contest-number" id="numeroConcurso">—</span></div>
@@ -223,7 +217,7 @@
     <span class="participants-view-all">Ver todos <svg class="ui-icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></span>
   </button>
 </section>
-<section class="plan-card" aria-label="Apostas e planejamento"><button type="button" class="plan-trigger" id="abrirPlanejamento" aria-haspopup="dialog" aria-controls="planejamentoDialog">
+<section class="plan-card" id="arrecadacao" aria-label="Apostas e planejamento"><button type="button" class="plan-trigger" id="abrirPlanejamento" aria-haspopup="dialog" aria-controls="planejamentoDialog">
 <span class="plan-heading"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg><span>Apostas e planejamento</span><svg class="ui-icon plan-heading-arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg></span>
 <span class="plan-summary-label">Valor arrecadado</span><strong class="plan-amount" id="planArrecadacao">—</strong>
 <span class="plan-suggestion-label">Sugestão de jogos</span><span class="plan-suggestion" id="planSugestao">Calculando...</span>
@@ -722,7 +716,7 @@ configurarDialogSecao("comprovantesDialog", null, "fecharComprovantes", "comprov
 
 render();
 </script>
-<script src="./dashboard.js?v=20261108-menu-cinco1" defer></script>
-<script src="./home.js?v=20261108-02" defer></script>
+<script src="./dashboard.js?v=20261108-sem-indicadores1" defer></script>
+
 </body>
 </html>
