@@ -1,5 +1,5 @@
 /* Indicadores e prestação de contas — atualização manual, sem serviços externos. */
-(() => {
+const renderFinanceiro = () => {
   "use strict";
   if (typeof BOLAO === "undefined") return;
   const byId = id => document.getElementById(id);
@@ -9,7 +9,7 @@
   const paid = (BOLAO.participantes || []).filter(p => p.pago === true && Number(p.cotas)>0);
   const shares = rows => rows.reduce((acc,p) => acc + (Number.isFinite(Number(p.cotas)) && Number(p.cotas)>0 ? Number(p.cotas) : 0),0);
   const paidShares = shares(paid);
-  const received = paidShares * BOLAO.valorCota;
+  const received = BOLAO.valorArrecadado ?? paidShares * BOLAO.valorCota;
   const expenses = Array.isArray(BOLAO.despesas) ? BOLAO.despesas.filter(d => Number.isFinite(Number(d.valor)) && Number(d.valor) >= 0) : [];
   const spent = expenses.reduce((sum,d) => sum + Number(d.valor), 0);
   const put = (id, value) => { const node=byId(id); if(node) node.textContent=value; };
@@ -38,7 +38,9 @@
           '" target="_blank" rel="noopener noreferrer">Abrir arquivo</a>' :
           '<span>Arquivo indisponível</span>') + '</li>').join("") + '</ul>'
     : '<p class="empty-state">Os comprovantes poderão aparecer aqui após conferência e ocultação de dados pessoais.</p>';
-})();
+};
+renderFinanceiro();
+window.addEventListener('bolao:data', renderFinanceiro);
 
 /* Retorno ao topo. Sem seleção permanente no menu baseada no hash. */
 (() => {

@@ -16,6 +16,9 @@ const publicFiles = [
   'assets/logo-bilhao-manrope-vetorial.svg',
   'assets/logo-bilhao-2026-enviado.png',
   'assets/pix-megada-virada26.png',
+  'admin/index.html',
+  'admin/admin.css',
+  'admin/admin.js',
 ];
 
 await rm(output, { recursive: true, force: true });

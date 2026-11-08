@@ -9,10 +9,10 @@ Esta ramificação prepara a implantação, sem modificar o site publicado no Gi
 - Nome do Worker: `bolao-virada`
 - Comando de build: `node scripts/build-cloudflare.mjs`
 - Comando de implantação: `npx wrangler deploy`
-- Preview builds: desativar inicialmente
+- Preview builds: desativados em 08/11/2026; o preview manual separado permanece disponível
 - Cloudflare Access: proteger **todo o tráfego**, com uma política restritiva antes de implantar.
 
-O arquivo `wrangler.jsonc` entrega apenas o conteúdo da pasta temporária `dist/`.
+Nesta ramificação de revisão, o arquivo `wrangler.jsonc` prepara o painel e o D1 definitivo; a ramificação ativa ainda usa a configuração anterior.
 O script de build copia arquivos explicitamente autorizados. Nenhum dado sensível,
 segredo, backup, chave de API ou comprovante privado deve ser incluído nessa lista.
 
@@ -21,11 +21,11 @@ segredo, backup, chave de API ou comprovante privado deve ser incluído nessa li
 - O GitHub Pages atual **continua público**, mesmo após proteger o endereço do Worker.
 - O repositório GitHub **continua público**; o conteúdo do `index.html`, inclusive os
   registros existentes e a chave Pix publicada, ainda pode ser consultado.
-- Esta etapa **não** cria o painel administrativo nem um banco de dados.
+- A implantação ativa **ainda não** inclui o painel administrativo nem o banco de dados. A proposta está nesta PR e em `ADMIN-SETUP.md`; mesclá-la aciona implantação automática e exige aprovação específica.
 - Antes de tornar o bolão realmente privado, migrar dados pessoais para armazenamento
   protegido, revisar arquivos e histórico do Git e desabilitar GitHub Pages.
 - Antes de iniciar a implantação, configurar Cloudflare Access para proteger todo o tráfego.
-- A implantação de teste foi autorizada em 08/11/2026; a verificação do acesso e do build ainda deve ser feita antes de considerar a migração concluída.
+- A implantação do preview separado foi testada em 08/11/2026. O Worker ativo permanece na versão anterior até aprovação específica.
 
 ## Testes locais
 
