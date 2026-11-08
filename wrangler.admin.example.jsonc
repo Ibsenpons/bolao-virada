@@ -13,5 +13,9 @@
       "database_name": "bolao-virada-admin-preview",
       "database_id": "PREENCHER_UUID_D1_PREVIEW"
     }
-  ]
+  ],
+  "vars": {
+    "ACCESS_TEAM_DOMAIN": "https://PREENCHER_EQUIPE.cloudflareaccess.com",
+    "ACCESS_AUD": "PREENCHER_AUDIENCE_TAG"
+  }
 }

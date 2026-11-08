@@ -1,3 +1,5 @@
+import { validTeamDomain, verifyAccessToken } from './access.mjs';
+
 const json = (data, status = 200) => Response.json(data, {
   status,
   headers: { 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' },
@@ -135,25 +137,24 @@ async function handleApi(request, env, path) {
   return json({ ok: true, id: result?.meta?.last_row_id ?? null });
 }
 
-export default {
-  async fetch(request, env, ctx) {
+export function createAdminWorker(testKeys) {
+  return { async fetch(request, env) {
     const path = new URL(request.url).pathname;
     try {
-      // ctx.access representa uma autenticação concluída pelo Access no próprio Worker.
-      if (!ctx.access) return fail('Acesso pelo Cloudflare Access obrigatório.', 403);
+      if (!validTeamDomain(env.ACCESS_TEAM_DOMAIN) || !env.ACCESS_AUD) return fail('Cloudflare Access não configurado.', 503);
+      const identity = await verifyAccessToken(request.headers.get('Cf-Access-Jwt-Assertion'), env, testKeys);
+      if (!identity) return fail('Acesso pelo Cloudflare Access obrigatório.', 403);
       const isAdmin = path === '/admin' || path.startsWith('/admin/') || path.startsWith('/api/admin/');
       if (isAdmin) {
         const allowed = String(env.ADMIN_EMAILS || '').split(',').map(email => email.trim().toLowerCase()).filter(Boolean);
-        if (!env.ACCESS_AUD || ctx.access.aud !== env.ACCESS_AUD || !allowed.length) return fail('Administração não configurada.', 503);
-        const identity = await ctx.access.getIdentity();
-        if (!identity?.email || !allowed.includes(identity.email.trim().toLowerCase())) return fail('Acesso administrativo negado.', 403);
+        if (!allowed.length) return fail('Administração não configurada.', 503);
+        if (!allowed.includes(identity.email.trim().toLowerCase())) return fail('Acesso administrativo negado.', 403);
       }
       if (path.startsWith('/api/')) return await handleApi(request, env, path);
       if (path === '/admin') return Response.redirect(new URL('/admin/', request.url), 308);
       if (request.method !== 'GET' && request.method !== 'HEAD') return fail('Método não permitido.', 405);
       if (!env.ASSETS) return fail('Arquivos estáticos não configurados.', 503);
-      const assetRequest = path === '/admin/' ? new Request(new URL('/admin/index.html', request.url), request) : request;
-      const response = await env.ASSETS.fetch(assetRequest);
+      const response = await env.ASSETS.fetch(request);
       const headers = new Headers(response.headers);
       if (path.startsWith('/admin/')) {
         headers.set('Cache-Control', 'no-store');
@@ -166,5 +167,7 @@ export default {
       console.error('Admin request failed', error);
       return fail('Falha interna. Nenhuma confirmação foi exibida.', 500);
     }
-  },
-};
+  } };
+}
+
+export default createAdminWorker();

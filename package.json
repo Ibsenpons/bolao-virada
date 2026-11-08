@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/admin.test.mjs",
+    "build:admin": "node scripts/build-cloudflare.mjs --admin"
+  },
+  "dependencies": {
+    "jose": "6.2.15"
+  }
+}
