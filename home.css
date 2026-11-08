@@ -359,3 +359,16 @@ button, input, textarea, select { font: inherit; }
 .steps-list .step-symbol .ui-icon{width:24px;height:24px;display:block}
 .steps-list li.done .step-symbol{background:transparent;border:0;color:#43F18A}
 .document-list .doc-icon .ui-icon{width:22px;height:22px}
+
+/* Limpeza solicitada: só o concurso permanece no painel lateral.
+   Mantém a contagem regressiva discreta, sem o aviso amarelo de prazo. */
+.overview-shell {align-items:start;margin-bottom:18px}
+.overview-side {align-self:start}
+.overview-main>.dias {
+  margin:0 2px;
+  font-size:.8rem;
+  color:#AFCAD7;
+}
+@media(max-width:750px){
+  .overview-shell{margin-bottom:13px}
+}
