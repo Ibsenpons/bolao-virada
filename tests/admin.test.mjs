@@ -23,6 +23,18 @@ async function fixture() {
         },
       };
     },
+    async batch(statements) {
+      sqlite.exec('BEGIN');
+      try {
+        const results = [];
+        for (const statement of statements) results.push(await statement.run());
+        sqlite.exec('COMMIT');
+        return results;
+      } catch (error) {
+        sqlite.exec('ROLLBACK');
+        throw error;
+      }
+    },
   };
   const env = {
     DB: db, ADMIN_EMAILS: 'admin@example.com', ACCESS_AUD: 'expected-aud',
@@ -95,6 +107,31 @@ test('confirmação exige origem, valor e data; cancelamento atualiza a consulta
   visible = await (await call('/api/public')).json();
   assert.equal(visible.received_cents, 5000);
   assert.equal(visible.participants.length, 1);
+});
+
+test('edição corrige cotas e pagamento junto, preserva histórico e aceita data desconhecida existente', async () => {
+  const { call } = await fixture();
+  const original = await (await call('/api/admin/state')).json();
+  const id = original.participants[0].id;
+  const oldPayment = original.payments[0].id;
+  const edit = (payment, name = 'Ibsen P.', shares = 4) =>
+    call(`/api/admin/participants/${id}`, 'PATCH', { name, shares, payment });
+  assert.equal((await edit({ id: oldPayment, status: 'confirmed', amount_cents: 20000, confirmed_on: null })).status, 200);
+  let state = await (await call('/api/admin/state')).json();
+  assert.equal(state.participants[0].shares, 4);
+  assert.deepEqual(state.payments.map(p => [p.amount_cents, p.status, p.confirmed_on]),
+    [[20000, 'confirmed', null], [5000, 'voided', null]]);
+  assert.equal((await (await call('/api/public')).json()).received_cents, 20000);
+  const currentId = state.payments[0].id;
+  assert.equal((await edit({ id: oldPayment, status: 'confirmed', amount_cents: 20000, confirmed_on: '2026-11-08' })).status, 409);
+  assert.equal((await edit({ id: currentId, status: 'confirmed', amount_cents: 20000, confirmed_on: '2026-11-08' })).status, 200);
+  state = await (await call('/api/admin/state')).json();
+  assert.equal(state.payments[0].confirmed_on, '2026-11-08');
+  assert.equal((await edit({ id: state.payments[0].id, status: 'pending', amount_cents: null, confirmed_on: null })).status, 200);
+  assert.equal((await (await call('/api/public')).json()).participants.length, 0);
+  assert.equal((await edit({ id: null, status: 'confirmed', amount_cents: 20000, confirmed_on: null })).status, 400);
+  assert.equal((await edit({ id: null, status: 'confirmed', amount_cents: 20000, confirmed_on: '2026-11-09' })).status, 200);
+  assert.equal((await (await call('/api/public')).json()).received_cents, 20000);
 });
 
 test('despesas, apostas e comprovantes privados seguem visibilidade esperada', async () => {

@@ -83,9 +83,32 @@ async function handleApi(request, env, path) {
     if (!id || !name || !positiveInt(input.shares, 1000)) return fail('Nome ou cotas inválidos.', 400);
     const current = await db.prepare('SELECT shares FROM participants WHERE id = ?').bind(id).first();
     if (!current) return fail('Participante não encontrado.', 404);
-    const paid = await db.prepare("SELECT id FROM payments WHERE participant_id = ? AND status = 'confirmed'").bind(id).first();
-    if (paid && current.shares !== input.shares) return fail('Cancele a confirmação antes de alterar as cotas.', 409);
-    await db.prepare('UPDATE participants SET name = ?, shares = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?').bind(name, input.shares, id).run();
+    const paid = await db.prepare("SELECT id, amount_cents, confirmed_on FROM payments WHERE participant_id = ? AND status = 'confirmed'").bind(id).first();
+    if (input.payment === undefined) {
+      if (paid && current.shares !== input.shares) return fail('Atualize o pagamento junto com as cotas.', 409);
+      await db.prepare('UPDATE participants SET name = ?, shares = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?').bind(name, input.shares, id).run();
+    } else {
+      const payment = input.payment;
+      if (!payment || typeof payment !== 'object' || Array.isArray(payment) ||
+        !['confirmed', 'pending'].includes(payment.status) || payment.id !== (paid?.id ?? null))
+        return fail('Os dados mudaram. Atualize a página e tente novamente.', 409);
+      if (payment.status === 'confirmed') {
+        if (!positiveInt(payment.amount_cents) ||
+          !(validDate(payment.confirmed_on) || (payment.confirmed_on === null && paid)))
+          return fail('Informe um valor válido e a data conferida do novo pagamento.', 400);
+      } else if (payment.amount_cents !== null || payment.confirmed_on !== null) {
+        return fail('Pagamento pendente inválido.', 400);
+      }
+      const changed = paid && payment.status === 'confirmed' &&
+        (paid.amount_cents !== payment.amount_cents || paid.confirmed_on !== payment.confirmed_on);
+      const statements = [db.prepare('UPDATE participants SET name = ?, shares = ?, updated_at = CURRENT_TIMESTAMP WHERE id = ?').bind(name, input.shares, id)];
+      if (paid && (payment.status === 'pending' || changed))
+        statements.push(db.prepare("UPDATE payments SET status = 'voided', voided_at = CURRENT_TIMESTAMP WHERE id = ? AND status = 'confirmed'").bind(paid.id));
+      if (payment.status === 'confirmed' && (!paid || changed))
+        statements.push(db.prepare("INSERT INTO payments (participant_id, amount_cents, confirmed_on, status, note) VALUES (?, ?, ?, 'confirmed', ?)")
+          .bind(id, payment.amount_cents, payment.confirmed_on, paid ? `Correção do pagamento #${paid.id}` : ''));
+      await db.batch(statements);
+    }
   } else if (path === '/api/admin/payments' && request.method === 'POST') {
     const id = input.participant_id;
     if (!positiveInt(id) || !positiveInt(input.amount_cents) || !validDate(input.confirmed_on)) return fail('Confirmação inválida.', 400);
