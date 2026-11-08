@@ -65,3 +65,33 @@
   highlight();
   updateBack();
 })();
+
+/* Cinco destinos também disponíveis em telas estreitas via botão Menu. */
+(() => {
+  "use strict";
+  const button=document.getElementById("mobileMenuToggle");
+  const nav=document.getElementById("siteNavigation");
+  if(!button||!nav)return;
+  const setOpen=open=>{
+    button.setAttribute("aria-expanded",String(open));
+    button.setAttribute("aria-label",open?"Fechar menu de navegação":"Abrir menu de navegação");
+  };
+  const isOpen=()=>button.getAttribute("aria-expanded")==="true";
+  button.addEventListener("click",()=>setOpen(!isOpen()));
+  nav.querySelectorAll('a[href^="#"]').forEach(link=>{
+    link.addEventListener("click",()=>setOpen(false));
+  });
+  document.addEventListener("pointerdown",event=>{
+    if(isOpen()&&!button.contains(event.target)&&!nav.contains(event.target))setOpen(false);
+  });
+  document.addEventListener("keydown",event=>{
+    if(event.key==="Escape"&&isOpen()){
+      setOpen(false);
+      button.focus();
+    }
+  });
+  window.addEventListener("hashchange",()=>setOpen(false));
+  window.addEventListener("resize",()=>{
+    if(window.innerWidth>980&&isOpen())setOpen(false);
+  },{passive:true});
+})();
