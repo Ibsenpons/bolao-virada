@@ -9,14 +9,12 @@
   const pending=Math.max(0,registered-paid);
   const games=Array.isArray(BOLAO.jogos)?BOLAO.jogos.length:0;
   const drawn=Array.isArray(BOLAO.sorteio)&&BOLAO.sorteio.length===6;
-  const prize=String(BOLAO.premioEstimado||"Não informado");
   const put=(id,val)=>{const n=el(id);if(n)n.textContent=val};
   put("kpiParticipantes",participants.length.toLocaleString("pt-BR"));
   put("kpiTotalCotas",registered.toLocaleString("pt-BR"));
   put("kpiCotas",paid.toLocaleString("pt-BR"));
   put("kpiCotasDetalhe",pending+(pending===1?" cota ainda não paga":" cotas ainda não pagas"));
   put("kpiJogos",games.toLocaleString("pt-BR"));
-  put("heroPrize",prize);
 
   const percent=registered>0?Math.max(0,Math.min(100,Math.round((paid/registered)*100))):0;
   put("progressoPercentual",registered>0?percent+"%":"—");
