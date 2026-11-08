@@ -209,30 +209,12 @@
       <div class="draw-detail"><svg class="ui-icon" aria-hidden="true"><use href="#i-ticket"></use></svg><div><span>Valor da cota</span><strong id="stubCota">—</strong></div></div>
       <div class="draw-award"><svg class="ui-icon" aria-hidden="true"><use href="#i-trophy"></use></svg><div><span>Prêmio estimado</span><strong id="premioEst">—</strong></div></div>
     </section>
-    <section class="steps-card" aria-labelledby="etapas-title">
-      <h2 id="etapas-title"><svg class="ui-icon" aria-hidden="true"><use href="#i-calendar"></use></svg> Próximas etapas</h2>
-      <ul class="steps-list">
-        <li data-step="participantes"><span class="step-symbol" aria-hidden="true"><svg class="ui-icon"><use href="#i-circle"></use></svg></span><span>Participantes cadastrados</span></li>
-        <li data-step="pagamentos"><span class="step-symbol" aria-hidden="true"><svg class="ui-icon"><use href="#i-circle"></use></svg></span><span>Pagamentos informados</span></li>
-        <li data-step="apostas"><span class="step-symbol" aria-hidden="true"><svg class="ui-icon"><use href="#i-circle"></use></svg></span><span>Registro das apostas</span></li>
-        <li data-step="sorteio"><span class="step-symbol" aria-hidden="true"><svg class="ui-icon"><use href="#i-circle"></use></svg></span><span>Conferência do sorteio</span></li>
-      </ul>
-      <small>Etapas atualizadas manualmente pelo organizador.</small>
-    </section>
-  </aside>
+</aside>
 </div>
-<section class="trust-band" aria-label="Informações importantes">
-  <div><svg class="ui-icon" aria-hidden="true"><use href="#i-shield-check"></use></svg><div><h3>Transparência</h3><p>Cotas, pagamentos informados e comprovantes em um só lugar.</p></div></div>
-  <div><svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg><div><h3>Entre amigos e familiares</h3><p>Bolão organizado para um grupo de conhecidos.</p></div></div>
-  <div><svg class="ui-icon" aria-hidden="true"><use href="#i-trophy"></use></svg><div><h3>Conferência dos resultados</h3><p>Números sorteados e checagem das apostas registradas.</p></div></div>
-</section>
 <div class="layout">
 
     <div class="col col-a">
-      <div class="deadline-card">
-        <p class="prazo" id="prazo"></p>
         <p class="dias" id="dias"></p>
-      </div>
 
       <div class="demo" id="demo" hidden>
         <strong>Modelo com dados fictícios</strong>
@@ -459,14 +441,6 @@ function renderCabecalho() {
   else txt = "Sorteio em " + dBr + ".";
   $("dias").textContent = txt;
 
-  const diasPrazo = diasAte(BOLAO.prazoParticipacao);
-  const pBr = dataBr(BOLAO.prazoParticipacao);
-  let tp;
-  if (diasPrazo > 1) tp = "Prazo para pagar a cota: " + pBr + ". Faltam " + diasPrazo + " dias.";
-  else if (diasPrazo === 1) tp = "Prazo para pagar a cota: " + pBr + ". Falta 1 dia.";
-  else if (diasPrazo === 0) tp = "Hoje é o último dia para pagar a cota (" + pBr + ").";
-  else tp = "Prazo para pagar a cota encerrado em " + pBr + ".";
-  $("prazo").textContent = tp;
 }
 
 function renderResumo() {
