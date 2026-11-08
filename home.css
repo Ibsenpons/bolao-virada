@@ -492,3 +492,23 @@ button, input, textarea, select { font: inherit; }
   .pix-card .qrbox{flex-basis:112px;width:112px}
   .overview-duo .draw-card,.overview-duo .pix-card{padding:15px 14px}
 }
+
+/* Logo vetorial 2026: trevo menor, palavras maiores e 100% contornos SVG.
+   Regras específicas no final para substituir versões antigas do cabeçalho. */
+.page-intro .brand-logo {
+  display:block;
+  width:clamp(320px,32vw,470px);
+  max-width:100%;
+  max-height:76px;
+  height:auto;
+  object-fit:contain;
+}
+@media(min-width:851px) and (max-width:1250px) {
+  .page-intro .brand-logo {width:clamp(267px,27vw,350px);max-height:68px}
+}
+@media(max-width:850px) {
+  .page-intro .brand-logo {width:min(440px,96vw);max-height:64px}
+}
+@media(max-width:440px) {
+  .page-intro .brand-logo {width:min(340px,90vw);max-height:52px}
+}
