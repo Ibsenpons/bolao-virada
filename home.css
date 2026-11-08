@@ -1072,3 +1072,14 @@ button, input, textarea, select { font: inherit; }
   }
   .page-intro .nav-more-links{right:0}
 }
+
+/* QR Pix validado: PNG lossless local, com módulos nítidos em Safari e Edge. */
+.overview-trio .pix-card img.qr{
+  display:block;
+  width:100%;
+  max-width:100%;
+  height:auto;
+  aspect-ratio:1/1;
+  image-rendering:crisp-edges;
+  image-rendering:pixelated;
+}
