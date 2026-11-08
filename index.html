@@ -181,33 +181,44 @@
     </details>
   </nav>
 </header>
-<div class="overview-shell">
-  <div class="overview-main">
-    
-    <section class="metrics" aria-label="Indicadores do bolão">
-      <div class="metric"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg></span><span>Participantes</span><strong id="kpiParticipantes">—</strong><small>Com pagamento confirmado</small></div>
-      <div class="metric"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-ticket"></use></svg></span><span>Cotas</span><strong id="kpiCotas">—</strong><small>Pagas e confirmadas</small></div>
-      <div class="metric accent"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg></span><span>Apostas registradas</span><strong id="kpiJogos">—</strong><small>Jogos cadastrados</small></div>
+
+<section class="metrics top-metrics" aria-label="Indicadores do bolão">
+      <div class="metric"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-users"></use></svg></span><span>Participantes</span><strong id="kpiParticipantes">—</strong></div>
+      <div class="metric"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-ticket"></use></svg></span><span>Cotas</span><strong id="kpiCotas">—</strong></div>
+      <div class="metric accent"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-volante"></use></svg></span><span>Apostas registradas</span><strong id="kpiJogos">—</strong></div>
+      <div class="metric revenue"><span class="metric-icon"><svg class="ui-icon" aria-hidden="true"><use href="#i-wallet"></use></svg></span><span>Valor arrecadado</span><strong id="kpiArrecadado">—</strong></div>
     </section>
-    <nav class="action-grid" aria-label="Participação">
-      <a class="action-primary" href="#participar"><svg class="ui-icon" aria-hidden="true"><use href="#i-ticket"></use></svg><span>Participar do bolão</span><svg class="ui-icon action-arrow" aria-hidden="true"><use href="#i-arrow-right"></use></svg></a>
-    </nav>
-    </div>
-  <aside class="overview-side" aria-label="Informações do sorteio">
-    <section class="draw-card" aria-labelledby="concurso-title">
+<div class="overview-duo">
+  <section class="draw-card" aria-labelledby="concurso-title">
       <h2 id="concurso-title"><svg class="ui-icon" aria-hidden="true"><use href="#i-trophy"></use></svg> Concurso da Virada</h2>
       <div class="draw-name"><span id="rotulo">Concurso especial</span><strong id="titulo">—</strong></div>
       <div class="draw-detail"><svg class="ui-icon" aria-hidden="true"><use href="#i-calendar"></use></svg><div><span>Data do sorteio</span><strong id="stubSorteio">—</strong></div></div>
       <div class="draw-detail"><svg class="ui-icon" aria-hidden="true"><use href="#i-calendar"></use></svg><div><span>Prazo para participar</span><strong id="stubPrazo">—</strong></div></div>
       <div class="draw-detail"><svg class="ui-icon" aria-hidden="true"><use href="#i-ticket"></use></svg><div><span>Valor da cota</span><strong id="stubCota">—</strong></div></div>
       <div class="draw-award"><svg class="ui-icon" aria-hidden="true"><use href="#i-trophy"></use></svg><div><span>Prêmio estimado</span><strong id="premioEst">—</strong></div></div>
+    <p class="draw-countdown" id="dias"></p>
     </section>
-</aside>
+  <section class="pix-card" id="participar" aria-labelledby="pix-card-title">
+    <h2 id="pix-card-title"><svg class="ui-icon" aria-hidden="true"><use href="#i-ticket"></use></svg> Como participar — Pix</h2>
+    <p class="pix-intro">Faça o Pix de <strong id="pixValor"></strong> por cota e envie o comprovante ao organizador. Não há reserva: a cota aparece após a confirmação do pagamento.</p>
+    <div class="pagar-linha">
+              <div class="qrbox"><svg class="qr" role="img" aria-label="QR Code Pix para pagar a cota" viewBox="0 0 61 61" shape-rendering="crispEdges"><path fill="#fff" d="M0 0h61v61h-61z"/><path class="qrline" stroke="#000" d="M4 4.5h7m2 0h2m1 0h2m5 0h3m1 0h1m1 0h2m1 0h4m3 0h1m1 0h1m1 0h2m1 0h1m3 0h7m-53 1h1m5 0h1m3 0h1m1 0h1m3 0h4m1 0h2m3 0h1m4 0h1m2 0h2m3 0h1m1 0h3m2 0h1m5 0h1m-53 1h1m1 0h3m1 0h1m1 0h1m1 0h1m3 0h4m5 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m3 0h1m2 0h1m1 0h3m1 0h1m-53 1h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m10 0h1m1 0h1m4 0h2m1 0h1m1 0h1m1 0h3m1 0h1m-53 1h1m1 0h3m1 0h1m1 0h1m3 0h3m3 0h3m1 0h1m1 0h7m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m3 0h1m1 0h3m1 0h1m-53 1h1m5 0h1m1 0h5m2 0h1m2 0h2m4 0h1m3 0h1m1 0h1m2 0h2m1 0h1m1 0h1m3 0h1m3 0h1m5 0h1m-53 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-45 1h2m3 0h1m1 0h1m1 0h1m1 0h2m3 0h1m3 0h1m1 0h1m2 0h1m1 0h2m3 0h4m-44 1h1m1 0h5m2 0h2m1 0h1m2 0h4m2 0h1m1 0h6m1 0h2m1 0h1m1 0h2m1 0h2m1 0h3m2 0h5m-51 1h1m1 0h1m4 0h2m1 0h1m1 0h4m1 0h1m1 0h1m2 0h1m1 0h1m3 0h4m1 0h1m5 0h1m2 0h2m1 0h1m2 0h1m3 0h1m-53 1h1m1 0h2m2 0h1m3 0h6m1 0h5m1 0h2m2 0h1m2 0h2m2 0h1m1 0h1m1 0h1m2 0h1m2 0h1m1 0h1m1 0h2m1 0h1m-52 1h2m1 0h2m2 0h1m4 0h1m1 0h2m6 0h3m4 0h2m1 0h2m1 0h1m4 0h1m1 0h3m1 0h1m1 0h1m2 0h1m-51 1h1m1 0h1m2 0h1m1 0h4m7 0h2m4 0h4m1 0h1m2 0h1m2 0h1m2 0h1m1 0h4m2 0h5m-52 1h1m1 0h4m2 0h1m5 0h1m1 0h4m1 0h1m2 0h2m2 0h1m1 0h3m6 0h1m2 0h1m2 0h1m2 0h1m3 0h1m-53 1h1m1 0h1m2 0h2m2 0h1m2 0h2m1 0h2m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m2 0h6m1 0h2m4 0h2m1 0h2m3 0h1m-52 1h1m2 0h1m1 0h1m1 0h1m1 0h2m5 0h1m1 0h3m3 0h1m2 0h1m1 0h1m1 0h3m1 0h1m1 0h2m1 0h1m-41 1h2m1 0h1m1 0h2m1 0h1m1 0h3m2 0h1m1 0h1m3 0h1m3 0h2m6 0h1m2 0h4m1 0h2m1 0h1m3 0h4m-52 1h1m1 0h3m3 0h1m1 0h1m3 0h3m1 0h2m2 0h3m3 0h3m2 0h1m1 0h2m5 0h2m1 0h1m1 0h2m-47 1h2m1 0h2m3 0h3m5 0h2m1 0h1m1 0h1m2 0h2m1 0h1m4 0h1m2 0h3m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m-51 1h1m1 0h1m1 0h1m5 0h2m3 0h2m1 0h3m3 0h1m2 0h1m2 0h3m9 0h1m2 0h1m1 0h1m1 0h1m1 0h1m-52 1h2m1 0h4m3 0h1m2 0h1m2 0h2m3 0h1m3 0h6m2 0h5m3 0h1m1 0h3m2 0h1m2 0h1m-51 1h3m1 0h1m2 0h1m3 0h1m4 0h2m4 0h2m4 0h2m1 0h2m1 0h1m1 0h1m4 0h1m5 0h2m2 0h1m-52 1h6m1 0h2m2 0h1m1 0h2m2 0h1m2 0h1m1 0h2m1 0h2m5 0h4m2 0h2m3 0h1m3 0h2m1 0h1m-52 1h1m1 0h4m2 0h1m2 0h1m9 0h1m2 0h2m4 0h1m1 0h1m1 0h2m5 0h3m1 0h1m3 0h1m1 0h1m-51 1h2m1 0h5m2 0h1m1 0h3m1 0h5m1 0h6m2 0h1m4 0h1m1 0h1m2 0h1m2 0h5m-46 1h2m3 0h1m1 0h2m1 0h4m1 0h1m3 0h1m1 0h1m3 0h6m3 0h1m3 0h2m1 0h1m3 0h1m3 0h1m-49 1h1m1 0h1m1 0h2m5 0h1m2 0h4m2 0h1m1 0h1m1 0h3m3 0h5m3 0h3m1 0h1m1 0h1m2 0h1m-51 1h1m1 0h2m3 0h4m4 0h2m1 0h1m1 0h2m1 0h1m3 0h1m1 0h1m2 0h1m1 0h1m1 0h2m1 0h1m3 0h1m3 0h1m2 0h2m-53 1h2m2 0h7m2 0h4m1 0h1m1 0h2m1 0h9m1 0h1m2 0h2m1 0h1m2 0h9m-50 1h2m2 0h1m2 0h2m2 0h1m2 0h1m1 0h1m4 0h3m1 0h2m1 0h2m2 0h1m1 0h2m5 0h1m1 0h1m3 0h1m3 0h1m-53 1h1m1 0h1m1 0h1m1 0h1m3 0h1m2 0h2m1 0h1m2 0h2m3 0h1m2 0h2m2 0h1m2 0h1m1 0h3m2 0h1m1 0h1m3 0h2m2 0h1m-50 1h4m1 0h6m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m4 0h1m1 0h1m1 0h1m2 0h1m1 0h3m2 0h2m2 0h1m-48 1h3m2 0h2m2 0h3m1 0h1m1 0h3m1 0h1m3 0h1m5 0h2m2 0h1m1 0h2m3 0h2m1 0h2m1 0h1m1 0h4m-51 1h4m1 0h1m2 0h3m1 0h4m3 0h1m3 0h1m4 0h1m5 0h1m2 0h2m1 0h3m3 0h1m3 0h1m-50 1h1m2 0h2m1 0h2m1 0h6m2 0h3m5 0h1m1 0h2m2 0h1m1 0h3m2 0h1m1 0h3m5 0h1m-51 1h3m9 0h2m1 0h2m2 0h1m3 0h2m1 0h1m2 0h3m2 0h1m1 0h1m2 0h1m2 0h1m2 0h1m1 0h1m-45 1h1m1 0h1m1 0h1m1 0h2m2 0h1m2 0h3m1 0h1m1 0h2m5 0h1m2 0h1m2 0h1m1 0h2m2 0h1m2 0h1m2 0h3m-49 1h1m4 0h1m1 0h11m2 0h2m1 0h2m2 0h2m2 0h1m1 0h2m2 0h1m2 0h1m4 0h6m-53 1h5m1 0h1m1 0h1m4 0h1m1 0h2m1 0h2m2 0h1m2 0h1m2 0h1m3 0h1m1 0h1m1 0h4m1 0h1m2 0h1m2 0h1m1 0h3m-52 1h3m7 0h1m3 0h2m1 0h1m1 0h1m1 0h5m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m2 0h2m1 0h3m1 0h1m1 0h2m-53 1h1m5 0h2m1 0h1m6 0h3m1 0h1m1 0h1m4 0h2m2 0h1m1 0h4m5 0h1m1 0h2m2 0h2m2 0h1m-51 1h4m1 0h3m2 0h2m1 0h1m1 0h3m1 0h1m1 0h4m3 0h3m4 0h1m1 0h4m3 0h3m3 0h1m-53 1h2m1 0h4m1 0h1m2 0h2m1 0h3m1 0h1m2 0h1m6 0h2m3 0h3m6 0h1m1 0h2m1 0h1m2 0h2m-51 1h2m4 0h2m1 0h1m1 0h2m2 0h1m1 0h1m2 0h1m1 0h2m5 0h1m1 0h2m1 0h1m3 0h1m2 0h2m2 0h1m1 0h2m1 0h1m-49 1h1m2 0h2m3 0h2m3 0h3m1 0h2m2 0h5m2 0h1m1 0h2m1 0h1m1 0h1m2 0h2m1 0h5m2 0h1m-44 1h2m1 0h1m2 0h5m3 0h1m1 0h1m3 0h1m1 0h1m1 0h2m1 0h2m2 0h4m1 0h1m3 0h1m2 0h2m-53 1h7m2 0h1m1 0h1m1 0h1m3 0h1m1 0h3m2 0h1m1 0h1m1 0h2m4 0h1m1 0h1m1 0h1m1 0h5m1 0h1m1 0h1m-49 1h1m5 0h1m1 0h3m1 0h5m1 0h3m2 0h2m3 0h2m1 0h2m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m3 0h1m2 0h1m-52 1h1m1 0h3m1 0h1m1 0h2m3 0h2m4 0h3m1 0h6m1 0h1m5 0h2m1 0h1m2 0h1m1 0h8m-52 1h1m1 0h3m1 0h1m1 0h2m6 0h1m8 0h1m3 0h2m1 0h2m2 0h1m2 0h2m1 0h1m2 0h1m1 0h1m1 0h1m1 0h2m-53 1h1m1 0h3m1 0h1m1 0h1m2 0h2m2 0h2m1 0h2m3 0h1m3 0h2m5 0h1m1 0h3m2 0h1m1 0h1m1 0h1m2 0h1m1 0h3m-53 1h1m5 0h1m2 0h1m3 0h2m3 0h2m2 0h2m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m2 0h5m3 0h2m1 0h1m-52 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m3 0h3m1 0h2m2 0h1m2 0h1m1 0h2m1 0h2m1 0h1m2 0h4m2 0h1m1 0h1"/></svg></div>
+              <dl class="pix-dados">
+                <dt>Quem recebe</dt><dd id="pixNome"></dd>
+                <dt>Chave Pix (aleatória)</dt><dd id="pixChave"></dd>
+              </dl>
+            </div>
+    <div class="pix-actions">
+      <button type="button" id="btnCopiarCodigo">Copiar Pix copia e cola</button>
+      <button type="button" id="btnCopiarChave" class="ghost">Copiar só a chave</button>
+    </div>
+    <p class="copiado" id="copiado" role="status" aria-live="polite"></p>
+    <p class="dica">Depois do pagamento, envie o comprovante ao organizador.</p>
+  </section>
 </div>
 <div class="layout">
 
     <div class="col col-a">
-        <p class="dias" id="dias"></p>
 
       <div class="demo" id="demo" hidden>
         <strong>Modelo com dados fictícios</strong>
@@ -218,36 +229,13 @@
         </div>
       </div>
 
-      <div class="passos" id="participar">
-        <section class="passo" aria-labelledby="h-pagar">
-          <div class="trilho"><div class="num" aria-hidden="true">1</div><div class="linha"></div></div>
-          <div class="corpo">
-            <h2 id="h-pagar">Participe do bolão</h2><p class="participate-copy">Faça o Pix de <strong id="pixValor"></strong> por cota e envie o comprovante ao organizador. A cota entra na lista após confirmação do pagamento.</p>
-            <div class="pagar-linha">
-              <div class="qrbox"><svg class="qr" role="img" aria-label="QR Code Pix para pagar a cota" viewBox="0 0 61 61" shape-rendering="crispEdges"><path fill="#fff" d="M0 0h61v61h-61z"/><path class="qrline" stroke="#000" d="M4 4.5h7m2 0h2m1 0h2m5 0h3m1 0h1m1 0h2m1 0h4m3 0h1m1 0h1m1 0h2m1 0h1m3 0h7m-53 1h1m5 0h1m3 0h1m1 0h1m3 0h4m1 0h2m3 0h1m4 0h1m2 0h2m3 0h1m1 0h3m2 0h1m5 0h1m-53 1h1m1 0h3m1 0h1m1 0h1m1 0h1m3 0h4m5 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m3 0h1m2 0h1m1 0h3m1 0h1m-53 1h1m1 0h3m1 0h1m1 0h2m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m1 0h1m10 0h1m1 0h1m4 0h2m1 0h1m1 0h1m1 0h3m1 0h1m-53 1h1m1 0h3m1 0h1m1 0h1m3 0h3m3 0h3m1 0h1m1 0h7m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m3 0h1m1 0h3m1 0h1m-53 1h1m5 0h1m1 0h5m2 0h1m2 0h2m4 0h1m3 0h1m1 0h1m2 0h2m1 0h1m1 0h1m3 0h1m3 0h1m5 0h1m-53 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7m-45 1h2m3 0h1m1 0h1m1 0h1m1 0h2m3 0h1m3 0h1m1 0h1m2 0h1m1 0h2m3 0h4m-44 1h1m1 0h5m2 0h2m1 0h1m2 0h4m2 0h1m1 0h6m1 0h2m1 0h1m1 0h2m1 0h2m1 0h3m2 0h5m-51 1h1m1 0h1m4 0h2m1 0h1m1 0h4m1 0h1m1 0h1m2 0h1m1 0h1m3 0h4m1 0h1m5 0h1m2 0h2m1 0h1m2 0h1m3 0h1m-53 1h1m1 0h2m2 0h1m3 0h6m1 0h5m1 0h2m2 0h1m2 0h2m2 0h1m1 0h1m1 0h1m2 0h1m2 0h1m1 0h1m1 0h2m1 0h1m-52 1h2m1 0h2m2 0h1m4 0h1m1 0h2m6 0h3m4 0h2m1 0h2m1 0h1m4 0h1m1 0h3m1 0h1m1 0h1m2 0h1m-51 1h1m1 0h1m2 0h1m1 0h4m7 0h2m4 0h4m1 0h1m2 0h1m2 0h1m2 0h1m1 0h4m2 0h5m-52 1h1m1 0h4m2 0h1m5 0h1m1 0h4m1 0h1m2 0h2m2 0h1m1 0h3m6 0h1m2 0h1m2 0h1m2 0h1m3 0h1m-53 1h1m1 0h1m2 0h2m2 0h1m2 0h2m1 0h2m1 0h1m2 0h1m1 0h1m1 0h1m1 0h1m2 0h6m1 0h2m4 0h2m1 0h2m3 0h1m-52 1h1m2 0h1m1 0h1m1 0h1m1 0h2m5 0h1m1 0h3m3 0h1m2 0h1m1 0h1m1 0h3m1 0h1m1 0h2m1 0h1m-41 1h2m1 0h1m1 0h2m1 0h1m1 0h3m2 0h1m1 0h1m3 0h1m3 0h2m6 0h1m2 0h4m1 0h2m1 0h1m3 0h4m-52 1h1m1 0h3m3 0h1m1 0h1m3 0h3m1 0h2m2 0h3m3 0h3m2 0h1m1 0h2m5 0h2m1 0h1m1 0h2m-47 1h2m1 0h2m3 0h3m5 0h2m1 0h1m1 0h1m2 0h2m1 0h1m4 0h1m2 0h3m1 0h1m1 0h1m2 0h1m1 0h1m1 0h1m-51 1h1m1 0h1m1 0h1m5 0h2m3 0h2m1 0h3m3 0h1m2 0h1m2 0h3m9 0h1m2 0h1m1 0h1m1 0h1m1 0h1m-52 1h2m1 0h4m3 0h1m2 0h1m2 0h2m3 0h1m3 0h6m2 0h5m3 0h1m1 0h3m2 0h1m2 0h1m-51 1h3m1 0h1m2 0h1m3 0h1m4 0h2m4 0h2m4 0h2m1 0h2m1 0h1m1 0h1m4 0h1m5 0h2m2 0h1m-52 1h6m1 0h2m2 0h1m1 0h2m2 0h1m2 0h1m1 0h2m1 0h2m5 0h4m2 0h2m3 0h1m3 0h2m1 0h1m-52 1h1m1 0h4m2 0h1m2 0h1m9 0h1m2 0h2m4 0h1m1 0h1m1 0h2m5 0h3m1 0h1m3 0h1m1 0h1m-51 1h2m1 0h5m2 0h1m1 0h3m1 0h5m1 0h6m2 0h1m4 0h1m1 0h1m2 0h1m2 0h5m-46 1h2m3 0h1m1 0h2m1 0h4m1 0h1m3 0h1m1 0h1m3 0h6m3 0h1m3 0h2m1 0h1m3 0h1m3 0h1m-49 1h1m1 0h1m1 0h2m5 0h1m2 0h4m2 0h1m1 0h1m1 0h3m3 0h5m3 0h3m1 0h1m1 0h1m2 0h1m-51 1h1m1 0h2m3 0h4m4 0h2m1 0h1m1 0h2m1 0h1m3 0h1m1 0h1m2 0h1m1 0h1m1 0h2m1 0h1m3 0h1m3 0h1m2 0h2m-53 1h2m2 0h7m2 0h4m1 0h1m1 0h2m1 0h9m1 0h1m2 0h2m1 0h1m2 0h9m-50 1h2m2 0h1m2 0h2m2 0h1m2 0h1m1 0h1m4 0h3m1 0h2m1 0h2m2 0h1m1 0h2m5 0h1m1 0h1m3 0h1m3 0h1m-53 1h1m1 0h1m1 0h1m1 0h1m3 0h1m2 0h2m1 0h1m2 0h2m3 0h1m2 0h2m2 0h1m2 0h1m1 0h3m2 0h1m1 0h1m3 0h2m2 0h1m-50 1h4m1 0h6m1 0h1m1 0h1m1 0h2m3 0h1m1 0h1m4 0h1m1 0h1m1 0h1m2 0h1m1 0h3m2 0h2m2 0h1m-48 1h3m2 0h2m2 0h3m1 0h1m1 0h3m1 0h1m3 0h1m5 0h2m2 0h1m1 0h2m3 0h2m1 0h2m1 0h1m1 0h4m-51 1h4m1 0h1m2 0h3m1 0h4m3 0h1m3 0h1m4 0h1m5 0h1m2 0h2m1 0h3m3 0h1m3 0h1m-50 1h1m2 0h2m1 0h2m1 0h6m2 0h3m5 0h1m1 0h2m2 0h1m1 0h3m2 0h1m1 0h3m5 0h1m-51 1h3m9 0h2m1 0h2m2 0h1m3 0h2m1 0h1m2 0h3m2 0h1m1 0h1m2 0h1m2 0h1m2 0h1m1 0h1m-45 1h1m1 0h1m1 0h1m1 0h2m2 0h1m2 0h3m1 0h1m1 0h2m5 0h1m2 0h1m2 0h1m1 0h2m2 0h1m2 0h1m2 0h3m-49 1h1m4 0h1m1 0h11m2 0h2m1 0h2m2 0h2m2 0h1m1 0h2m2 0h1m2 0h1m4 0h6m-53 1h5m1 0h1m1 0h1m4 0h1m1 0h2m1 0h2m2 0h1m2 0h1m2 0h1m3 0h1m1 0h1m1 0h4m1 0h1m2 0h1m2 0h1m1 0h3m-52 1h3m7 0h1m3 0h2m1 0h1m1 0h1m1 0h5m1 0h1m2 0h1m1 0h1m1 0h1m2 0h1m1 0h1m2 0h2m1 0h3m1 0h1m1 0h2m-53 1h1m5 0h2m1 0h1m6 0h3m1 0h1m1 0h1m4 0h2m2 0h1m1 0h4m5 0h1m1 0h2m2 0h2m2 0h1m-51 1h4m1 0h3m2 0h2m1 0h1m1 0h3m1 0h1m1 0h4m3 0h3m4 0h1m1 0h4m3 0h3m3 0h1m-53 1h2m1 0h4m1 0h1m2 0h2m1 0h3m1 0h1m2 0h1m6 0h2m3 0h3m6 0h1m1 0h2m1 0h1m2 0h2m-51 1h2m4 0h2m1 0h1m1 0h2m2 0h1m1 0h1m2 0h1m1 0h2m5 0h1m1 0h2m1 0h1m3 0h1m2 0h2m2 0h1m1 0h2m1 0h1m-49 1h1m2 0h2m3 0h2m3 0h3m1 0h2m2 0h5m2 0h1m1 0h2m1 0h1m1 0h1m2 0h2m1 0h5m2 0h1m-44 1h2m1 0h1m2 0h5m3 0h1m1 0h1m3 0h1m1 0h1m1 0h2m1 0h2m2 0h4m1 0h1m3 0h1m2 0h2m-53 1h7m2 0h1m1 0h1m1 0h1m3 0h1m1 0h3m2 0h1m1 0h1m1 0h2m4 0h1m1 0h1m1 0h1m1 0h5m1 0h1m1 0h1m-49 1h1m5 0h1m1 0h3m1 0h5m1 0h3m2 0h2m3 0h2m1 0h2m2 0h1m2 0h1m1 0h1m1 0h1m1 0h1m3 0h1m2 0h1m-52 1h1m1 0h3m1 0h1m1 0h2m3 0h2m4 0h3m1 0h6m1 0h1m5 0h2m1 0h1m2 0h1m1 0h8m-52 1h1m1 0h3m1 0h1m1 0h2m6 0h1m8 0h1m3 0h2m1 0h2m2 0h1m2 0h2m1 0h1m2 0h1m1 0h1m1 0h1m1 0h2m-53 1h1m1 0h3m1 0h1m1 0h1m2 0h2m2 0h2m1 0h2m3 0h1m3 0h2m5 0h1m1 0h3m2 0h1m1 0h1m1 0h1m2 0h1m1 0h3m-53 1h1m5 0h1m2 0h1m3 0h2m3 0h2m2 0h2m1 0h1m1 0h1m1 0h1m1 0h3m1 0h1m1 0h1m2 0h5m3 0h2m1 0h1m-52 1h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m3 0h3m1 0h2m2 0h1m2 0h1m1 0h2m1 0h2m1 0h1m2 0h4m2 0h1m1 0h1"/></svg></div>
-              <dl class="pix-dados">
-                <dt>Quem recebe</dt><dd id="pixNome"></dd>
-                <dt>Chave Pix (aleatória)</dt><dd id="pixChave"></dd>
-              </dl>
-            </div>
-            <button type="button" id="btnCopiarCodigo">Copiar Pix copia e cola</button>
-            <button type="button" id="btnCopiarChave" class="ghost">Copiar só a chave</button>
-            <p class="copiado" id="copiado" role="status" aria-live="polite"></p>
-            <p class="dica">Depois de pagar, mande o comprovante para o organizador.</p>
-          </div>
-        </section>
-
-        <section class="passo" id="cotas" aria-labelledby="h-acompanhe">
-          <div class="trilho"><div class="num" aria-hidden="true">2</div></div>
-          <div class="corpo">
-            <h2 id="h-acompanhe">Participantes e cotas confirmadas</h2>
-            <p id="resumoTxt"></p>
-            <div class="chips" id="participantes"></div>
-            <p class="dica">São exibidos apenas participantes com pagamento confirmado. Não há reserva de cotas.</p>
-          </div>
-        </section>
+      <section class="sec confirmed-cotas" id="cotas" aria-labelledby="h-acompanhe">
+        <h2 id="h-acompanhe">Participantes e cotas confirmadas</h2>
+        <p id="resumoTxt"></p>
+        <div class="chips" id="participantes"></div>
+        <p class="dica">Somente pagamentos confirmados pelo organizador. Não há reserva de cotas.</p>
+      </section>
       </div>
-    </div>
 
     <div class="col col-b">
       <section class="sec" id="financeiro" aria-labelledby="h-financeiro">
