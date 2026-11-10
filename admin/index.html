@@ -22,8 +22,8 @@
       </section>
 
       <section class="card" id="participantes"><div class="section-head"><div><p class="eyebrow">Cotas e pagamentos</p><h2>Participantes</h2></div></div>
-        <form id="participantForm" class="form-grid"><label>Nome <input name="name" maxlength="120" required autocomplete="off"></label><label>Cotas <input name="shares" type="number" min="1" max="1000" step="1" required></label><button>Cadastrar participante</button></form>
-        <p class="hint">Um cadastro sem pagamento fica visível apenas aqui e não reserva cotas.</p>
+        <form id="participantForm" class="form-grid"><label>Nome <input name="name" maxlength="120" required autocomplete="off"></label><label>Cotas <input name="shares" type="number" min="1" max="1000" step="1" required></label><label>E-mail para acesso (opcional) <input name="email" type="email" maxlength="254" autocomplete="email"></label><label>Data do pagamento <input name="date" type="date"></label><label><input name="confirmed" type="checkbox"> Pagamento conferido</label><p class="hint" id="participantTotal" aria-live="polite"></p><button>Cadastrar participante</button></form><p id="participantMessage" role="status" aria-live="polite"></p>
+        <p class="hint">Um cadastro sem pagamento fica visível apenas aqui e não reserva cotas. O e-mail informado será autorizado somente após confirmar o pagamento.</p>
         <div class="table-scroll"><table><thead><tr><th>Participante</th><th>Cotas</th><th>Pagamento</th><th>Ações</th></tr></thead><tbody id="participantsBody"></tbody></table></div>
       </section>
 
