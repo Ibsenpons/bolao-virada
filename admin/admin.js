@@ -96,6 +96,7 @@
     const button = participantForm.querySelector('button');
     const note = $('participantMessage');
     button.disabled = true;
+    note.replaceChildren();
     let stage = 'cadastro';
     try {
       const before = await api('/api/admin/state');
@@ -120,6 +121,18 @@
       if (email) await api('/api/admin/access', 'POST', {action:'add', email});
       stage = 'concluído';
       note.textContent = email ? 'Participante, pagamento e acesso confirmados.' : 'Participante e pagamento confirmados.';
+      if (email) {
+        const welcome = ['🍀 *Bilhão da Virada 2026*', '', 'Olá, ' + name + '! Seu pagamento foi confirmado e sua participação no nosso bolão está garantida!', '', '🎟️ Cotas: ' + shares, '💰 Valor pago: ' + money(amount), '', 'Seu acesso ao site já está liberado!', 'https://bolao-virada.ibsen-pons.workers.dev/', '', 'Informe o e-mail cadastrado e utilize o código de acesso recebido por e-mail.', '', 'Acompanhe os participantes, cotas, valores arrecadados, apostas e comprovantes.', '', 'Boa sorte para nós! 🍀'].join('\n');
+        const link = document.createElement('a');
+        link.href = 'https://wa.me/?text=' + encodeURIComponent(welcome);
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.textContent = 'Enviar boas-vindas pelo WhatsApp';
+        link.style.display = 'inline-block';
+        link.style.marginTop = '10px';
+        link.style.fontWeight = '700';
+        note.append(document.createElement('br'), link);
+      }
       await refresh();
       if (email) await refreshAccess();
     } catch(error) {
