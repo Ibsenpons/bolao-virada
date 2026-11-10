@@ -71,14 +71,20 @@
   }
   onForm('priceForm', v => ['/api/admin/settings', 'PATCH', { price_cents: cents(v.price) }, 'Valor da cota atualizado.']);
   const participantForm = $('participantForm');
+  function localToday() {
+    const d = new Date();
+    return [d.getFullYear(), String(d.getMonth()+1).padStart(2,'0'), String(d.getDate()).padStart(2,'0')].join('-');
+  }
   function syncNewParticipant() {
     const f = participantForm.elements;
+    if (!f.date.value) f.date.value = localToday();
     f.date.required = f.confirmed.checked;
     f.date.disabled = !f.confirmed.checked;
     f.email.disabled = !f.confirmed.checked;
-    $('participantTotal').textContent = state ? 'Valor previsto: ' + money(Number(f.shares.value || 0) * state.price_cents) : '';
+    $('participantTotal').textContent = state ? money(Number(f.shares.value || 0) * state.price_cents) : '';
   }
   participantForm.addEventListener('input', syncNewParticipant);
+  participantForm.addEventListener('change', syncNewParticipant);
   participantForm.addEventListener('submit', async event => {
     event.preventDefault();
     const f = participantForm.elements;

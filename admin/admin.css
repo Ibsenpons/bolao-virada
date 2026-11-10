@@ -6,3 +6,17 @@
 dialog{width:min(480px,calc(100% - 24px));max-height:calc(100dvh - 24px);overflow:auto;border:1px solid #dbe6dd;border-radius:16px;padding:24px;color:#172c29;box-shadow:0 20px 70px rgba(14,50,39,.22)}dialog::backdrop{background:rgba(12,39,30,.56)}.edit-form{display:grid;gap:14px}.dialog-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.dialog-head h2{font-size:1.3rem;margin:0}.dialog-head .close-button{background:transparent;color:#34584b;font-size:1.6rem;line-height:1;padding:4px 10px}.dialog-head .close-button:hover{background:#e8f0ea}.edit-form>.hint{margin:0}.edit-payment-fields{display:grid;gap:14px}.edit-payment-fields .hint{margin:-5px 0 0}.dialog-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:8px}.secondary-button{background:#e8f0ea;color:#194b3c}.secondary-button:hover{background:#d4e5d9}
 .edit-payment-fields[hidden]{display:none}
 @media(max-width:540px){dialog{padding:18px}.dialog-actions{display:grid;grid-template-columns:1fr 1fr}.dialog-actions button{padding:.72rem .5rem}}
+
+/* Participant registration: scoped layout, including Safari date controls. */
+#participantForm{grid-template-columns:repeat(2,minmax(0,1fr));align-items:end;gap:14px}
+#participantForm>*{min-width:0}
+#participantForm .participant-name,#participantForm .participant-check,#participantForm>button{grid-column:1/-1}
+#participantForm .participant-check{display:flex;align-items:center;gap:10px;padding:8px 0}
+#participantForm input[type=checkbox]{width:20px;height:20px;min-width:20px;margin:0;padding:0;accent-color:#126a50}
+#participantForm input[type=date]{display:block;width:100%;max-width:100%;min-width:0;appearance:none;-webkit-appearance:none}
+#participantForm input[type=date]::-webkit-date-and-time-value{text-align:left;min-height:1.2em}
+#participantForm .participant-total{display:grid;gap:6px;color:#34584b;font-size:.88rem;font-weight:700}
+#participantTotal{color:#126a50;font-size:1.45rem;line-height:1.5;overflow-wrap:anywhere}
+#participantForm>button{justify-self:start}
+#participantForm input:disabled{opacity:.6;background:#f5f8f5}
+@media(max-width:540px){#participantForm{grid-template-columns:minmax(0,1fr)}#participantForm>button{width:100%}}
