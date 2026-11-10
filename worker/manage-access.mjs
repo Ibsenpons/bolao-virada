@@ -4,13 +4,14 @@ const policy = '0add376e-f361-44f6-b7df-d22df6dea372';
 const app = '7a6abc45-12e5-486c-9828-1c5268a8d153';
 const endpoint = 'https://api.cloudflare.com/client/v4/accounts/' + account + '/access/apps/' + app + '/policies/' + policy;
 const emailOf = value => typeof value === 'string' && value.length <= 254 && /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(value.trim()) ? value.trim().toLowerCase() : null;
-const fields = ['name','decision','include','exclude','require','approval_groups','approval_required','connection_rules','isolation_required','mfa_config','purpose_justification_prompt','purpose_justification_required','session_duration','policy_resolution_account_id'];
+const reusableEndpoint = 'https://api.cloudflare.com/client/v4/accounts/' + account + '/access/policies/' + policy;
+const fields = ['name','decision','include','exclude','require','approval_groups','approval_required','connection_rules','isolation_required','mfa_config','purpose_justification_prompt','purpose_justification_required','session_duration','precedence'];
 export async function manageAccess(env, input, fetcher = fetch) {
   if (!env.CF_ACCESS_API_TOKEN) return {status:503,error:'Integração de acesso não configurada.'};
-  const request = async (method, body) => {
-    const response = await fetcher(endpoint, {method, headers:{Authorization:'Bearer '+env.CF_ACCESS_API_TOKEN,'Content-Type':'application/json'}, ...(body ? {body:JSON.stringify(body)} : {})});
+  const request = async (method, body, url = endpoint) => {
+    const response = await fetcher(url, {method, headers:{Authorization:'Bearer '+env.CF_ACCESS_API_TOKEN,'Content-Type':'application/json'}, ...(body ? {body:JSON.stringify(body)} : {})});
     const data = await response.json();
-    if (!response.ok || !data.success || !data.result) throw new Error('Cloudflare API HTTP ' + response.status);
+    if (!response.ok || !data.success || !data.result) throw new Error('Cloudflare API HTTP ' + response.status + ' / ' + (Number.isInteger(data.errors?.[0]?.code) ? data.errors[0].code : '0'));
     return data.result;
   };
   try {
@@ -24,10 +25,21 @@ export async function manageAccess(env, input, fetcher = fetch) {
     if (emails.includes(email)) return {status:200,emails};
     const payload = Object.fromEntries(fields.filter(k=>current[k] != null).map(k=>[k,current[k]]));
     payload.include = [...current.include,{email:{email}}];
-    await request('PUT',payload);
+    // A reusable policy must be edited at account level, not through its app attachment.
+    let reusable;
+    try { reusable = await request('GET', undefined, reusableEndpoint); }
+    catch (error) { if (!/^Cloudflare API HTTP 404 /.test(error.message)) throw error; }
+    if (reusable) {
+      if (reusable.id !== policy || reusable.app_count !== 1 || reusable.name !== current.name || reusable.decision !== current.decision || JSON.stringify(reusable.include) !== JSON.stringify(current.include)) return {status:409,error:'Política reutilizável divergente ou compartilhada. Revise no Cloudflare.'};
+      const update = Object.fromEntries(fields.filter(k=>k !== 'precedence' && reusable[k] != null).map(k=>[k,reusable[k]]));
+      update.include = [...reusable.include,{email:{email}}];
+      await request('PUT',update,reusableEndpoint);
+    } else {
+      await request('PUT',payload);
+    }
     const updated = await request('GET');
     const actual = updated.include?.map(r=>emailOf(r.email?.email)) || [];
     if (![...emails,email].every(e=>actual.includes(e))) return {status:502,error:'Não foi possível confirmar a atualização. Confira no Cloudflare.'};
     return {status:200,emails:actual};
-  } catch (error) { const status = /^Cloudflare API HTTP (\d{3})$/.exec(error.message)?.[1]; return {status:502,error:'Não foi possível consultar ou atualizar o Cloudflare.' + (status ? ' HTTP ' + status + '.' : ' Confira a configuração.')}; }
+  } catch (error) { const status = /^Cloudflare API HTTP (\d{3} \/ \d+)$/.exec(error.message)?.[1]; return {status:502,error:'Não foi possível consultar ou atualizar o Cloudflare.' + (status ? ' HTTP ' + status + '.' : ' Confira a configuração.')}; }
 }
