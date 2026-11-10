@@ -44,6 +44,11 @@
         </form>
       </dialog>
 
+      <section class="card" id="acessos"><div class="section-head"><div><p class="eyebrow">Segurança</p><h2>Controle de acesso</h2></div></div>
+        <p class="hint">Autorize somente após conferir o pagamento. Esta operação não altera cotas ou pagamentos.</p>
+        <form id="accessForm" class="inline-form"><label>E-mail <input name="email" type="email" maxlength="254" required></label><button>Autorizar acesso</button></form>
+        <p id="accessMessage" role="status" aria-live="polite"></p><ul id="accessList"></ul>
+      </section>
       <section class="card" id="despesas"><div class="section-head"><div><p class="eyebrow">Financeiro</p><h2>Despesas</h2></div></div>
         <form id="expenseForm" class="form-grid"><label>Descrição <input name="description" maxlength="200" required></label><label>Valor em reais <input name="amount" type="number" min="0.01" step="0.01" required></label><label>Data <input name="date" type="date" required></label><button>Registrar despesa</button></form>
         <div class="table-scroll"><table><thead><tr><th>Descrição</th><th>Data</th><th>Valor</th><th>Ações</th></tr></thead><tbody id="expensesBody"></tbody></table></div>

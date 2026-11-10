@@ -148,3 +148,27 @@ test('despesas, apostas e comprovantes privados seguem visibilidade esperada', a
   visible = await (await call('/api/public')).json();
   assert.equal(visible.receipts.length, 1);
 });
+
+test('controle de acesso exige administrador e origem válida', async () => {
+  const { call, familyToken } = await fixture();
+  assert.equal((await call('/api/admin/access','GET',null,familyToken)).status,403);
+  assert.equal((await call('/api/admin/access','POST',{action:'add',email:'new@example.com'},undefined,{origin:'https://attacker.example'})).status,403);
+  assert.equal((await call('/api/admin/access')).status,503);
+});
+test('integração preserva e-mails e regras e não duplica acessos', async () => {
+  const { manageAccess } = await import('../worker/manage-access.mjs');
+  let policy = {id:'0add376e-f361-44f6-b7df-d22df6dea372',name:'Participantes do Bolão',decision:'allow',app_count:1,include:[{email:{email:'admin@example.com'}}],exclude:[],require:[]};
+  let writes=0;
+  const fetcher=async (url,options)=>{
+    if(options.method==='PUT'){writes++;policy={...policy,...JSON.parse(options.body)};}
+    return Response.json({success:true,result:policy});
+  };
+  const env={CF_ACCESS_API_TOKEN:'test-only'};
+  assert.equal((await manageAccess(env,{action:'add',email:'invalid'},fetcher)).status,400);
+  assert.deepEqual((await manageAccess(env,{action:'add',email:'new@example.com'},fetcher)).emails,['admin@example.com','new@example.com']);
+  assert.equal((await manageAccess(env,{action:'add',email:'NEW@example.com'},fetcher)).status,200);
+  assert.equal(writes,1);
+  policy.app_count=2;
+  assert.equal((await manageAccess(env,{action:'add',email:'other@example.com'},fetcher)).status,409);
+  assert.equal(writes,1);
+});

@@ -1,3 +1,4 @@
+import { manageAccess } from './manage-access.mjs';
 import { validTeamDomain, verifyAccessToken } from './access.mjs';
 
 const json = (data, status = 200) => Response.json(data, {
@@ -62,6 +63,11 @@ async function publicState(db) {
   };
 }
 async function handleApi(request, env, path) {
+  if (path === '/api/admin/access' && ['GET','POST'].includes(request.method)) {
+    if (request.method === 'POST' && !mutationAllowed(request)) return fail('Origem inválida.',403);
+    const result = await manageAccess(env, request.method === 'POST' ? await bodyOf(request) : null);
+    return json(result.error ? {error:result.error} : {emails:result.emails}, result.status);
+  }
   if (!env.DB) return fail('Banco D1 não configurado.', 503);
   const db = env.DB;
   if (path === '/api/public' && request.method === 'GET') return json(await publicState(db));

@@ -150,5 +150,27 @@
     };
     if (targets[action] && confirm(targets[action][2])) return act(targets[action][0], targets[action][1], undefined, 'Registro atualizado.');
   });
+  async function refreshAccess() {
+    try {
+      const result = await api('/api/admin/access');
+      $('accessList').replaceChildren(...result.emails.map(email => { const li = document.createElement('li'); li.textContent = email; return li; }));
+      $('accessMessage').textContent = result.emails.length + ' e-mails autorizados.';
+    } catch(error) { $('accessMessage').textContent = error.message; }
+  }
+  $('accessForm').addEventListener('submit', async event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const email = form.elements.email.value.trim();
+    if (!confirm('Confirma o pagamento e a autorização de ' + email + '?')) return;
+    const button = form.querySelector('button');
+    button.disabled = true;
+    try {
+      await api('/api/admin/access','POST',{action:'add',email});
+      form.reset();
+      await refreshAccess();
+    } catch(error) { $('accessMessage').textContent = error.message; }
+    finally { button.disabled = false; }
+  });
+  refreshAccess();
   refresh().catch(error => message(error.message, true));
 })();
