@@ -23,6 +23,7 @@
     state = await api('/api/admin/state');
     render();
     $('panel').hidden = false;
+    syncNewParticipant();
     message(note);
   }
   async function act(path, method, data, note) {
@@ -69,7 +70,58 @@
     });
   }
   onForm('priceForm', v => ['/api/admin/settings', 'PATCH', { price_cents: cents(v.price) }, 'Valor da cota atualizado.']);
-  onForm('participantForm', v => ['/api/admin/participants', 'POST', { name: v.name, shares: Number(v.shares) }, 'Participante cadastrado.']);
+  const participantForm = $('participantForm');
+  function syncNewParticipant() {
+    const f = participantForm.elements;
+    f.date.required = f.confirmed.checked;
+    f.date.disabled = !f.confirmed.checked;
+    f.email.disabled = !f.confirmed.checked;
+    $('participantTotal').textContent = state ? 'Valor previsto: ' + money(Number(f.shares.value || 0) * state.price_cents) : '';
+  }
+  participantForm.addEventListener('input', syncNewParticipant);
+  participantForm.addEventListener('submit', async event => {
+    event.preventDefault();
+    const f = participantForm.elements;
+    const name = f.name.value.trim(), shares = Number(f.shares.value);
+    const paid = f.confirmed.checked, date = f.date.value, email = f.email.value.trim();
+    const amount = shares * state.price_cents;
+    if (!name || !Number.isInteger(shares) || shares < 1 || shares > 1000) return;
+    if (paid && !confirm('Confirma o pagamento de ' + money(amount) + ' para ' + name + '?')) return;
+    const button = participantForm.querySelector('button');
+    const note = $('participantMessage');
+    button.disabled = true;
+    let stage = 'cadastro';
+    try {
+      const before = await api('/api/admin/state');
+      if (paid && before.price_cents !== state.price_cents) {
+        await refresh();
+        syncNewParticipant();
+        note.textContent = 'O valor da cota mudou. Confira o total antes de continuar.';
+        return;
+      }
+      await api('/api/admin/participants', 'POST', {name, shares});
+      stage = 'identificação';
+      participantForm.reset();
+      syncNewParticipant();
+      if (!paid) { note.textContent = 'Participante cadastrado sem pagamento.'; await refresh(); return; }
+      const after = await api('/api/admin/state');
+      const oldIds = new Set(before.participants.map(p => p.id));
+      const matches = after.participants.filter(p => !oldIds.has(p.id) && p.name === name && p.shares === shares);
+      if (matches.length !== 1) throw new Error('Não foi possível identificar o novo cadastro com segurança.');
+      stage = 'pagamento';
+      await api('/api/admin/payments', 'POST', {participant_id: matches[0].id, amount_cents: amount, confirmed_on: date});
+      stage = 'acesso';
+      if (email) await api('/api/admin/access', 'POST', {action:'add', email});
+      stage = 'concluído';
+      note.textContent = email ? 'Participante, pagamento e acesso confirmados.' : 'Participante e pagamento confirmados.';
+      await refresh();
+      if (email) await refreshAccess();
+    } catch(error) {
+      note.textContent = stage === 'acesso' ? 'Pagamento registrado. Acesso pendente: ' + error.message + '. Tente somente pelo Controle de acesso.' : stage === 'concluído' ? 'Operação concluída; atualize a página para conferir.' : 'Não repita o cadastro antes de conferir a lista. Etapa: ' + stage + '. ' + error.message;
+      if (stage === 'acesso') { $('accessForm').elements.email.value = email; }
+      try { await refresh(); } catch (_) {}
+    } finally { button.disabled = false; }
+  });
   onForm('expenseForm', v => ['/api/admin/expenses', 'POST', { description: v.description, amount_cents: cents(v.amount), incurred_on: v.date }, 'Despesa registrada.']);
   onForm('betForm', v => ['/api/admin/bets', 'POST', { numbers: v.numbers.split(/[\s,;]+/).filter(Boolean).map(Number), amount_cents: cents(v.amount), placed_on: v.date }, 'Aposta registrada.']);
   onForm('receiptForm', v => ['/api/admin/receipts', 'POST', { title: v.title, kind: v.kind, document_date: v.date, document_url: v.url.trim() }, 'Comprovante registrado como privado.']);
